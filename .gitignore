@@ -1,0 +1,33 @@
+# Dependencies & Build Outputs
+frontend/node_modules/
+static/
+_pyinstaller_build/
+release/
+dist/
+build/
+*.spec
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+
+# TypeScript / Vite build caches
+frontend/tsconfig.tsbuildinfo
+.vite/
+
+# Local User Runtime Data & Secrets (NEVER commit)
+config.json
+*.xlsx
+resumes/
+outbox/
+logs/
+*.log
+*.jsonl
+.env
+.env.*
+
+# OS Junk
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -1,33 +1,38 @@
-# Dependencies & Build Outputs
-frontend/node_modules/
-static/
-_pyinstaller_build/
-release/
-dist/
-build/
-*.spec
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
 .venv/
 venv/
+env/
 
-# TypeScript / Vite build caches
+# Frontend dependencies & build caches
+frontend/node_modules/
+frontend/.vite/
 frontend/tsconfig.tsbuildinfo
-.vite/
-
-# Local User Runtime Data & Secrets (NEVER commit)
-config.json
-*.xlsx
-resumes/
-outbox/
-logs/
+static/
 *.log
-*.jsonl
+npm-debug.log*
+
+# Packaging & generated portable artifacts
+_pyinstaller_build/
+build/
+dist/
+release/
+*.spec
+
+# Local user runtime data (never commit personal credentials or sheets)
+config.json
+logs/
+outbox/
+resumes/
+*.xlsx
+!*.example.*
 .env
 .env.*
 
-# OS Junk
+# IDE / OS
+.vscode/
+.idea/
 .DS_Store
 Thumbs.db
-desktop.ini

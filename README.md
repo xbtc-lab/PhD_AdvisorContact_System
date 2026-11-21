@@ -1,19 +1,17 @@
 # PhD_AdvisorContact_System
 
-A clean, local-first academic outreach and lightweight email workbench designed for PhD applicants.
+A local-first, privacy-preserving academic email workbench & advisor management suite built for PhD applicants — packaged as a zero-dependency Windows portable app.
 
-> **Privacy First:** Runs locally on `127.0.0.1`. Personal profiles, mailbox authorization codes, DeepSeek API keys, email threads, resumes, and Excel workbooks stay strictly on the user's own disk.
+## Key Capabilities
 
----
-
-## Core Capabilities
-
-- **Lightweight Single-Mail & Thread Experience**: Freehand compose ("写新邮件"), auto-saved drafts, direct one-click single send, inline reply threading (`Re:` + `In-Reply-To`), and PDF drag-and-drop attachment.
-- **Whitelisted IMAP Reply Tracking**: Checks configured mailboxes on startup and periodically in the background—strictly matching contacted advisor addresses and outreach threads while ignoring spam/ads—with real-time new-reply popup alerts.
-- **Batched Staggered Dispatch**: Randomized inter-send intervals, domain interleaving across universities, daily quota tracking per mailbox, optional scheduled start time, and IMAP `Drafts` export.
-- **DeepSeek BYOK AI Assistant**: Interactive writing/polishing copilot (`"拟定礼貌回信"`, `"起草套磁首信"`, `"精简到 400 字"`, English academic translation) and web faculty directory extraction with match-tier evaluation (`极高匹配` / `高度匹配` / `可以尝试` / `待进一步了解`).
-- **Bidirectional Excel Sync**: Reads/writes multi-sheet mentor workbooks (`openpyxl`) and auto-creates a clean starter workbook on first run.
-- **Zero-Dependency Windows Portable Packaging**: Compiles frontend assets offline and bundles a standalone Windows `.exe` package via PyInstaller.
+- **Local-First & Zero Cloud Exposure**: Binds strictly to `127.0.0.1`; SMTP/IMAP credentials, DeepSeek API keys, CVs, email threads, and Excel sheets never leave your disk.
+- **Editorial Pure-White UI (`frontend/`)**: React 19 + TypeScript + Vite + Tailwind CSS v4 + Radix UI + Motion + Sonner, compiled offline with bundled `@fontsource/inter` and `@fontsource/jetbrains-mono` (zero CDN reliance).
+- **Bidirectional Advisor Mail Engine (`app.py`)**:
+  - **Single-Message & Threaded Replies**: Compose ad-hoc emails (`QuickComposeModal`), send individual outreach letters directly, auto-save drafts, drag-and-drop PDF CVs, and reply in-thread (`In-Reply-To` / `References`).
+  - **Whitelisted IMAP Reply Tracking**: Checks linked mailboxes (`QQ`, `163`, `126`, `.edu`, `Gmail`, custom) exclusively for replies from contacted advisors or matching outreach threads — filtering out spam/ads — with startup and background reply alerts (`ReplyAlertModal`).
+  - **Staggered Batch Queue**: Domain-interleaved, daily-quota-balanced batch sending (`DispatchDrawer`) with optional scheduled start times.
+- **DeepSeek BYOK Integration**: Built-in AI copilot for drafting, polishing, condensing, English academic translation, reply drafting, and webpage text extraction into structured Excel sheets with match-tier assessment (`极高匹配` / `高度匹配` / `可以尝试` / `待进一步了解`).
+- **Live Excel Sync**: Reads and writes multi-sheet `.xlsx` advisor tables cleanly using `openpyxl` with data validation and lock protection.
 
 ---
 
@@ -21,71 +19,53 @@ A clean, local-first academic outreach and lightweight email workbench designed 
 
 ```text
 PhD_AdvisorContact_System/
-├── app.py                  # Python stdlib HTTP/SMTP/IMAP server + openpyxl sync + DeepSeek proxy
-├── build_portable.py       # Offline Vite build + PyInstaller --onedir packaging + smoke tests
+├── app.py                  # Local HTTP server, IMAP/SMTP engine, DeepSeek BYOK, Excel sync, Tkinter tray window
+├── build_portable.py       # One-click frontend build + PyInstaller portable package & smoke tester
 ├── requirements.txt        # Python dependencies (openpyxl, pyinstaller)
-└── frontend/               # React 19 + TypeScript + Vite + Tailwind CSS v4 + Motion + Radix UI
-    ├── index.html
-    ├── package.json
-    ├── vite.config.ts
-    └── src/
+├── frontend/               # React + TypeScript + Vite + Tailwind v4 UI source
+│   ├── src/
+│   │   ├── App.tsx
+│   │   ├── lib/api.ts
+│   │   └── components/     # MailStudio, RightSidePanel, ProfessorRail, SettingsDrawer, DispatchDrawer, etc.
+│   └── package.json
+└── static/                 # Generated offline frontend assets (built via frontend npm run build)
 ```
 
 ---
 
-## Development Setup
+## Development Setup (For Collaborators)
 
-### 1. Python Backend
-
-Requires Python 3.10+.
+### 1. Backend Setup (Python 3.10+)
 
 ```bash
 python -m venv .venv
-# Windows:
-.venv\Scripts\activate
-# macOS/Linux:
-# source .venv/bin/activate
-
+# Windows PowerShell:
+.\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
+
+# Run backend server directly (serves compiled ./static + API on http://127.0.0.1:8765)
+python app.py
 ```
 
-### 2. Frontend Dependencies
-
-Requires Node.js 20+.
+### 2. Frontend Development (Node.js 20+)
 
 ```bash
 cd frontend
 npm install
-```
 
-### 3. Run in Development Mode (with Vite HMR)
-
-Terminal 1 (Backend on `127.0.0.1:8765`):
-
-```bash
-python app.py --no-browser
-```
-
-Terminal 2 (Frontend Dev Server on `http://localhost:5173`):
-
-```bash
-cd frontend
+# Live HMR dev server on http://127.0.0.1:5173 (proxies /api -> 127.0.0.1:8765)
 npm run dev
+
+# Compile production assets into ../static/
+npm run build
 ```
 
-Or compile static assets into `./static` and serve everything directly from Python:
+### 3. Build Standalone Portable Windows Release
 
-```bash
-cd frontend && npm run build
-cd .. && python app.py
-```
-
----
-
-## Build Windows Portable Release
+From the repository root (with `.venv` activated):
 
 ```bash
 python build_portable.py
 ```
 
-This builds `frontend` into `static/`, creates a sanitized portable folder and `.zip` archive under `./release/` (override output path via `WB_RELEASE_ROOT`), runs `套磁工作台.exe --smoke-test`, and validates that no credentials or API keys exist in packaged configs.
+Outputs a self-contained portable folder and `.zip` under `./release/` (or override target path with `RELEASE_DIR`), automatically running `--smoke-test` against the frozen executable and verifying clean initial config files.

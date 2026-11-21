@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-PhD_AdvisorContact_System — Local Academic Outreach & Lightweight Mail Workbench
-- Runs strictly locally on 127.0.0.1; all credentials, email threads, resumes, and Excel workbooks stay on disk.
-- Bidirectional sync with local Excel workbook (preserving styling, hyperlinks, and data validations).
-- Features: Single & batched anti-spam SMTP send, whitelisted IMAP reply sync + popup alerts, and DeepSeek BYOK AI copilot.
+PhD_AdvisorContact_System · Local Mail & Advisor Outreach Workbench Backend
+- Binds strictly to 127.0.0.1; credentials, drafts, resumes, and workbooks remain local
+- Bidirectional Excel workbook sync, multi-mailbox IMAP reply tracking, SMTP staggered sending, and DeepSeek BYOK
 """
 
 import base64
@@ -64,7 +63,7 @@ JOB_LOCK = threading.RLock()
 THREADS_LOCK = threading.RLock()
 IMAP_SYNC_LOCK = threading.Lock()
 
-# Excel columns (1-based indices, Header on Row 4, Data from Row 5)
+# Excel columns (1-based indices matching advisor workbook schema: Header on Row 4, Data from Row 5)
 COL_SEQ = 1
 COL_PRIORITY = 2
 COL_NAME = 3
@@ -2172,19 +2171,16 @@ class WorkbenchHandler(BaseHTTPRequestHandler):
         try:
             if path == "/" or path == "/index.html":
                 idx_file = STATIC_DIR / "index.html"
-                if not idx_file.is_file():
-                    tip = (
-                        "<!DOCTYPE html><html><meta charset='utf-8'><body style='font-family:sans-serif;padding:40px;line-height:1.8'>"
-                        "<h2>PhD_AdvisorContact_System — Frontend Not Built Yet</h2>"
-                        "<p>Run <code>cd frontend &amp;&amp; npm install &amp;&amp; npm run build</code> and refresh this page, "
-                        "or run <code>npm run dev</code> and open <code>http://localhost:5173</code>.</p></body></html>"
-                    ).encode("utf-8")
-                    self.send_response(200)
-                    self.send_header("Content-Type", "text/html; charset=utf-8")
-                    self.send_header("Content-Length", str(len(tip)))
-                    self.end_headers()
-                    self.wfile.write(tip)
-                    return
+                if not idx_file.exists():
+                    hint = (
+                        "<!doctype html><html><meta charset='utf-8'>"
+                        "<body style='font-family:sans-serif;max-width:640px;margin:48px auto;line-height:1.6'>"
+                        "<h2>PhD_AdvisorContact_System · Frontend Not Built Yet</h2>"
+                        "<p>Run <code>cd frontend &amp;&amp; npm install &amp;&amp; npm run build</code> to generate <code>static/</code>, "
+                        "or run <code>cd frontend &amp;&amp; npm run dev</code> for development.</p>"
+                        "</body></html>"
+                    )
+                    return self.send_html(hint)
                 return self.serve_file(idx_file, "text/html; charset=utf-8")
             if path.startswith("/static/"):
                 rel = path[len("/static/"):]
@@ -3183,7 +3179,7 @@ def main():
         return
 
     print(f"=======================================================")
-    print(f"  PhD_AdvisorContact_System · 申博轻邮工作台已启动")
+    print(f"  PhD_AdvisorContact_System · Local Mail & Advisor Workbench Running")
     print(f"  访问地址：{url}")
     print(f"  保持本窗口开启即可使用；按 Ctrl+C 可安全关闭服务")
     print(f"=======================================================")

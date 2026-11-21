@@ -1,18 +1,17 @@
 # -*- coding: utf-8 -*-
 """
-PhD_AdvisorContact_System — Standalone Windows Portable Build Script
-Generates a self-contained portable folder and zip archive under ./release (or WB_RELEASE_ROOT).
+Builds a standalone, zero-dependency Windows portable distribution under ./release/
+(or RELEASE_DIR if specified via environment variable).
 
 Includes:
-- Vite + React + Tailwind v4 compiled static bundle (zero Node/CDN runtime needed)
-- DeepSeek BYOK AI copilot, single/batched SMTP dispatch, & whitelisted IMAP reply sync
+- Vite + React + Tailwind v4 compiled static bundle (no Node/CDN runtime needed)
+- DeepSeek BYOK AI copilot, bidirectional IMAP/SMTP mail engine & Excel sync backend
 - Clean starter Excel workbook, sanitized config.json, PDF uploads dir, and quickstart guide
-- Automated frozen .exe --smoke-test & privacy hygiene check prior to zipping
+- Automated frozen .exe --smoke-test & config sanitization check prior to zipping
 """
 
 import json
 import os
-import re
 import shutil
 import struct
 import subprocess
@@ -25,14 +24,15 @@ BASE_DIR = Path(__file__).resolve().parent
 FRONTEND_DIR = BASE_DIR / "frontend"
 STATIC_DIR = BASE_DIR / "static"
 BUILD_TMP = BASE_DIR / "_pyinstaller_build"
-RELEASE_ROOT = Path(os.environ.get("WB_RELEASE_ROOT") or (BASE_DIR / "release")).resolve()
-PKG_NAME = os.environ.get("WB_PKG_NAME", "套磁工作台")
+DEFAULT_OUTPUT = BASE_DIR / "release"
+RELEASE_ROOT = Path(os.environ.get("RELEASE_DIR") or DEFAULT_OUTPUT)
+PKG_NAME = "套磁工作台"
 DIST_FOLDER = RELEASE_ROOT / f"{PKG_NAME}_便携版"
 ZIP_PATH = RELEASE_ROOT / f"{PKG_NAME}_便携版.zip"
 
 EXTRA_PRIVACY_TOKENS = [
     tok.strip()
-    for tok in os.environ.get("WB_PRIVACY_TOKENS", "").split(",")
+    for tok in os.environ.get("PRIVACY_TOKENS", "").split(",")
     if tok.strip()
 ]
 
@@ -146,36 +146,55 @@ def build_frontend() -> None:
 
 
 def scan_privacy(dist_dir: Path) -> None:
-    """Verifies packaged config & artifacts contain zero credentials, API keys, or extra blocked tokens."""
-    hits = []
-    api_key_rx = re.compile(r"sk-[A-Za-z0-9]{18,}")
-    cfg_file = dist_dir / "config.json"
-    if cfg_file.is_file():
-        cfg = json.loads(cfg_file.read_text(encoding="utf-8"))
-        if (cfg.get("ai_config") or {}).get("api_key"):
-            hits.append(("config.json", "non-empty ai_config.api_key"))
-        for acc in cfg.get("accounts") or []:
-            if acc.get("password") or acc.get("email"):
-                hits.append(("config.json", f"non-empty credential in account {acc.get('id')}"))
-        sp = cfg.get("sender_profile") or {}
-        if sp.get("name") or sp.get("phone") or sp.get("wechat"):
-            hits.append(("config.json", "non-empty sender_profile PII"))
+    """Verifies released config files contain zero pre-filled credentials or personal info."""
+    for cfg_name in ("config.json", "config.example.json"):
+        cfg_file = dist_dir / cfg_name
+        if not cfg_file.is_file():
+            raise RuntimeError(f"Missing release config: {cfg_file}")
+        data = json.loads(cfg_file.read_text(encoding="utf-8"))
+        sp = data.get("sender_profile", {})
+        if any((sp.get(k) or "").strip() for k in ("name", "phone", "wechat", "affiliation", "research_summary")):
+            raise RuntimeError(f"Non-empty sender_profile found in {cfg_name}")
+        if (data.get("ai_config", {}).get("api_key") or "").strip():
+            raise RuntimeError(f"Non-empty AI api_key found in {cfg_name}")
+        for acc in data.get("accounts", []):
+            if (acc.get("email") or "").strip() or (acc.get("password") or "").strip():
+                raise RuntimeError(f"Non-empty mailbox credential found in {cfg_name}")
 
+    if not EXTRA_PRIVACY_TOKENS:
+        return
+    hits = []
     scan_exts = {".json", ".txt", ".html", ".js", ".css", ".py"}
     for p in dist_dir.rglob("*"):
-        if not p.is_file() or p.suffix.lower() not in scan_exts:
+        if not p.is_file():
             continue
-        try:
-            text = p.read_text(encoding="utf-8", errors="ignore")
-        except Exception:
+        if p.suffix.lower() not in scan_exts and p.name != "博导信息与套磁管理表.xlsx":
             continue
-        if api_key_rx.search(text):
-            hits.append((str(p.relative_to(dist_dir)), "hardcoded sk-... API key"))
+        if p.suffix.lower() == ".xlsx":
+            try:
+                import openpyxl
+                wb = openpyxl.load_workbook(p, data_only=True)
+                chunks = []
+                for sname in wb.sheetnames:
+                    chunks.append(sname)
+                    ws = wb[sname]
+                    for row in ws.iter_rows(values_only=True):
+                        for cell in row:
+                            if cell is not None:
+                                chunks.append(str(cell))
+                text = "\n".join(chunks)
+            except Exception:
+                text = ""
+        else:
+            try:
+                text = p.read_text(encoding="utf-8", errors="ignore")
+            except Exception:
+                continue
         for tok in EXTRA_PRIVACY_TOKENS:
             if tok in text:
                 hits.append((str(p.relative_to(dist_dir)), tok))
     if hits:
-        raise RuntimeError(f"Privacy check failed in release folder: {hits}")
+        raise RuntimeError(f"Privacy leakage detected in release folder: {hits}")
 
 
 def main():

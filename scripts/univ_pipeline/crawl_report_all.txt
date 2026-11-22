@@ -1,0 +1,151 @@
+Crawl finished in 35.9s | Universities: 147
+------------------------------------------------------------------------------------------------
+#   1 | 清华大学             | 双一流/985/211 | cols=88 | ver=88 | fac=62 | grad=True | entry=https://www.tsinghua.edu.cn/yxsz.htm
+#   2 | 北京大学             | 双一流/985/211 | cols=58 | ver=55 | fac=49 | grad=True | entry=https://www.pku.edu.cn/department.html
+#   3 | 浙江大学             | 双一流/985/211 | cols=46 | ver=46 | fac=29 | grad=True | entry=https://www.zju.edu.cn/xywxw/list.htm
+#   4 | 上海交通大学           | 双一流/985/211 | cols=59 | ver=57 | fac=48 | grad=True | entry=https://www.sjtu.edu.cn/resource/assets/js/headersy.js
+#   5 | 复旦大学             | 双一流/985/211 | cols=49 | ver=47 | fac=42 | grad=True | entry=https://www.fudan.edu.cn/489/list.htm
+#   6 | 南京大学             | 双一流/985/211 | cols=52 | ver=50 | fac=36 | grad=True | entry=https://www.nju.edu.cn/xybm.htm
+#   7 | 中国科学技术大学         | 双一流/985/211 | cols=54 | ver=54 | fac=44 | grad=True | entry=https://www.ustc.edu.cn/yxjs.htm
+#   8 | 武汉大学             | 双一流/985/211 | cols=40 | ver=40 | fac=39 | grad=True | entry=https://www.whu.edu.cn/jgsz/yxsz.htm
+#   9 | 华中科技大学           | 双一流/985/211 | cols=39 | ver=39 | fac=38 | grad=True | entry=http://www.hust.edu.cn/yxsz.htm
+#  10 | 西安交通大学           | 双一流/985/211 | cols=52 | ver=52 | fac=51 | grad=True | entry=http://www.xjtu.edu.cn
+#  11 | 北京航空航天大学         | 双一流/985/211 | cols=41 | ver=41 | fac=40 | grad=True | entry=http://www.buaa.edu.cn/jgsz/jxkyjg02.htm
+#  12 | 哈尔滨工业大学          | 双一流/985/211 | cols=28 | ver=28 | fac=24 | grad=True | entry=http://www.hit.edu.cn/main.htm
+#  13 | 中山大学             | 双一流/985/211 | cols=63 | ver=63 | fac=54 | grad=True | entry=https://www.sysu.edu.cn/yxsz.htm
+#  14 | 北京理工大学           | 双一流/985/211 | cols=43 | ver=43 | fac=38 | grad=True | entry=https://www.bit.edu.cn:443/gbxxgk/gbgljg/index.htm
+#  15 | 东南大学             | 双一流/985/211 | cols=39 | ver=38 | fac=36 | grad=True | entry=https://www.seu.edu.cn/yxsz/list.htm
+#  16 | 四川大学             | 双一流/985/211 | cols=38 | ver=38 | fac=27 | grad=True | entry=https://www.scu.edu.cn/zzjg1/yx.htm
+#  17 | 中国人民大学           | 双一流/985/211 | cols=44 | ver=44 | fac=36 | grad=True | entry=https://www.ruc.edu.cn/zuzhijigou.html
+#  18 | 同济大学             | 双一流/985/211 | cols=40 | ver=40 | fac=32 | grad=True | entry=https://www.tongji.edu.cn/yxjg111/ybshe_zhi/ybsz_.htm
+#  19 | 北京师范大学           | 双一流/985/211 | cols=40 | ver=40 | fac=36 | grad=True | entry=https://www.bnu.edu.cn/xbyx/index.htm
+#  20 | 天津大学             | 双一流/985/211 | cols=38 | ver=38 | fac=37 | grad=True | entry=http://www.tju.edu.cn
+#  21 | 南开大学             | 双一流/985/211 | cols=32 | ver=32 | fac=30 | grad=True | entry=https://www.nankai.edu.cn/213/list.htm
+#  22 | 山东大学             | 双一流/985/211 | cols=71 | ver=71 | fac=64 | grad=True | entry=http://www.sdu.edu.cn/zzjg/xysz.htm
+#  23 | 西北工业大学           | 双一流/985/211 | cols=28 | ver=28 | fac=26 | grad=True | entry=https://www.nwpu.edu.cn/jgsz_cd_/jxkyjg/xy.htm
+#  24 | 中国农业大学           | 双一流/985/211 | cols=28 | ver=27 | fac= 3 | grad=True | entry=https://www.cau.edu.cn/xybm/index.htm
+#  25 | 厦门大学             | 双一流/985/211 | cols=85 | ver=83 | fac=74 | grad=True | entry=https://www.xmu.edu.cn/xbyx/rwyysxb.htm
+#  26 | 吉林大学             | 双一流/985/211 | cols=46 | ver=46 | fac=41 | grad=True | entry=https://www.jlu.edu.cn/jgsz/yxsz.htm
+#  27 | 中南大学             | 双一流/985/211 | cols=39 | ver=39 | fac=35 | grad=True | entry=https://www.csu.edu.cn/zjzn/jgsz.htm
+#  28 | 大连理工大学           | 双一流/985/211 | cols=43 | ver=43 | fac=41 | grad=True | entry=https://www.dlut.edu.cn/xbxy/dllszxq.htm
+#  29 | 华东师范大学           | 双一流/985/211 | cols=54 | ver=54 | fac=43 | grad=True | entry=https://www.ecnu.edu.cn/wzcd/xxgk/yxsz.htm
+#  30 | 南方科技大学           | 双一流         | cols=52 | ver=52 | fac=29 | grad=True | entry=https://www.sustech.edu.cn/zh/college.html
+#  31 | 湖南大学             | 双一流/985/211 | cols=31 | ver=30 | fac=28 | grad=True | entry=https://www.hnu.edu.cn/xyxk/xysz.htm
+#  32 | 华南理工大学           | 双一流/985/211 | cols=49 | ver=49 | fac=28 | grad=True | entry=https://www.scut.edu.cn/new/8996/list.htm
+#  33 | 电子科技大学           | 双一流/985/211 | cols=35 | ver=35 | fac= 4 | grad=True | entry=https://www.uestc.edu.cn/xybm/jxkydw_yjjg.htm
+#  34 | 重庆大学             | 双一流/985/211 | cols=39 | ver=39 | fac= 0 | grad=True | entry=https://www.cqu.edu.cn/jgsz/jxkyjg.htm
+#  35 | 北京科技大学           | 双一流/211     | cols=33 | ver=33 | fac=28 | grad=True | entry=https://www.ustb.edu.cn/yxbm/index.htm
+#  36 | 南京理工大学           | 双一流/211     | cols=15 | ver=15 | fac= 0 | grad=True | entry=https://zsb.njust.edu.cn/
+#  37 | 南京航空航天大学         | 双一流/211     | cols=26 | ver=26 | fac=21 | grad=True | entry=https://www.nuaa.edu.cn/20260/list.htm
+#  38 | 东北大学             | 双一流/985/211 | cols=20 | ver=20 | fac=18 | grad=True | entry=http://www.neu.edu.cn/zzjg.htm
+#  39 | 西安电子科技大学         | 双一流/211     | cols=28 | ver=28 | fac=26 | grad=True | entry=https://www.xidian.edu.cn/jgsz.htm
+#  40 | 兰州大学             | 双一流/985/211 | cols=23 | ver=23 | fac= 9 | grad=True | entry=https://zsb.lzu.edu.cn/baokaoxinxi/xueyuanjieshao/index.html
+#  41 | 北京交通大学           | 双一流/211     | cols=23 | ver=19 | fac=17 | grad=True | entry=https://www.bjtu.edu.cn/xxgk/jgsz/index.htm
+#  42 | 华东理工大学           | 双一流/211     | cols=19 | ver=18 | fac=17 | grad=True | entry=https://www.ecust.edu.cn/595/list.htm
+#  43 | 哈尔滨工程大学          | 双一流/211     | cols=19 | ver=19 | fac=19 | grad=True | entry=https://www.hrbeu.edu.cn/zzjg/jxkydw.htm
+#  44 | 郑州大学             | 双一流/211     | cols=39 | ver=39 | fac=36 | grad=True | entry=https://www.zzu.edu.cn/yxzy/wkyx1.htm
+#  45 | 华中农业大学           | 双一流/211     | cols=17 | ver=17 | fac=17 | grad=True | entry=https://www.hzau.edu.cn/yxsz.htm
+#  46 | 苏州大学             | 双一流/211     | cols=40 | ver=40 | fac=34 | grad=True | entry=https://www.suda.edu.cn/branch_setting/ybsz.jsp
+#  47 | 上海科技大学           | 双一流         | cols= 8 | ver= 8 | fac= 5 | grad=True | entry=https://www.shanghaitech.edu.cn/jgsz/list.htm
+#  48 | 东北师范大学           | 双一流/211     | cols=27 | ver=27 | fac=22 | grad=True | entry=https://www.nenu.edu.cn/zzjg/jxjg.htm
+#  49 | 西南交通大学           | 双一流/211     | cols=36 | ver=36 | fac=28 | grad=True | entry=http://www.swjtu.edu.cn/jgsz/jxkydw.htm
+#  50 | 北京邮电大学           | 双一流/211     | cols=12 | ver=12 | fac= 1 | grad=True | entry=
+#  51 | 中国海洋大学           | 双一流/985/211 | cols=26 | ver=26 | fac=26 | grad=True | entry=http://www.ouc.edu.cn/xbyx/list.htm
+#  52 | 江南大学             | 双一流/211     | cols=23 | ver=23 | fac=23 | grad=True | entry=https://www.jiangnan.edu.cn/xxjg/xydh1.htm
+#  53 | 华中师范大学           | 双一流/211     | cols=28 | ver=28 | fac=26 | grad=True | entry=http://www.ccnu.edu.cn/jgsz/xbxy_s_zx_.htm
+#  54 | 武汉理工大学           | 双一流/211     | cols=29 | ver=29 | fac=25 | grad=True | entry=https://www.whut.edu.cn/xuexiaogaikuang/xysz/202205/t20220506_1380571.shtml
+#  55 | 南京农业大学           | 双一流/211     | cols=26 | ver=26 | fac=26 | grad=True | entry=https://www.njau.edu.cn/
+#  56 | 中国地质大学（武汉）       | 双一流/211     | cols=29 | ver=29 | fac=27 | grad=True | entry=https://www.cug.edu.cn/zzjg1/jxkyjg.htm
+#  57 | 北京化工大学           | 双一流/211     | cols=20 | ver=19 | fac=17 | grad=True | entry=https://www.buct.edu.cn/xysz_11517/list.htm
+#  58 | 南京师范大学           | 双一流/211     | cols=14 | ver=14 | fac= 6 | grad=True | entry=
+#  59 | 暨南大学             | 双一流/211     | cols=35 | ver=34 | fac=33 | grad=True | entry=https://www.jnu.edu.cn/35777/list.htm
+#  60 | 上海大学             | 双一流/211     | cols=45 | ver=45 | fac=31 | grad=True | entry=https://www.shu.edu.cn/yxsz.htm
+#  61 | 西南大学             | 双一流/211     | cols=38 | ver=38 | fac=35 | grad=True | entry=http://www.swu.edu.cn/zzjg/jxky.htm
+#  62 | 中国石油大学（北京）       | 双一流/211     | cols=47 | ver=47 | fac=46 | grad=True | entry=https://www.cup.edu.cn:443/yuanxi/index.htm
+#  63 | 河海大学             | 双一流/211     | cols=30 | ver=30 | fac=27 | grad=True | entry=https://www.hhu.edu.cn/191/list.htm
+#  63 | 陕西师范大学           | 双一流/211     | cols=29 | ver=29 | fac=27 | grad=True | entry=http://www.snnu.edu.cn/xxgk/jgsz/jxkydw/jxdw.htm
+#  65 | 北京工业大学           | 双一流/211     | cols=23 | ver=23 | fac=22 | grad=True | entry=https://www.bjut.edu.cn/jgsz/jxkyjg.htm
+#  67 | 中国矿业大学           | 双一流/211     | cols=25 | ver=25 | fac=22 | grad=True | entry=https://www.cumt.edu.cn/jgsz/xysz.htm
+#  69 | 西北农林科技大学         | 双一流/985/211 | cols=24 | ver=24 | fac=23 | grad=True | entry=https://www.nwafu.edu.cn/xxdw/xybs/index.htm
+#  70 | 西北大学             | 双一流/211     | cols=28 | ver=28 | fac=24 | grad=True | entry=http://www.nwu.edu.cn/jgsz/zzjg/yx.htm
+#  71 | 云南大学             | 双一流/211     | cols=32 | ver=32 | fac=30 | grad=True | entry=http://www.ynu.edu.cn/jgsz/jxkyjg.htm
+#  72 | 东华大学             | 双一流/211     | cols=15 | ver=15 | fac=14 | grad=True | entry=https://www.dhu.edu.cn/jgsz/list.htm
+#  73 | 中国石油大学（华东）       | 双一流/211     | cols=22 | ver=22 | fac=17 | grad=True | entry=https://www.upc.edu.cn/jxkydw.htm
+#  74 | 南昌大学             | 双一流/211     | cols=34 | ver=34 | fac=29 | grad=True | entry=https://www.ncu.edu.cn/xyyxk/xysz.htm
+#  75 | 中国地质大学（北京）       | 双一流/211     | cols=15 | ver=15 | fac=15 | grad=True | entry=https://www.cugb.edu.cn/jxdw.jhtml
+#  76 | 中国矿业大学（北京）       | 双一流/211     | cols=13 | ver=13 | fac=11 | grad=True | entry=https://www.cumtb.edu.cn/xysz.htm
+#  77 | 福州大学             | 双一流/211     | cols=24 | ver=24 | fac= 2 | grad=True | entry=https://www.fzu.edu.cn/xysz.htm
+#  78 | 宁波大学             | 双一流         | cols=25 | ver=25 | fac=18 | grad=True | entry=https://www.nbu.edu.cn/xxjg/xyxb.htm
+#  79 | 华南师范大学           | 双一流/211     | cols=37 | ver=37 | fac=33 | grad=True | entry=https://www.scnu.edu.cn/a/20151026/29.html
+#  80 | 合肥工业大学           | 双一流/211     | cols=25 | ver=24 | fac=24 | grad=True | entry=http://www.hfut.edu.cn/jgsz/yxsz.htm
+#  82 | 南京邮电大学           | 双一流         | cols=24 | ver=24 | fac=21 | grad=True | entry=http://www.njupt.edu.cn/jxjg/list.htm
+#  83 | 北京林业大学           | 双一流/211     | cols=17 | ver=17 | fac=15 | grad=True | entry=http://www.bjfu.edu.cn/ybsz/index.htm
+#  84 | 华北电力大学           | 双一流/211     | cols=21 | ver=21 | fac=15 | grad=True | entry=https://www.ncepu.edu.cn/zzjg/index.htm
+#  85 | 贵州大学             | 双一流/211     | cols=39 | ver=37 | fac=36 | grad=True | entry=https://www.gzu.edu.cn/49/list.htm
+#  86 | 广西大学             | 双一流/211     | cols=27 | ver=27 | fac=26 | grad=True | entry=https://www.gxu.edu.cn/jgsz2.htm
+#  87 | 海南大学             | 双一流/211     | cols=49 | ver=49 | fac=34 | grad=True | entry=https://www.hainanu.edu.cn/jgsz1/jxdw.htm
+#  89 | 长安大学             | 双一流/211     | cols=23 | ver=23 | fac=23 | grad=True | entry=https://www.chd.edu.cn/jgsz.htm
+#  92 | 湖南师范大学           | 双一流/211     | cols=26 | ver=26 | fac=23 | grad=True | entry=https://www.hunnu.edu.cn/xxjg/jxjg.htm
+#  93 | 南京林业大学           | 双一流         | cols=19 | ver=19 | fac= 0 | grad=False | entry=https://zsb.njfu.edu.cn/
+#  95 | 河南大学             | 双一流         | cols=41 | ver=41 | fac=39 | grad=True | entry=http://www.henu.edu.cn/jgsz/yxbm.htm
+#  97 | 太原理工大学           | 双一流/211     | cols=30 | ver=30 | fac=27 | grad=True | entry=https://www.tyut.edu.cn/xxjg.htm
+#  98 | 南京信息工程大学         | 双一流         | cols=26 | ver=26 | fac=24 | grad=True | entry=http://www.nuist.edu.cn/jgsz/jxjg.htm
+# 100 | 首都师范大学           | 双一流         | cols=30 | ver=30 | fac=24 | grad=True | entry=https://www.cnu.edu.cn/jgsz/index.htm?mao=b02
+# 101 | 安徽大学             | 双一流/211     | cols=32 | ver=32 | fac= 0 | grad=True | entry=http://www.ahu.edu.cn/24279/list.htm
+# 102 | 山西大学             | 双一流         | cols=27 | ver=27 | fac=24 | grad=True | entry=https://www.sxu.edu.cn/xxgk/jgsz/yxsz/index.html
+# 103 | 华南农业大学           | 双一流         | cols=25 | ver=25 | fac=24 | grad=True | entry=https://www.scau.edu.cn/17936/list.htm
+# 107 | 河北工业大学           | 双一流/211     | cols=18 | ver=18 | fac=15 | grad=True | entry=https://www.hebut.edu.cn/jgsz1/yxsz/index.htm
+# 113 | 大连海事大学           | 双一流/211     | cols=17 | ver=17 | fac=14 | grad=True | entry=https://www.dlmu.edu.cn/wzsy/xxgk/jgsz1.htm
+# 114 | 内蒙古大学            | 双一流/211     | cols=24 | ver=24 | fac=23 | grad=True | entry=https://www.imu.edu.cn/jgsz1/jxkydw.htm
+# 115 | 东北林业大学           | 双一流/211     | cols=21 | ver=21 | fac=21 | grad=True | entry=https://www.nefu.edu.cn/zzjg.htm?jump=3
+# 117 | 湘潭大学             | 双一流         | cols=26 | ver=26 | fac=24 | grad=True | entry=https://www.xtu.edu.cn:443/jgsz/jxjg.htm
+# 119 | 西南石油大学           | 双一流         | cols=19 | ver=19 | fac=18 | grad=True | entry=http://www.swpu.edu.cn/jgsz/xysz.htm
+# 120 | 东北农业大学           | 双一流/211     | cols=17 | ver=17 | fac=16 | grad=True | entry=https://www.neau.edu.cn/jgsz/jyjxdw.htm
+# 125 | 辽宁大学             | 双一流/211     | cols=29 | ver=29 | fac=28 | grad=True | entry=https://www.lnu.edu.cn/jgsz/jxjg.htm
+# 127 | 成都理工大学           | 双一流         | cols= 7 | ver= 7 | fac= 0 | grad=True | entry=
+# 131 | 新疆大学             | 双一流/211     | cols=32 | ver=32 | fac=27 | grad=True | entry=https://www.xju.edu.cn/zzjg1.htm
+# 133 | 天津工业大学           | 双一流         | cols=11 | ver=11 | fac=11 | grad=True | entry=
+# 134 | 四川农业大学           | 双一流/211     | cols=32 | ver=32 | fac=29 | grad=True | entry=https://www.sicau.edu.cn/jgsz/j_x_k_y_d_w/yaxq.htm
+# 135 | 石河子大学            | 双一流/211     | cols=22 | ver=22 | fac=21 | grad=True | entry=https://www.shzu.edu.cn/jxjg/list.htm
+# 137 | 宁夏大学             | 双一流/211     | cols=50 | ver=50 | fac=42 | grad=True | entry=https://www.nxu.edu.cn/zzjg/jxkydw/jxdw.htm
+# 142 | 上海海洋大学           | 双一流         | cols=10 | ver=10 | fac=10 | grad=True | entry=https://www.shou.edu.cn/zdzy/list.htm
+# 157 | 延边大学             | 双一流/211     | cols=17 | ver=17 | fac=13 | grad=True | entry=https://www.ybu.edu.cn/zzjg/jxjg.htm
+# 201 | 西藏大学             | 双一流/211     | cols=14 | ver=13 | fac=13 | grad=True | entry=https://www.xzu.edu.cn/html/yuansuoshezhi.html
+# 203 | 青海大学             | 双一流/211     | cols=17 | ver=17 | fac=15 | grad=True | entry=https://www.qhu.edu.cn/jgsz/yxsz/index.htm
+#  体1 | 上海体育大学           | 双一流         | cols= 7 | ver= 7 | fac= 0 | grad=False | entry=
+#  财1 | 上海财经大学           | 双一流/211     | cols=11 | ver=11 | fac= 9 | grad=True | entry=https://www.sufe.edu.cn/yxsz/list.htm
+#  政1 | 中国政法大学           | 双一流/211     | cols=11 | ver=11 | fac= 0 | grad=True | entry=
+#  民1 | 中央民族大学           | 双一流/985/211 | cols=28 | ver=24 | fac=21 | grad=True | entry=https://www.muc.edu.cn/zzjg/jxhkydw1.htm
+# 中医1 | 北京中医药大学          | 双一流/211     | cols=14 | ver=14 | fac=10 | grad=True | entry=https://www.bucm.edu.cn/zzjg1/jxjg1/index.htm
+#  医1 | 北京协和医学院          | 双一流         | cols= 8 | ver= 8 | fac= 2 | grad=True | entry=
+#  语1 | 北京外国语大学          | 双一流/211     | cols=27 | ver=27 | fac=23 | grad=True | entry=https://www.bfsu.edu.cn/yxsz/yxzl.htm
+# 中医2 | 上海中医药大学          | 双一流         | cols=15 | ver=15 | fac=14 | grad=True | entry=https://www.shutcm.edu.cn/ejxy/list.htm
+#  语2 | 上海外国语大学          | 双一流/211     | cols=20 | ver=20 | fac=19 | grad=True | entry=https://www.shisu.edu.cn/academics/schools-and-departments/index.html
+#  财2 | 中央财经大学           | 双一流/211     | cols=28 | ver=28 | fac=27 | grad=True | entry=http://www.cufe.edu.cn/zzjg/xysz.htm
+#  体2 | 北京体育大学           | 双一流/211     | cols=25 | ver=25 | fac=21 | grad=True | entry=http://www.bsu.edu.cn/xbyx/index.htm
+#  语3 | 中国传媒大学           | 双一流/211     | cols=21 | ver=21 | fac=18 | grad=True | entry=https://www.cuc.edu.cn/9996/list.htm
+# 中医3 | 南京中医药大学          | 双一流         | cols=18 | ver=18 | fac=15 | grad=True | entry=https://www.njucm.edu.cn/7872/list.htm
+#  财3 | 对外经济贸易大学         | 双一流/211     | cols=26 | ver=26 | fac=13 | grad=True | entry=https://www.uibe.edu.cn/xxgk/jgsz/index.htm
+#  财4 | 中南财经政法大学         | 双一流/211     | cols=24 | ver=22 | fac= 0 | grad=True | entry=https://www.zuel.edu.cn/schools/
+#  政4 | 中国人民公安大学         | 双一流         | cols=11 | ver=11 | fac=11 | grad=True | entry=https://www.ppsuc.edu.cn/
+#  医4 | 南京医科大学           | 双一流         | cols=19 | ver=19 | fac=12 | grad=True | entry=https://www.njmu.edu.cn/574/list.htm
+#  语4 | 外交学院             | 双一流         | cols= 8 | ver= 8 | fac= 7 | grad=True | entry=https://www.cfau.edu.cn/col2843/index.htm
+# 中医4 | 广州中医药大学          | 双一流         | cols=18 | ver=18 | fac= 9 | grad=True | entry=https://www.gzucm.edu.cn/jgsz/ejxy.htm
+# 中医5 | 天津中医药大学          | 双一流         | cols=13 | ver=13 | fac=11 | grad=True | entry=https://www.tjutcm.edu.cn/zzjg/jxjg.htm
+#  医5 | 天津医科大学           | 双一流/211     | cols=11 | ver=11 | fac=10 | grad=True | entry=https://www.tmu.edu.cn/39/list.htm
+#  财5 | 西南财经大学           | 双一流/211     | cols=27 | ver=27 | fac=23 | grad=True | entry=https://www.swufe.edu.cn/xy.htm
+# 中医6 | 成都中医药大学          | 双一流         | cols=19 | ver=19 | fac=16 | grad=True | entry=https://www.cdutcm.edu.cn/jgsz/jxjg.htm
+#  医7 | 广州医科大学           | 双一流         | cols=10 | ver=10 | fac= 9 | grad=True | entry=https://www.gzhmu.edu.cn/jgsz.htm
+# 医10 | 中国药科大学           | 双一流/211     | cols=20 | ver=19 | fac=17 | grad=True | entry=http://www.cpu.edu.cn/zzjg/list.htm
+#特色高校 | 上海音乐学院           | 双一流         | cols=14 | ver=14 | fac=14 | grad=True | entry=https://www.shcmusic.edu.cn/
+#特色高校 | 中国人民解放军海军军医大学    | 双一流/211     | cols= 5 | ver= 5 | fac= 0 | grad=True | entry= [CHECK]
+#特色高校 | 中国人民解放军空军军医大学    | 双一流/211     | cols= 9 | ver= 8 | fac= 8 | grad=True | entry=https://www.fmmu.edu.cn/jgsz/gx.htm
+#特色高校 | 中国科学院大学          | 双一流         | cols=41 | ver=40 | fac=36 | grad=True | entry=https://www.ucas.ac.cn/zzjg/yxzx/index.htm
+#特色高校 | 中国美术学院           | 双一流         | cols= 2 | ver= 2 | fac= 0 | grad=True | entry= [CHECK]
+#特色高校 | 中国音乐学院           | 双一流         | cols= 9 | ver= 9 | fac= 9 | grad=True | entry=https://www.ccmusic.edu.cn/jgsz/jxyx/index.htm
+#特色高校 | 中央戏剧学院           | 双一流         | cols=13 | ver=13 | fac= 0 | grad=True | entry=https://www.chntheatre.edu.cn/cn/index
+#特色高校 | 中央美术学院           | 双一流         | cols=16 | ver=16 | fac= 0 | grad=True | entry=https://www.cafa.edu.cn/
+#特色高校 | 中央音乐学院           | 双一流/211     | cols=14 | ver=14 | fac=13 | grad=True | entry=https://www.ccom.edu.cn/jgk.htm
+#特色高校 | 国防科技大学           | 双一流/985/211 | cols=11 | ver=11 | fac=11 | grad=True | entry=https://www.nudt.edu.cn
+------------------------------------------------------------------------------------------------
+Need inspection (<6 colleges): 2 -> ['中国人民解放军海军军医大学', '中国美术学院']

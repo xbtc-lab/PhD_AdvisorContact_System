@@ -11,7 +11,7 @@ A local-first, privacy-preserving academic email workbench & advisor management 
   - **Whitelisted IMAP Reply Tracking**: Checks linked mailboxes (`QQ`, `163`, `126`, `.edu`, `Gmail`, custom) exclusively for replies from contacted advisors or matching outreach threads — filtering out spam/ads — with startup and background reply alerts (`ReplyAlertModal`).
   - **Staggered Batch Queue**: Domain-interleaved, daily-quota-balanced batch sending (`DispatchDrawer`) with optional scheduled start times.
 - **DeepSeek BYOK Integration**: Built-in AI copilot for drafting, polishing, condensing, English academic translation, reply drafting, and webpage text extraction into structured Excel sheets with match-tier assessment (`极高匹配` / `高度匹配` / `可以尝试` / `待进一步了解`).
-- **985 University & College Navigator (`data/universities.json`)**: ShanghaiRanking-inspired university explorer with verified school crests, rankings/scores, province/category/contact-status filters, hover preview micro-modules, secondary college & faculty directory links, and 1-click AI webpage professor extraction.
+- **985/211/Double First-Class University & College Navigator (`data/universities.json`)**: ShanghaiRanking-inspired explorer covering 147 universities with verified school crests, rankings/scores, province/category/tier/contact-status filters, hover preview micro-modules, secondary college & faculty directory links, and 1-click AI webpage professor extraction.
 - **Live Excel Sync**: Reads and writes multi-sheet `.xlsx` advisor tables cleanly using `openpyxl` with data validation and lock protection.
 
 ---

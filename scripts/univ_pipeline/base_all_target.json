@@ -1,0 +1,2949 @@
+[
+  {
+    "id": "tsinghua-university",
+    "name": "清华大学",
+    "full_name": "清华大学",
+    "name_en": "Tsinghua University",
+    "province": "北京",
+    "city": "北京市",
+    "category": "综合",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 1,
+    "ranking_label": "1",
+    "score": 1087.1,
+    "sr_logo": "logo/27532357.png",
+    "logo_file": "tsinghua-university.png",
+    "official_url": "https://www.tsinghua.edu.cn/"
+  },
+  {
+    "id": "peking-university",
+    "name": "北京大学",
+    "full_name": "北京大学",
+    "name_en": "Peking University",
+    "province": "北京",
+    "city": "北京市",
+    "category": "综合",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 2,
+    "ranking_label": "2",
+    "score": 1036.3,
+    "sr_logo": "logo/86350223.png",
+    "logo_file": "peking-university.png",
+    "official_url": "https://www.pku.edu.cn/"
+  },
+  {
+    "id": "zhejiang-university",
+    "name": "浙江大学",
+    "full_name": "浙江大学",
+    "name_en": "Zhejiang University",
+    "province": "浙江",
+    "city": "杭州市",
+    "category": "综合",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 3,
+    "ranking_label": "3",
+    "score": 895.6,
+    "sr_logo": "logo/88311656.png",
+    "logo_file": "zhejiang-university.png",
+    "official_url": "https://www.zju.edu.cn/"
+  },
+  {
+    "id": "shanghai-jiao-tong-university",
+    "name": "上海交通大学",
+    "full_name": "上海交通大学",
+    "name_en": "Shanghai Jiao Tong University",
+    "province": "上海",
+    "city": "上海市",
+    "category": "综合",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 4,
+    "ranking_label": "4",
+    "score": 894.2,
+    "sr_logo": "logo/27403919.png",
+    "logo_file": "shanghai-jiao-tong-university.png",
+    "official_url": "https://www.sjtu.edu.cn/"
+  },
+  {
+    "id": "fudan-university",
+    "name": "复旦大学",
+    "full_name": "复旦大学",
+    "name_en": "Fudan University",
+    "province": "上海",
+    "city": "上海市",
+    "category": "综合",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 5,
+    "ranking_label": "5",
+    "score": 792.4,
+    "sr_logo": "logo/28312850.png",
+    "logo_file": "fudan-university.png",
+    "official_url": "https://www.fudan.edu.cn/"
+  },
+  {
+    "id": "nanjing-university",
+    "name": "南京大学",
+    "full_name": "南京大学",
+    "name_en": "Nanjing University",
+    "province": "江苏",
+    "city": "南京市",
+    "category": "综合",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 6,
+    "ranking_label": "6",
+    "score": 708.5,
+    "sr_logo": "logo/44696062.png",
+    "logo_file": "nanjing-university.png",
+    "official_url": "https://www.nju.edu.cn/"
+  },
+  {
+    "id": "university-of-science-and-technology-of-china",
+    "name": "中国科学技术大学",
+    "full_name": "中国科学技术大学",
+    "name_en": "University of Science and Technology of China",
+    "province": "安徽",
+    "city": "合肥市",
+    "category": "理工",
+    "admin_type": "中央部属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 7,
+    "ranking_label": "7",
+    "score": 653.1,
+    "sr_logo": "logo/50132214.png",
+    "logo_file": "university-of-science-and-technology-of-china.png",
+    "official_url": "https://www.ustc.edu.cn/"
+  },
+  {
+    "id": "wuhan-university",
+    "name": "武汉大学",
+    "full_name": "武汉大学",
+    "name_en": "Wuhan University",
+    "province": "湖北",
+    "city": "武汉市",
+    "category": "综合",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 8,
+    "ranking_label": "8",
+    "score": 638.7,
+    "sr_logo": "logo/46182017.png",
+    "logo_file": "wuhan-university.png",
+    "official_url": "https://www.whu.edu.cn/"
+  },
+  {
+    "id": "huazhong-university-of-science-and-technology",
+    "name": "华中科技大学",
+    "full_name": "华中科技大学",
+    "name_en": "Huazhong University of Science and Technology",
+    "province": "湖北",
+    "city": "武汉市",
+    "category": "综合",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 9,
+    "ranking_label": "9",
+    "score": 638,
+    "sr_logo": "logo/69664504.png",
+    "logo_file": "huazhong-university-of-science-and-technology.png",
+    "official_url": "http://www.hust.edu.cn"
+  },
+  {
+    "id": "xian-jiaotong-university",
+    "name": "西安交通大学",
+    "full_name": "西安交通大学",
+    "name_en": "Xi'an Jiaotong University",
+    "province": "陕西",
+    "city": "西安市",
+    "category": "综合",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 10,
+    "ranking_label": "10",
+    "score": 620.8,
+    "sr_logo": "logo/77584005.png",
+    "logo_file": "xian-jiaotong-university.png",
+    "official_url": "http://www.xjtu.edu.cn"
+  },
+  {
+    "id": "beihang-university",
+    "name": "北京航空航天大学",
+    "full_name": "北京航空航天大学",
+    "name_en": "Beihang University",
+    "province": "北京",
+    "city": "北京市",
+    "category": "理工",
+    "admin_type": "中央部属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 11,
+    "ranking_label": "11",
+    "score": 612.8,
+    "sr_logo": "logo/22403670.png",
+    "logo_file": "beihang-university.png",
+    "official_url": "http://www.buaa.edu.cn"
+  },
+  {
+    "id": "harbin-institute-of-technology",
+    "name": "哈尔滨工业大学",
+    "full_name": "哈尔滨工业大学",
+    "name_en": "Harbin Institute of Technology",
+    "province": "黑龙江",
+    "city": "哈尔滨市",
+    "category": "理工",
+    "admin_type": "中央部属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 12,
+    "ranking_label": "12",
+    "score": 607.7,
+    "sr_logo": "logo/88331082.png",
+    "logo_file": "harbin-institute-of-technology.png",
+    "official_url": "http://www.hit.edu.cn"
+  },
+  {
+    "id": "sun-yat-sen-university",
+    "name": "中山大学",
+    "full_name": "中山大学",
+    "name_en": "Sun Yat-sen University",
+    "province": "广东",
+    "city": "广州市",
+    "category": "综合",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 13,
+    "ranking_label": "13",
+    "score": 597.6,
+    "sr_logo": "logo/46293852.png",
+    "logo_file": "sun-yat-sen-university.png",
+    "official_url": "https://www.sysu.edu.cn/"
+  },
+  {
+    "id": "beijing-institute-of-technology",
+    "name": "北京理工大学",
+    "full_name": "北京理工大学",
+    "name_en": "Beijing Institute of Technology",
+    "province": "北京",
+    "city": "北京市",
+    "category": "理工",
+    "admin_type": "中央部属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 14,
+    "ranking_label": "14",
+    "score": 595.4,
+    "sr_logo": "logo/85386135.png",
+    "logo_file": "beijing-institute-of-technology.png",
+    "official_url": "https://www.bit.edu.cn:443/"
+  },
+  {
+    "id": "peking-union-medical-college",
+    "name": "北京协和医学院",
+    "full_name": "北京协和医学院",
+    "name_en": "Peking Union Medical College",
+    "province": "北京",
+    "city": "北京市",
+    "category": "医药",
+    "admin_type": "中央部属",
+    "tags": [
+      "双一流"
+    ],
+    "ranking": 1001,
+    "ranking_label": "医1",
+    "score": null,
+    "sr_logo": "logo/81176996.png",
+    "logo_file": "peking-union-medical-college.png",
+    "official_url": "http://www.cams.ac.cn"
+  },
+  {
+    "id": "southeast-university",
+    "name": "东南大学",
+    "full_name": "东南大学",
+    "name_en": "Southeast University",
+    "province": "江苏",
+    "city": "南京市",
+    "category": "综合",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 15,
+    "ranking_label": "15",
+    "score": 592.3,
+    "sr_logo": "logo/82819451.png",
+    "logo_file": "southeast-university.png",
+    "official_url": "https://www.seu.edu.cn"
+  },
+  {
+    "id": "sichuan-university",
+    "name": "四川大学",
+    "full_name": "四川大学",
+    "name_en": "Sichuan University",
+    "province": "四川",
+    "city": "成都市",
+    "category": "综合",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 16,
+    "ranking_label": "16",
+    "score": 581.3,
+    "sr_logo": "logo/75651370.png",
+    "logo_file": "sichuan-university.png",
+    "official_url": "https://www.scu.edu.cn/"
+  },
+  {
+    "id": "renmin-university-of-china",
+    "name": "中国人民大学",
+    "full_name": "中国人民大学",
+    "name_en": "Renmin University of China",
+    "province": "北京",
+    "city": "北京市",
+    "category": "综合",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 17,
+    "ranking_label": "17",
+    "score": 558.1,
+    "sr_logo": "logo/88617939.png",
+    "logo_file": "renmin-university-of-china.png",
+    "official_url": "https://www.ruc.edu.cn/"
+  },
+  {
+    "id": "tongji-university",
+    "name": "同济大学",
+    "full_name": "同济大学",
+    "name_en": "Tongji University",
+    "province": "上海",
+    "city": "上海市",
+    "category": "综合",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 18,
+    "ranking_label": "18",
+    "score": 556.6,
+    "sr_logo": "logo/39174907.png",
+    "logo_file": "tongji-university.png",
+    "official_url": "http://www.tongji.edu.cn"
+  },
+  {
+    "id": "beijing-normal-university",
+    "name": "北京师范大学",
+    "full_name": "北京师范大学",
+    "name_en": "Beijing Normal University",
+    "province": "北京",
+    "city": "北京市",
+    "category": "师范",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 19,
+    "ranking_label": "19",
+    "score": 553.2,
+    "sr_logo": "logo/38816505.png",
+    "logo_file": "beijing-normal-university.png",
+    "official_url": "https://www.bnu.edu.cn/"
+  },
+  {
+    "id": "tianjin-university",
+    "name": "天津大学",
+    "full_name": "天津大学",
+    "name_en": "Tianjin University",
+    "province": "天津",
+    "city": "天津市",
+    "category": "理工",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 20,
+    "ranking_label": "20",
+    "score": 544.2,
+    "sr_logo": "logo/74813674.png",
+    "logo_file": "tianjin-university.png",
+    "official_url": "http://www.tju.edu.cn"
+  },
+  {
+    "id": "nankai-university",
+    "name": "南开大学",
+    "full_name": "南开大学",
+    "name_en": "Nankai University",
+    "province": "天津",
+    "city": "天津市",
+    "category": "综合",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 21,
+    "ranking_label": "21",
+    "score": 528.8,
+    "sr_logo": "logo/44629152.png",
+    "logo_file": "nankai-university.png",
+    "official_url": "https://www.nankai.edu.cn/"
+  },
+  {
+    "id": "shandong-university",
+    "name": "山东大学",
+    "full_name": "山东大学",
+    "name_en": "Shandong University",
+    "province": "山东",
+    "city": "济南市",
+    "category": "综合",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 22,
+    "ranking_label": "22",
+    "score": 527.1,
+    "sr_logo": "logo/97189370.png",
+    "logo_file": "shandong-university.png",
+    "official_url": "http://www.sdu.edu.cn"
+  },
+  {
+    "id": "northwestern-polytechnical-university",
+    "name": "西北工业大学",
+    "full_name": "西北工业大学",
+    "name_en": "Northwestern Polytechnical University",
+    "province": "陕西",
+    "city": "西安市",
+    "category": "理工",
+    "admin_type": "中央部属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 23,
+    "ranking_label": "23",
+    "score": 519.2,
+    "sr_logo": "logo/20384817.png",
+    "logo_file": "northwestern-polytechnical-university.png",
+    "official_url": "https://www.nwpu.edu.cn/"
+  },
+  {
+    "id": "china-agricultural-university",
+    "name": "中国农业大学",
+    "full_name": "中国农业大学",
+    "name_en": "China Agricultural University",
+    "province": "北京",
+    "city": "北京市",
+    "category": "农业",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 24,
+    "ranking_label": "24",
+    "score": 519.1,
+    "sr_logo": "logo/48410070.png",
+    "logo_file": "china-agricultural-university.png",
+    "official_url": "https://www.cau.edu.cn/"
+  },
+  {
+    "id": "xiamen-university",
+    "name": "厦门大学",
+    "full_name": "厦门大学",
+    "name_en": "Xiamen University",
+    "province": "福建",
+    "city": "厦门市",
+    "category": "综合",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 25,
+    "ranking_label": "25",
+    "score": 512.5,
+    "sr_logo": "logo/14008229.png",
+    "logo_file": "xiamen-university.png",
+    "official_url": "https://www.xmu.edu.cn/"
+  },
+  {
+    "id": "jilin-university",
+    "name": "吉林大学",
+    "full_name": "吉林大学",
+    "name_en": "Jilin University",
+    "province": "吉林",
+    "city": "长春市",
+    "category": "综合",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 26,
+    "ranking_label": "26",
+    "score": 498.2,
+    "sr_logo": "logo/76557044.png",
+    "logo_file": "jilin-university.png",
+    "official_url": "https://www.jlu.edu.cn/index.htm"
+  },
+  {
+    "id": "central-south-university",
+    "name": "中南大学",
+    "full_name": "中南大学",
+    "name_en": "Central South University",
+    "province": "湖南",
+    "city": "长沙市",
+    "category": "综合",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 27,
+    "ranking_label": "27",
+    "score": 497,
+    "sr_logo": "logo/65984093.png",
+    "logo_file": "central-south-university.png",
+    "official_url": "https://www.csu.edu.cn/"
+  },
+  {
+    "id": "dalian-university-of-technology",
+    "name": "大连理工大学",
+    "full_name": "大连理工大学",
+    "name_en": "Dalian University of Technology",
+    "province": "辽宁",
+    "city": "大连市",
+    "category": "理工",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 28,
+    "ranking_label": "28",
+    "score": 495.4,
+    "sr_logo": "logo/54289554.png",
+    "logo_file": "dalian-university-of-technology.png",
+    "official_url": "https://www.dlut.edu.cn/"
+  },
+  {
+    "id": "east-china-normal-university",
+    "name": "华东师范大学",
+    "full_name": "华东师范大学",
+    "name_en": "East China Normal University",
+    "province": "上海",
+    "city": "上海市",
+    "category": "师范",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 29,
+    "ranking_label": "29",
+    "score": 469.1,
+    "sr_logo": "logo/47430452.png",
+    "logo_file": "east-china-normal-university.png",
+    "official_url": "https://www.ecnu.edu.cn/"
+  },
+  {
+    "id": "southern-university-of-science-and-technology",
+    "name": "南方科技大学",
+    "full_name": "南方科技大学",
+    "name_en": "Southern University of Science and Technology",
+    "province": "广东",
+    "city": "深圳市",
+    "category": "综合",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流"
+    ],
+    "ranking": 30,
+    "ranking_label": "30",
+    "score": 466.9,
+    "sr_logo": "logo/22950445.png",
+    "logo_file": "southern-university-of-science-and-technology.png",
+    "official_url": "http://www.sustech.edu.cn"
+  },
+  {
+    "id": "hunan-university",
+    "name": "湖南大学",
+    "full_name": "湖南大学",
+    "name_en": "Hunan University",
+    "province": "湖南",
+    "city": "长沙市",
+    "category": "综合",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 31,
+    "ranking_label": "31",
+    "score": 464.1,
+    "sr_logo": "logo/79015808.png",
+    "logo_file": "hunan-university.png",
+    "official_url": "https://www.hnu.edu.cn"
+  },
+  {
+    "id": "south-china-university-of-technology",
+    "name": "华南理工大学",
+    "full_name": "华南理工大学",
+    "name_en": "South China University of Technology",
+    "province": "广东",
+    "city": "广州市",
+    "category": "理工",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 32,
+    "ranking_label": "32",
+    "score": 456.4,
+    "sr_logo": "logo/69348939.png",
+    "logo_file": "south-china-university-of-technology.png",
+    "official_url": "https://www.scut.edu.cn/new/"
+  },
+  {
+    "id": "university-of-electronic-science-and-technology-of-china",
+    "name": "电子科技大学",
+    "full_name": "电子科技大学",
+    "name_en": "University of Electronic Science and Technology of China",
+    "province": "四川",
+    "city": "成都市",
+    "category": "理工",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 33,
+    "ranking_label": "33",
+    "score": 453.6,
+    "sr_logo": "logo/55538407.png",
+    "logo_file": "university-of-electronic-science-and-technology-of-china.png",
+    "official_url": "https://www.uestc.edu.cn/"
+  },
+  {
+    "id": "chongqing-university",
+    "name": "重庆大学",
+    "full_name": "重庆大学",
+    "name_en": "Chongqing University",
+    "province": "重庆",
+    "city": "重庆市",
+    "category": "综合",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 34,
+    "ranking_label": "34",
+    "score": 436,
+    "sr_logo": "logo/79822387.png",
+    "logo_file": "chongqing-university.png",
+    "official_url": "https://www.cqu.edu.cn/"
+  },
+  {
+    "id": "university-of-science-and-technology-beijing",
+    "name": "北京科技大学",
+    "full_name": "北京科技大学",
+    "name_en": "University of Science and Technology Beijing",
+    "province": "北京",
+    "city": "北京市",
+    "category": "理工",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 35,
+    "ranking_label": "35",
+    "score": 429.3,
+    "sr_logo": "logo/96310183.png",
+    "logo_file": "university-of-science-and-technology-beijing.png",
+    "official_url": "http://www.ustb.edu.cn"
+  },
+  {
+    "id": "shanghai-university-of-finance-and-economics",
+    "name": "上海财经大学",
+    "full_name": "上海财经大学",
+    "name_en": "Shanghai University of Finance and Economics",
+    "province": "上海",
+    "city": "上海市",
+    "category": "财经",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 1001,
+    "ranking_label": "财1",
+    "score": null,
+    "sr_logo": "logo/75328210.png",
+    "logo_file": "shanghai-university-of-finance-and-economics.png",
+    "official_url": "http://www.shufe.edu.cn"
+  },
+  {
+    "id": "nanjing-university-of-science-and-technology",
+    "name": "南京理工大学",
+    "full_name": "南京理工大学",
+    "name_en": "Nanjing University of Science & Technology",
+    "province": "江苏",
+    "city": "南京市",
+    "category": "理工",
+    "admin_type": "中央部属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 36,
+    "ranking_label": "36",
+    "score": 419.3,
+    "sr_logo": "logo/38974419.png",
+    "logo_file": "nanjing-university-of-science-and-technology.png",
+    "official_url": "http://www.njust.edu.cn"
+  },
+  {
+    "id": "nanjing-university-of-aeronautics-and-astronautics",
+    "name": "南京航空航天大学",
+    "full_name": "南京航空航天大学",
+    "name_en": "Nanjing University of Aeronautics and Astronautics",
+    "province": "江苏",
+    "city": "南京市",
+    "category": "理工",
+    "admin_type": "中央部属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 37,
+    "ranking_label": "37",
+    "score": 417.4,
+    "sr_logo": "logo-jpg/4506696400.jpg",
+    "logo_file": "nanjing-university-of-aeronautics-and-astronautics.jpg",
+    "official_url": "http://www.nuaa.edu.cn"
+  },
+  {
+    "id": "northeastern-university",
+    "name": "东北大学",
+    "full_name": "东北大学",
+    "name_en": "Northeastern University",
+    "province": "辽宁",
+    "city": "沈阳市",
+    "category": "理工",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 38,
+    "ranking_label": "38",
+    "score": 398.7,
+    "sr_logo": "logo/79513869.png",
+    "logo_file": "northeastern-university.png",
+    "official_url": "http://www.neu.edu.cn"
+  },
+  {
+    "id": "xidian-university",
+    "name": "西安电子科技大学",
+    "full_name": "西安电子科技大学",
+    "name_en": "Xidian University",
+    "province": "陕西",
+    "city": "西安市",
+    "category": "理工",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 39,
+    "ranking_label": "39",
+    "score": 391.5,
+    "sr_logo": "logo/88267454.png",
+    "logo_file": "xidian-university.png",
+    "official_url": "http://www.xidian.edu.cn"
+  },
+  {
+    "id": "lanzhou-university",
+    "name": "兰州大学",
+    "full_name": "兰州大学",
+    "name_en": "Lanzhou University",
+    "province": "甘肃",
+    "city": "兰州市",
+    "category": "综合",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 40,
+    "ranking_label": "40",
+    "score": 388.4,
+    "sr_logo": "logo/84317715.png",
+    "logo_file": "lanzhou-university.png",
+    "official_url": "https://www.lzu.edu.cn/"
+  },
+  {
+    "id": "beijing-jiaotong-university",
+    "name": "北京交通大学",
+    "full_name": "北京交通大学",
+    "name_en": "Beijing Jiaotong University",
+    "province": "北京",
+    "city": "北京市",
+    "category": "理工",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 41,
+    "ranking_label": "41",
+    "score": 381.1,
+    "sr_logo": "logo/60987143.png",
+    "logo_file": "beijing-jiaotong-university.png",
+    "official_url": "http://www.bjtu.edu.cn"
+  },
+  {
+    "id": "east-china-university-of-science-and-technology",
+    "name": "华东理工大学",
+    "full_name": "华东理工大学",
+    "name_en": "East China University of Science and Technology",
+    "province": "上海",
+    "city": "上海市",
+    "category": "理工",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 42,
+    "ranking_label": "42",
+    "score": 380.4,
+    "sr_logo": "logo/93042584.png",
+    "logo_file": "east-china-university-of-science-and-technology.png",
+    "official_url": "http://www.ecust.edu.cn"
+  },
+  {
+    "id": "central-university-of-finance-and-economics",
+    "name": "中央财经大学",
+    "full_name": "中央财经大学",
+    "name_en": "Central University of Finance and Economics",
+    "province": "北京",
+    "city": "北京市",
+    "category": "财经",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 1002,
+    "ranking_label": "财2",
+    "score": null,
+    "sr_logo": "logo/83886858.png",
+    "logo_file": "central-university-of-finance-and-economics.png",
+    "official_url": "http://www.cufe.edu.cn"
+  },
+  {
+    "id": "harbin-engineering-university",
+    "name": "哈尔滨工程大学",
+    "full_name": "哈尔滨工程大学",
+    "name_en": "Harbin Engineering University",
+    "province": "黑龙江",
+    "city": "哈尔滨市",
+    "category": "理工",
+    "admin_type": "中央部属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 43,
+    "ranking_label": "43",
+    "score": 380.1,
+    "sr_logo": "logo/86980791.png",
+    "logo_file": "harbin-engineering-university.png",
+    "official_url": "http://www.hrbeu.edu.cn"
+  },
+  {
+    "id": "zhengzhou-university",
+    "name": "郑州大学",
+    "full_name": "郑州大学",
+    "name_en": "Zhengzhou University",
+    "province": "河南",
+    "city": "郑州市",
+    "category": "综合",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 44,
+    "ranking_label": "44",
+    "score": 380,
+    "sr_logo": "logo/68963418.png",
+    "logo_file": "zhengzhou-university.png",
+    "official_url": "http://www.zzu.edu.cn"
+  },
+  {
+    "id": "huazhong-agricultural-university",
+    "name": "华中农业大学",
+    "full_name": "华中农业大学",
+    "name_en": "Huazhong Agricultural University",
+    "province": "湖北",
+    "city": "武汉市",
+    "category": "农业",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 45,
+    "ranking_label": "45",
+    "score": 375.6,
+    "sr_logo": "logo/20950268.png",
+    "logo_file": "huazhong-agricultural-university.png",
+    "official_url": "http://www.hzau.edu.cn"
+  },
+  {
+    "id": "nanjing-medical-university",
+    "name": "南京医科大学",
+    "full_name": "南京医科大学",
+    "name_en": "Nanjing Medical University",
+    "province": "江苏",
+    "city": "南京市",
+    "category": "医药",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流"
+    ],
+    "ranking": 1004,
+    "ranking_label": "医4",
+    "score": null,
+    "sr_logo": "logo/76762015.png",
+    "logo_file": "nanjing-medical-university.png",
+    "official_url": "http://www.njmu.edu.cn"
+  },
+  {
+    "id": "soochow-university-china",
+    "name": "苏州大学",
+    "full_name": "苏州大学",
+    "name_en": "Soochow University",
+    "province": "江苏",
+    "city": "苏州市",
+    "category": "综合",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 46,
+    "ranking_label": "46",
+    "score": 374.4,
+    "sr_logo": "logo/44374737.png",
+    "logo_file": "soochow-university-china.png",
+    "official_url": "http://www.suda.edu.cn"
+  },
+  {
+    "id": "shanghaitech-university",
+    "name": "上海科技大学",
+    "full_name": "上海科技大学",
+    "name_en": "ShanghaiTech University",
+    "province": "上海",
+    "city": "上海市",
+    "category": "综合",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流"
+    ],
+    "ranking": 47,
+    "ranking_label": "47",
+    "score": 373.4,
+    "sr_logo": "logo/46886554.png",
+    "logo_file": "shanghaitech-university.png",
+    "official_url": "http://www.shanghaitech.edu.cn"
+  },
+  {
+    "id": "northeast-normal-university",
+    "name": "东北师范大学",
+    "full_name": "东北师范大学",
+    "name_en": "Northeast Normal University",
+    "province": "吉林",
+    "city": "长春市",
+    "category": "师范",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 48,
+    "ranking_label": "48",
+    "score": 372.4,
+    "sr_logo": "logo/12611652.png",
+    "logo_file": "northeast-normal-university.png",
+    "official_url": "http://www.nenu.edu.cn"
+  },
+  {
+    "id": "southwest-jiaotong-university",
+    "name": "西南交通大学",
+    "full_name": "西南交通大学",
+    "name_en": "Southwest Jiaotong University",
+    "province": "四川",
+    "city": "成都市",
+    "category": "理工",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 49,
+    "ranking_label": "49",
+    "score": 366.3,
+    "sr_logo": "logo/29218271.png",
+    "logo_file": "southwest-jiaotong-university.png",
+    "official_url": "http://www.swjtu.edu.cn"
+  },
+  {
+    "id": "beijing-university-of-posts-and-telecommunications",
+    "name": "北京邮电大学",
+    "full_name": "北京邮电大学",
+    "name_en": "Beijing University of Posts and Telecommunications",
+    "province": "北京",
+    "city": "北京市",
+    "category": "理工",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 50,
+    "ranking_label": "50",
+    "score": 360.3,
+    "sr_logo": "logo/15344334.png",
+    "logo_file": "beijing-university-of-posts-and-telecommunications.png",
+    "official_url": "http://www.bupt.edu.cn"
+  },
+  {
+    "id": "ocean-university-of-china",
+    "name": "中国海洋大学",
+    "full_name": "中国海洋大学",
+    "name_en": "Ocean University of China",
+    "province": "山东",
+    "city": "青岛市",
+    "category": "综合",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 51,
+    "ranking_label": "51",
+    "score": 359.2,
+    "sr_logo": "logo/53553512.png",
+    "logo_file": "ocean-university-of-china.png",
+    "official_url": "http://www.ouc.edu.cn"
+  },
+  {
+    "id": "jiangnan-university",
+    "name": "江南大学",
+    "full_name": "江南大学",
+    "name_en": "Jiangnan University",
+    "province": "江苏",
+    "city": "无锡市",
+    "category": "综合",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 52,
+    "ranking_label": "52",
+    "score": 355.8,
+    "sr_logo": "logo/92884896.png",
+    "logo_file": "jiangnan-university.png",
+    "official_url": "http://www.jiangnan.edu.cn"
+  },
+  {
+    "id": "central-china-normal-university",
+    "name": "华中师范大学",
+    "full_name": "华中师范大学",
+    "name_en": "Central China Normal University",
+    "province": "湖北",
+    "city": "武汉市",
+    "category": "师范",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 53,
+    "ranking_label": "53",
+    "score": 355.1,
+    "sr_logo": "logo/58510682.png",
+    "logo_file": "central-china-normal-university.png",
+    "official_url": "http://www.ccnu.edu.cn"
+  },
+  {
+    "id": "wuhan-university-of-technology",
+    "name": "武汉理工大学",
+    "full_name": "武汉理工大学",
+    "name_en": "Wuhan University of Technology",
+    "province": "湖北",
+    "city": "武汉市",
+    "category": "理工",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 54,
+    "ranking_label": "54",
+    "score": 351.9,
+    "sr_logo": "logo/16563358.png",
+    "logo_file": "wuhan-university-of-technology.png",
+    "official_url": "http://www.whut.edu.cn"
+  },
+  {
+    "id": "nanjing-agricultural-university",
+    "name": "南京农业大学",
+    "full_name": "南京农业大学",
+    "name_en": "Nanjing Agricultural University",
+    "province": "江苏",
+    "city": "南京市",
+    "category": "农业",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 55,
+    "ranking_label": "55",
+    "score": 350.9,
+    "sr_logo": "logo/43891811.png",
+    "logo_file": "nanjing-agricultural-university.png",
+    "official_url": "http://www.njau.edu.cn"
+  },
+  {
+    "id": "china-university-of-geosciences-wuhan",
+    "name": "中国地质大学（武汉）",
+    "full_name": "中国地质大学（武汉）",
+    "name_en": "China University of Geosciences",
+    "province": "湖北",
+    "city": "武汉市",
+    "category": "理工",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 56,
+    "ranking_label": "56",
+    "score": 350.8,
+    "sr_logo": "logo/25952542.png",
+    "logo_file": "china-university-of-geosciences-wuhan.png",
+    "official_url": "http://www.cug.edu.cn"
+  },
+  {
+    "id": "china-university-of-political-science-and-law",
+    "name": "中国政法大学",
+    "full_name": "中国政法大学",
+    "name_en": "China University of Political Science and Law",
+    "province": "北京",
+    "city": "北京市",
+    "category": "政法",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 1001,
+    "ranking_label": "政1",
+    "score": null,
+    "sr_logo": "logo/73768663.png",
+    "logo_file": "china-university-of-political-science-and-law.png",
+    "official_url": "http://www.cupl.edu.cn"
+  },
+  {
+    "id": "beijing-university-of-chemical-technology",
+    "name": "北京化工大学",
+    "full_name": "北京化工大学",
+    "name_en": "Beijing University of Chemical Technology",
+    "province": "北京",
+    "city": "北京市",
+    "category": "理工",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 57,
+    "ranking_label": "57",
+    "score": 345,
+    "sr_logo": "logo/46052210.png",
+    "logo_file": "beijing-university-of-chemical-technology.png",
+    "official_url": "http://www.buct.edu.cn"
+  },
+  {
+    "id": "university-of-international-business-and-economics",
+    "name": "对外经济贸易大学",
+    "full_name": "对外经济贸易大学",
+    "name_en": "University of International Business and Economics",
+    "province": "北京",
+    "city": "北京市",
+    "category": "财经",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 1003,
+    "ranking_label": "财3",
+    "score": null,
+    "sr_logo": "logo/49600493.png",
+    "logo_file": "university-of-international-business-and-economics.png",
+    "official_url": "http://www.uibe.edu.cn"
+  },
+  {
+    "id": "zhongnan-university-of-economics-and-law",
+    "name": "中南财经政法大学",
+    "full_name": "中南财经政法大学",
+    "name_en": "Zhongnan University of Economics and Law",
+    "province": "湖北",
+    "city": "武汉市",
+    "category": "财经",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 1004,
+    "ranking_label": "财4",
+    "score": null,
+    "sr_logo": "logo/93162582.png",
+    "logo_file": "zhongnan-university-of-economics-and-law.png",
+    "official_url": "http://www.zuel.edu.cn"
+  },
+  {
+    "id": "nanjing-normal-university",
+    "name": "南京师范大学",
+    "full_name": "南京师范大学",
+    "name_en": "Nanjing Normal University",
+    "province": "江苏",
+    "city": "南京市",
+    "category": "师范",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 58,
+    "ranking_label": "58",
+    "score": 344.4,
+    "sr_logo": "logo/27072054.png",
+    "logo_file": "nanjing-normal-university.png",
+    "official_url": "http://www.njnu.edu.cn"
+  },
+  {
+    "id": "jinan-university",
+    "name": "暨南大学",
+    "full_name": "暨南大学",
+    "name_en": "Jinan University",
+    "province": "广东",
+    "city": "广州市",
+    "category": "综合",
+    "admin_type": "中央部属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 59,
+    "ranking_label": "59",
+    "score": 343.5,
+    "sr_logo": "logo/78175531.png",
+    "logo_file": "jinan-university.png",
+    "official_url": "http://www.jnu.edu.cn"
+  },
+  {
+    "id": "shanghai-university",
+    "name": "上海大学",
+    "full_name": "上海大学",
+    "name_en": "Shanghai University",
+    "province": "上海",
+    "city": "上海市",
+    "category": "综合",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 60,
+    "ranking_label": "60",
+    "score": 343.3,
+    "sr_logo": "logo/94139385.png",
+    "logo_file": "shanghai-university.png",
+    "official_url": "http://www.shu.edu.cn"
+  },
+  {
+    "id": "tianjin-medical-university",
+    "name": "天津医科大学",
+    "full_name": "天津医科大学",
+    "name_en": "Tianjin Medical University",
+    "province": "天津",
+    "city": "天津市",
+    "category": "医药",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 1005,
+    "ranking_label": "医5",
+    "score": null,
+    "sr_logo": "logo/48683228.png",
+    "logo_file": "tianjin-medical-university.png",
+    "official_url": "https://www.tmu.edu.cn"
+  },
+  {
+    "id": "southwest-university",
+    "name": "西南大学",
+    "full_name": "西南大学",
+    "name_en": "Southwest University",
+    "province": "重庆",
+    "city": "重庆市",
+    "category": "综合",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 61,
+    "ranking_label": "61",
+    "score": 343,
+    "sr_logo": "logo/68012227.png",
+    "logo_file": "southwest-university.png",
+    "official_url": "http://www.swu.edu.cn"
+  },
+  {
+    "id": "china-university-of-petroleum-beijing",
+    "name": "中国石油大学（北京）",
+    "full_name": "中国石油大学（北京）",
+    "name_en": "China University of Petroleum, Beijing",
+    "province": "北京",
+    "city": "北京市",
+    "category": "理工",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 62,
+    "ranking_label": "62",
+    "score": 342.7,
+    "sr_logo": "logo-jpg/6662428200.jpg",
+    "logo_file": "china-university-of-petroleum-beijing.jpg",
+    "official_url": "http://www.cup.edu.cn"
+  },
+  {
+    "id": "hohai-university",
+    "name": "河海大学",
+    "full_name": "河海大学",
+    "name_en": "Hohai University",
+    "province": "江苏",
+    "city": "南京市",
+    "category": "理工",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 63,
+    "ranking_label": "63",
+    "score": 342,
+    "sr_logo": "logo/76817036.png",
+    "logo_file": "hohai-university.png",
+    "official_url": "http://www.hhu.edu.cn"
+  },
+  {
+    "id": "shaanxi-normal-university",
+    "name": "陕西师范大学",
+    "full_name": "陕西师范大学",
+    "name_en": "Shaanxi Normal University",
+    "province": "陕西",
+    "city": "西安市",
+    "category": "师范",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 63,
+    "ranking_label": "63",
+    "score": 342,
+    "sr_logo": "logo/22611416.png",
+    "logo_file": "shaanxi-normal-university.png",
+    "official_url": "http://www.snnu.edu.cn"
+  },
+  {
+    "id": "beijing-university-of-chinese-medicine",
+    "name": "北京中医药大学",
+    "full_name": "北京中医药大学",
+    "name_en": "Beijing University of Chinese Medicine",
+    "province": "北京",
+    "city": "北京市",
+    "category": "中医药",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 1001,
+    "ranking_label": "中医1",
+    "score": null,
+    "sr_logo": "logo/51325583.png",
+    "logo_file": "beijing-university-of-chinese-medicine.png",
+    "official_url": "http://www.bucm.edu.cn"
+  },
+  {
+    "id": "beijing-university-of-technology",
+    "name": "北京工业大学",
+    "full_name": "北京工业大学",
+    "name_en": "Beijing University of Technology",
+    "province": "北京",
+    "city": "北京市",
+    "category": "理工",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 65,
+    "ranking_label": "65",
+    "score": 341.5,
+    "sr_logo": "logo/10211810.png",
+    "logo_file": "beijing-university-of-technology.png",
+    "official_url": "http://www.bjut.edu.cn"
+  },
+  {
+    "id": "southwestern-university-of-finance-and-economics",
+    "name": "西南财经大学",
+    "full_name": "西南财经大学",
+    "name_en": "Southwestern University of Finance and Economics",
+    "province": "四川",
+    "city": "成都市",
+    "category": "财经",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 1005,
+    "ranking_label": "财5",
+    "score": null,
+    "sr_logo": "logo/84100177.png",
+    "logo_file": "southwestern-university-of-finance-and-economics.png",
+    "official_url": "http://www.swufe.edu.cn"
+  },
+  {
+    "id": "china-university-of-mining-and-technology-xuzhou",
+    "name": "中国矿业大学",
+    "full_name": "中国矿业大学",
+    "name_en": "China University of Mining and Technology",
+    "province": "江苏",
+    "city": "徐州市",
+    "category": "理工",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 67,
+    "ranking_label": "67",
+    "score": 335.7,
+    "sr_logo": "logo/15914272.png",
+    "logo_file": "china-university-of-mining-and-technology-xuzhou.png",
+    "official_url": "http://www.cumt.edu.cn"
+  },
+  {
+    "id": "northwest-a-f-university",
+    "name": "西北农林科技大学",
+    "full_name": "西北农林科技大学",
+    "name_en": "Northwest A&F University",
+    "province": "陕西",
+    "city": "咸阳市",
+    "category": "农业",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 69,
+    "ranking_label": "69",
+    "score": 330.7,
+    "sr_logo": "logo/25536937.png",
+    "logo_file": "northwest-a-f-university.png",
+    "official_url": "https://www.nwafu.edu.cn/"
+  },
+  {
+    "id": "shanghai-university-of-traditional-chinese-medicine",
+    "name": "上海中医药大学",
+    "full_name": "上海中医药大学",
+    "name_en": "Shanghai University of Traditional Chinese Medicine",
+    "province": "上海",
+    "city": "上海市",
+    "category": "中医药",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流"
+    ],
+    "ranking": 1002,
+    "ranking_label": "中医2",
+    "score": null,
+    "sr_logo": "logo/51954222.png",
+    "logo_file": "shanghai-university-of-traditional-chinese-medicine.png",
+    "official_url": "http://www.shutcm.edu.cn"
+  },
+  {
+    "id": "northwest-university",
+    "name": "西北大学",
+    "full_name": "西北大学",
+    "name_en": "Northwest University",
+    "province": "陕西",
+    "city": "西安市",
+    "category": "综合",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 70,
+    "ranking_label": "70",
+    "score": 329.7,
+    "sr_logo": "logo/15797720.png",
+    "logo_file": "northwest-university.png",
+    "official_url": "http://www.nwu.edu.cn"
+  },
+  {
+    "id": "yunnan-university",
+    "name": "云南大学",
+    "full_name": "云南大学",
+    "name_en": "Yunnan University",
+    "province": "云南",
+    "city": "昆明市",
+    "category": "综合",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 71,
+    "ranking_label": "71",
+    "score": 325.8,
+    "sr_logo": "logo/31586909.png",
+    "logo_file": "yunnan-university.png",
+    "official_url": "http://www.ynu.edu.cn"
+  },
+  {
+    "id": "donghua-university",
+    "name": "东华大学",
+    "full_name": "东华大学",
+    "name_en": "Donghua University",
+    "province": "上海",
+    "city": "上海市",
+    "category": "理工",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 72,
+    "ranking_label": "72",
+    "score": 317.4,
+    "sr_logo": "logo/41255312.png",
+    "logo_file": "donghua-university.png",
+    "official_url": "http://www.dhu.edu.cn"
+  },
+  {
+    "id": "china-university-of-petroleum-huadong",
+    "name": "中国石油大学（华东）",
+    "full_name": "中国石油大学（华东）",
+    "name_en": "China University of Petroleum (East China)",
+    "province": "山东",
+    "city": "青岛市",
+    "category": "理工",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 73,
+    "ranking_label": "73",
+    "score": 316.3,
+    "sr_logo": "logo/92620812.png",
+    "logo_file": "china-university-of-petroleum-huadong.png",
+    "official_url": "http://www.upc.edu.cn"
+  },
+  {
+    "id": "nanchang-university",
+    "name": "南昌大学",
+    "full_name": "南昌大学",
+    "name_en": "Nanchang University",
+    "province": "江西",
+    "city": "南昌市",
+    "category": "综合",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 74,
+    "ranking_label": "74",
+    "score": 314.5,
+    "sr_logo": "logo/25119833.png",
+    "logo_file": "nanchang-university.png",
+    "official_url": "http://www.ncu.edu.cn"
+  },
+  {
+    "id": "china-university-of-geosciences-beijing",
+    "name": "中国地质大学（北京）",
+    "full_name": "中国地质大学（北京）",
+    "name_en": "China University of Geosciences Beijing",
+    "province": "北京",
+    "city": "北京市",
+    "category": "理工",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 75,
+    "ranking_label": "75",
+    "score": 314.2,
+    "sr_logo": "logo/21004246.png",
+    "logo_file": "china-university-of-geosciences-beijing.png",
+    "official_url": "http://www.cugb.edu.cn"
+  },
+  {
+    "id": "china-university-of-mining-and-technology-beijing",
+    "name": "中国矿业大学（北京）",
+    "full_name": "中国矿业大学（北京）",
+    "name_en": "China University of Mining and Technology-Beijing",
+    "province": "北京",
+    "city": "北京市",
+    "category": "理工",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 76,
+    "ranking_label": "76",
+    "score": 313.7,
+    "sr_logo": "logo/61910568.png",
+    "logo_file": "china-university-of-mining-and-technology-beijing.png",
+    "official_url": "http://www.cumtb.edu.cn"
+  },
+  {
+    "id": "fuzhou-university",
+    "name": "福州大学",
+    "full_name": "福州大学",
+    "name_en": "Fuzhou University",
+    "province": "福建",
+    "city": "福州市",
+    "category": "理工",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 77,
+    "ranking_label": "77",
+    "score": 310.5,
+    "sr_logo": "logo/77372849.png",
+    "logo_file": "fuzhou-university.png",
+    "official_url": "http://www.fzu.edu.cn"
+  },
+  {
+    "id": "ningbo-university",
+    "name": "宁波大学",
+    "full_name": "宁波大学",
+    "name_en": "Ningbo University",
+    "province": "浙江",
+    "city": "宁波市",
+    "category": "综合",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流"
+    ],
+    "ranking": 78,
+    "ranking_label": "78",
+    "score": 310.3,
+    "sr_logo": "logo/83052172.png",
+    "logo_file": "ningbo-university.png",
+    "official_url": "http://www.nbu.edu.cn"
+  },
+  {
+    "id": "south-china-normal-university",
+    "name": "华南师范大学",
+    "full_name": "华南师范大学",
+    "name_en": "South China Normal University",
+    "province": "广东",
+    "city": "广州市",
+    "category": "师范",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 79,
+    "ranking_label": "79",
+    "score": 306.6,
+    "sr_logo": "logo/47317168.png",
+    "logo_file": "south-china-normal-university.png",
+    "official_url": "http://www.scnu.edu.cn"
+  },
+  {
+    "id": "guangzhou-medical-university",
+    "name": "广州医科大学",
+    "full_name": "广州医科大学",
+    "name_en": "Guangzhou Medical University",
+    "province": "广东",
+    "city": "广州市",
+    "category": "医药",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流"
+    ],
+    "ranking": 1007,
+    "ranking_label": "医7",
+    "score": null,
+    "sr_logo": "logo/60473289.png",
+    "logo_file": "guangzhou-medical-university.png",
+    "official_url": "http://www.gzhmu.edu.cn"
+  },
+  {
+    "id": "beijing-foreign-studies-university",
+    "name": "北京外国语大学",
+    "full_name": "北京外国语大学",
+    "name_en": "Beijing Foreign Studies University",
+    "province": "北京",
+    "city": "北京市",
+    "category": "语言",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 1001,
+    "ranking_label": "语1",
+    "score": null,
+    "sr_logo": "logo/86246894.png",
+    "logo_file": "beijing-foreign-studies-university.png",
+    "official_url": "http://www.bfsu.edu.cn"
+  },
+  {
+    "id": "minzu-university-of-china",
+    "name": "中央民族大学",
+    "full_name": "中央民族大学",
+    "name_en": "Minzu University of China",
+    "province": "北京",
+    "city": "北京市",
+    "category": "民族",
+    "admin_type": "中央部属",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 1001,
+    "ranking_label": "民1",
+    "score": null,
+    "sr_logo": "logo/56223112.png",
+    "logo_file": "minzu-university-of-china.png",
+    "official_url": "https://www.muc.edu.cn/"
+  },
+  {
+    "id": "hefei-university-of-technology",
+    "name": "合肥工业大学",
+    "full_name": "合肥工业大学",
+    "name_en": "Hefei University of Technology",
+    "province": "安徽",
+    "city": "合肥市",
+    "category": "理工",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 80,
+    "ranking_label": "80",
+    "score": 304.8,
+    "sr_logo": "logo/55155531.png",
+    "logo_file": "hefei-university-of-technology.png",
+    "official_url": "http://www.hfut.edu.cn"
+  },
+  {
+    "id": "shanghai-international-studies-university",
+    "name": "上海外国语大学",
+    "full_name": "上海外国语大学",
+    "name_en": "Shanghai International Studies University",
+    "province": "上海",
+    "city": "上海市",
+    "category": "语言",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 1002,
+    "ranking_label": "语2",
+    "score": null,
+    "sr_logo": "logo/28569987.png",
+    "logo_file": "shanghai-international-studies-university.png",
+    "official_url": "http://www.shisu.edu.cn"
+  },
+  {
+    "id": "nanjing-university-of-posts-and-telecommunications",
+    "name": "南京邮电大学",
+    "full_name": "南京邮电大学",
+    "name_en": "Nanjing University of Posts and Telecommunications",
+    "province": "江苏",
+    "city": "南京市",
+    "category": "理工",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流"
+    ],
+    "ranking": 82,
+    "ranking_label": "82",
+    "score": 297.9,
+    "sr_logo": "logo/19754745.png",
+    "logo_file": "nanjing-university-of-posts-and-telecommunications.png",
+    "official_url": "http://www.njupt.edu.cn"
+  },
+  {
+    "id": "communication-university-of-china",
+    "name": "中国传媒大学",
+    "full_name": "中国传媒大学",
+    "name_en": "Communication University of China",
+    "province": "北京",
+    "city": "北京市",
+    "category": "语言",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 1003,
+    "ranking_label": "语3",
+    "score": null,
+    "sr_logo": "logo/45063898.png",
+    "logo_file": "communication-university-of-china.png",
+    "official_url": "http://www.cuc.edu.cn"
+  },
+  {
+    "id": "beijing-forestry-university",
+    "name": "北京林业大学",
+    "full_name": "北京林业大学",
+    "name_en": "Beijing Forestry University",
+    "province": "北京",
+    "city": "北京市",
+    "category": "林业",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 83,
+    "ranking_label": "83",
+    "score": 294.9,
+    "sr_logo": "logo/43861010.png",
+    "logo_file": "beijing-forestry-university.png",
+    "official_url": "http://www.bjfu.edu.cn"
+  },
+  {
+    "id": "north-china-electric-power-university",
+    "name": "华北电力大学",
+    "full_name": "华北电力大学",
+    "name_en": "North China Electric Power University",
+    "province": "北京",
+    "city": "北京市",
+    "category": "理工",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 84,
+    "ranking_label": "84",
+    "score": 293.5,
+    "sr_logo": "logo/13312897.png",
+    "logo_file": "north-china-electric-power-university.png",
+    "official_url": "http://www.ncepu.edu.cn"
+  },
+  {
+    "id": "guizhou-university",
+    "name": "贵州大学",
+    "full_name": "贵州大学",
+    "name_en": "Guizhou University",
+    "province": "贵州",
+    "city": "贵阳市",
+    "category": "综合",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 85,
+    "ranking_label": "85",
+    "score": 291.1,
+    "sr_logo": "logo/47002167.png",
+    "logo_file": "guizhou-university.png",
+    "official_url": "http://www.gzu.edu.cn"
+  },
+  {
+    "id": "guangxi-university",
+    "name": "广西大学",
+    "full_name": "广西大学",
+    "name_en": "Guangxi University",
+    "province": "广西",
+    "city": "南宁市",
+    "category": "综合",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 86,
+    "ranking_label": "86",
+    "score": 288.9,
+    "sr_logo": "logo/22864185.png",
+    "logo_file": "guangxi-university.png",
+    "official_url": "http://www.gxu.edu.cn"
+  },
+  {
+    "id": "hainan-university",
+    "name": "海南大学",
+    "full_name": "海南大学",
+    "name_en": "Hainan University",
+    "province": "海南",
+    "city": "海口市",
+    "category": "综合",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 87,
+    "ranking_label": "87",
+    "score": 286.9,
+    "sr_logo": "logo/32937649.png",
+    "logo_file": "hainan-university.png",
+    "official_url": "https://ha.hainanu.edu.cn/home2020"
+  },
+  {
+    "id": "china-pharmaceutical-university",
+    "name": "中国药科大学",
+    "full_name": "中国药科大学",
+    "name_en": "China Pharmaceutical University",
+    "province": "江苏",
+    "city": "南京市",
+    "category": "医药",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 1010,
+    "ranking_label": "医10",
+    "score": null,
+    "sr_logo": "logo/95091776.png",
+    "logo_file": "china-pharmaceutical-university.png",
+    "official_url": "http://www.cpu.edu.cn"
+  },
+  {
+    "id": "changan-university",
+    "name": "长安大学",
+    "full_name": "长安大学",
+    "name_en": "Chang'an University",
+    "province": "陕西",
+    "city": "西安市",
+    "category": "理工",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 89,
+    "ranking_label": "89",
+    "score": 282.7,
+    "sr_logo": "logo/22876250.png",
+    "logo_file": "changan-university.png",
+    "official_url": "http://www.chd.edu.cn"
+  },
+  {
+    "id": "hunan-normal-university",
+    "name": "湖南师范大学",
+    "full_name": "湖南师范大学",
+    "name_en": "Hunan Normal University",
+    "province": "湖南",
+    "city": "长沙市",
+    "category": "师范",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 92,
+    "ranking_label": "92",
+    "score": 280.5,
+    "sr_logo": "logo/60718001.png",
+    "logo_file": "hunan-normal-university.png",
+    "official_url": "http://www.hunnu.edu.cn"
+  },
+  {
+    "id": "nanjing-forestry-university",
+    "name": "南京林业大学",
+    "full_name": "南京林业大学",
+    "name_en": "Nanjing Forestry University",
+    "province": "江苏",
+    "city": "南京市",
+    "category": "林业",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流"
+    ],
+    "ranking": 93,
+    "ranking_label": "93",
+    "score": 280.3,
+    "sr_logo": "logo/34561912.png",
+    "logo_file": "nanjing-forestry-university.png",
+    "official_url": "http://www.njfu.edu.cn"
+  },
+  {
+    "id": "nanjing-university-of-chinese-medicine",
+    "name": "南京中医药大学",
+    "full_name": "南京中医药大学",
+    "name_en": "Nanjing University of Chinese Medicine",
+    "province": "江苏",
+    "city": "南京市",
+    "category": "中医药",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流"
+    ],
+    "ranking": 1003,
+    "ranking_label": "中医3",
+    "score": null,
+    "sr_logo": "logo/52052341.png",
+    "logo_file": "nanjing-university-of-chinese-medicine.png",
+    "official_url": "https://www.njucm.edu.cn"
+  },
+  {
+    "id": "henan-university",
+    "name": "河南大学",
+    "full_name": "河南大学",
+    "name_en": "Henan University",
+    "province": "河南",
+    "city": "开封市",
+    "category": "综合",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流"
+    ],
+    "ranking": 95,
+    "ranking_label": "95",
+    "score": 279.1,
+    "sr_logo": "logo/80055117.png",
+    "logo_file": "henan-university.png",
+    "official_url": "http://www.henu.edu.cn"
+  },
+  {
+    "id": "taiyuan-university-of-technology",
+    "name": "太原理工大学",
+    "full_name": "太原理工大学",
+    "name_en": "Taiyuan University of Technology",
+    "province": "山西",
+    "city": "太原市",
+    "category": "理工",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 97,
+    "ranking_label": "97",
+    "score": 275.7,
+    "sr_logo": "logo/32584796.png",
+    "logo_file": "taiyuan-university-of-technology.png",
+    "official_url": "http://www.tyut.edu.cn"
+  },
+  {
+    "id": "nanjing-university-of-information-science-technology",
+    "name": "南京信息工程大学",
+    "full_name": "南京信息工程大学",
+    "name_en": "Nanjing University of Information Science & Technology",
+    "province": "江苏",
+    "city": "南京市",
+    "category": "理工",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流"
+    ],
+    "ranking": 98,
+    "ranking_label": "98",
+    "score": 275.1,
+    "sr_logo": "logo/59759082.png",
+    "logo_file": "nanjing-university-of-information-science-technology.png",
+    "official_url": "http://www.nuist.edu.cn"
+  },
+  {
+    "id": "guangzhou-university-of-chinese-medicine",
+    "name": "广州中医药大学",
+    "full_name": "广州中医药大学",
+    "name_en": "Guangzhou University of Chinese Medicine",
+    "province": "广东",
+    "city": "广州市",
+    "category": "中医药",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流"
+    ],
+    "ranking": 1004,
+    "ranking_label": "中医4",
+    "score": null,
+    "sr_logo": "logo/22449906.png",
+    "logo_file": "guangzhou-university-of-chinese-medicine.png",
+    "official_url": "https://www.gzucm.edu.cn"
+  },
+  {
+    "id": "capital-normal-university",
+    "name": "首都师范大学",
+    "full_name": "首都师范大学",
+    "name_en": "Capital Normal University",
+    "province": "北京",
+    "city": "北京市",
+    "category": "师范",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流"
+    ],
+    "ranking": 100,
+    "ranking_label": "100",
+    "score": 273.4,
+    "sr_logo": "logo/66860048.png",
+    "logo_file": "capital-normal-university.png",
+    "official_url": "http://www.cnu.edu.cn"
+  },
+  {
+    "id": "anhui-university",
+    "name": "安徽大学",
+    "full_name": "安徽大学",
+    "name_en": "Anhui University",
+    "province": "安徽",
+    "city": "合肥市",
+    "category": "综合",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 101,
+    "ranking_label": "101",
+    "score": 273.3,
+    "sr_logo": "logo/13378567.png",
+    "logo_file": "anhui-university.png",
+    "official_url": "http://www.ahu.edu.cn"
+  },
+  {
+    "id": "shanxi-university",
+    "name": "山西大学",
+    "full_name": "山西大学",
+    "name_en": "Shanxi University",
+    "province": "山西",
+    "city": "太原市",
+    "category": "综合",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流"
+    ],
+    "ranking": 102,
+    "ranking_label": "102",
+    "score": 272.4,
+    "sr_logo": "logo/45548865.png",
+    "logo_file": "shanxi-university.png",
+    "official_url": "http://www.sxu.edu.cn"
+  },
+  {
+    "id": "south-china-agricultural-university",
+    "name": "华南农业大学",
+    "full_name": "华南农业大学",
+    "name_en": "South China Agricultural University",
+    "province": "广东",
+    "city": "广州市",
+    "category": "农业",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流"
+    ],
+    "ranking": 103,
+    "ranking_label": "103",
+    "score": 270.1,
+    "sr_logo": "logo/90236014.png",
+    "logo_file": "south-china-agricultural-university.png",
+    "official_url": "http://www.scau.edu.cn"
+  },
+  {
+    "id": "china-foreign-affairs-university",
+    "name": "外交学院",
+    "full_name": "外交学院",
+    "name_en": "China Foreign Affairs University",
+    "province": "北京",
+    "city": "北京市",
+    "category": "语言",
+    "admin_type": "中央部属",
+    "tags": [
+      "双一流"
+    ],
+    "ranking": 1004,
+    "ranking_label": "语4",
+    "score": null,
+    "sr_logo": "logo/82019494.png",
+    "logo_file": "china-foreign-affairs-university.png",
+    "official_url": "http://www.cfau.edu.cn"
+  },
+  {
+    "id": "hebei-university-of-technology",
+    "name": "河北工业大学",
+    "full_name": "河北工业大学",
+    "name_en": "Hebei University of Technology",
+    "province": "天津",
+    "city": "天津市",
+    "category": "理工",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 107,
+    "ranking_label": "107",
+    "score": 266.5,
+    "sr_logo": "logo/23684464.png",
+    "logo_file": "hebei-university-of-technology.png",
+    "official_url": "http://www.hebut.edu.cn"
+  },
+  {
+    "id": "dalian-maritime-university",
+    "name": "大连海事大学",
+    "full_name": "大连海事大学",
+    "name_en": "Dalian Maritime University",
+    "province": "辽宁",
+    "city": "大连市",
+    "category": "综合",
+    "admin_type": "中央部属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 113,
+    "ranking_label": "113",
+    "score": 257.2,
+    "sr_logo": "logo/30113036.png",
+    "logo_file": "dalian-maritime-university.png",
+    "official_url": "http://www.dlmu.edu.cn"
+  },
+  {
+    "id": "inner-mongolia-university",
+    "name": "内蒙古大学",
+    "full_name": "内蒙古大学",
+    "name_en": "Inner Mongolia University",
+    "province": "内蒙古",
+    "city": "呼和浩特市",
+    "category": "综合",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 114,
+    "ranking_label": "114",
+    "score": 256.8,
+    "sr_logo": "logo/53570063.png",
+    "logo_file": "inner-mongolia-university.png",
+    "official_url": "http://www.imu.edu.cn"
+  },
+  {
+    "id": "northeast-forestry-university-china",
+    "name": "东北林业大学",
+    "full_name": "东北林业大学",
+    "name_en": "Northeast Forestry University",
+    "province": "黑龙江",
+    "city": "哈尔滨市",
+    "category": "林业",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 115,
+    "ranking_label": "115",
+    "score": 255.4,
+    "sr_logo": "logo/23921267.png",
+    "logo_file": "northeast-forestry-university-china.png",
+    "official_url": "http://www.nefu.edu.cn"
+  },
+  {
+    "id": "xiangtan-university",
+    "name": "湘潭大学",
+    "full_name": "湘潭大学",
+    "name_en": "Xiangtan University",
+    "province": "湖南",
+    "city": "湘潭市",
+    "category": "综合",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流"
+    ],
+    "ranking": 117,
+    "ranking_label": "117",
+    "score": 253.7,
+    "sr_logo": "logo/94973363.png",
+    "logo_file": "xiangtan-university.png",
+    "official_url": "http://www.xtu.edu.cn"
+  },
+  {
+    "id": "southwest-petroleum-university",
+    "name": "西南石油大学",
+    "full_name": "西南石油大学",
+    "name_en": "Southwest Petroleum University",
+    "province": "四川",
+    "city": "成都市",
+    "category": "理工",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流"
+    ],
+    "ranking": 119,
+    "ranking_label": "119",
+    "score": 248.3,
+    "sr_logo": "logo/43387859.png",
+    "logo_file": "southwest-petroleum-university.png",
+    "official_url": "http://www.swpu.edu.cn"
+  },
+  {
+    "id": "northeast-agricultural-university-china",
+    "name": "东北农业大学",
+    "full_name": "东北农业大学",
+    "name_en": "Northeast Agricultural University",
+    "province": "黑龙江",
+    "city": "哈尔滨市",
+    "category": "农业",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 120,
+    "ranking_label": "120",
+    "score": 245.7,
+    "sr_logo": "logo/52533406.png",
+    "logo_file": "northeast-agricultural-university-china.png",
+    "official_url": "http://www.neau.edu.cn"
+  },
+  {
+    "id": "tianjin-university-of-traditional-chinese-medicine",
+    "name": "天津中医药大学",
+    "full_name": "天津中医药大学",
+    "name_en": "Tianjin University of Traditional Chinese Medicine",
+    "province": "天津",
+    "city": "天津市",
+    "category": "中医药",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流"
+    ],
+    "ranking": 1005,
+    "ranking_label": "中医5",
+    "score": null,
+    "sr_logo": "logo/99755997.png",
+    "logo_file": "tianjin-university-of-traditional-chinese-medicine.png",
+    "official_url": "http://www.tjutcm.edu.cn"
+  },
+  {
+    "id": "chengdu-university-of-traditional-chinese-medicine",
+    "name": "成都中医药大学",
+    "full_name": "成都中医药大学",
+    "name_en": "Chengdu University of Traditional Chinese Medicine",
+    "province": "四川",
+    "city": "成都市",
+    "category": "中医药",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流"
+    ],
+    "ranking": 1006,
+    "ranking_label": "中医6",
+    "score": null,
+    "sr_logo": "logo/71956917.png",
+    "logo_file": "chengdu-university-of-traditional-chinese-medicine.png",
+    "official_url": "http://www.cdutcm.edu.cn"
+  },
+  {
+    "id": "liaoning-university",
+    "name": "辽宁大学",
+    "full_name": "辽宁大学",
+    "name_en": "Liaoning University",
+    "province": "辽宁",
+    "city": "沈阳市",
+    "category": "综合",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 125,
+    "ranking_label": "125",
+    "score": 238.1,
+    "sr_logo": "logo/38214321.png",
+    "logo_file": "liaoning-university.png",
+    "official_url": "http://www.lnu.edu.cn"
+  },
+  {
+    "id": "chengdu-university-of-technology",
+    "name": "成都理工大学",
+    "full_name": "成都理工大学",
+    "name_en": "Chengdu University of Technology",
+    "province": "四川",
+    "city": "成都市",
+    "category": "理工",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流"
+    ],
+    "ranking": 127,
+    "ranking_label": "127",
+    "score": 237.7,
+    "sr_logo": "logo/46566063.png",
+    "logo_file": "chengdu-university-of-technology.png",
+    "official_url": "http://www.cdut.edu.cn"
+  },
+  {
+    "id": "xinjiang-university",
+    "name": "新疆大学",
+    "full_name": "新疆大学",
+    "name_en": "Xinjiang University",
+    "province": "新疆",
+    "city": "乌鲁木齐市",
+    "category": "综合",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 131,
+    "ranking_label": "131",
+    "score": 233.6,
+    "sr_logo": "logo/17029370.png",
+    "logo_file": "xinjiang-university.png",
+    "official_url": "http://www.xju.edu.cn"
+  },
+  {
+    "id": "shanghai-university-of-sport",
+    "name": "上海体育大学",
+    "full_name": "上海体育大学",
+    "name_en": "Shanghai University of Sport",
+    "province": "上海",
+    "city": "上海市",
+    "category": "体育",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流"
+    ],
+    "ranking": 1001,
+    "ranking_label": "体1",
+    "score": null,
+    "sr_logo": "logo-jpg/2271496700.jpg",
+    "logo_file": "shanghai-university-of-sport.jpg",
+    "official_url": "http://www.sus.edu.cn"
+  },
+  {
+    "id": "tiangong-university",
+    "name": "天津工业大学",
+    "full_name": "天津工业大学",
+    "name_en": "Tiangong University",
+    "province": "天津",
+    "city": "天津市",
+    "category": "理工",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流"
+    ],
+    "ranking": 133,
+    "ranking_label": "133",
+    "score": 231.9,
+    "sr_logo": "logo/66317793.png",
+    "logo_file": "tiangong-university.png",
+    "official_url": "https://www.tiangong.edu.cn"
+  },
+  {
+    "id": "sichuan-agricultural-university",
+    "name": "四川农业大学",
+    "full_name": "四川农业大学",
+    "name_en": "Sichuan Agricultural University",
+    "province": "四川",
+    "city": "雅安市",
+    "category": "农业",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 134,
+    "ranking_label": "134",
+    "score": 231.7,
+    "sr_logo": "logo/22750663.png",
+    "logo_file": "sichuan-agricultural-university.png",
+    "official_url": "http://www.sicau.edu.cn"
+  },
+  {
+    "id": "shihezi-university",
+    "name": "石河子大学",
+    "full_name": "石河子大学",
+    "name_en": "Shihezi University",
+    "province": "新疆",
+    "city": "石河子市",
+    "category": "综合",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 135,
+    "ranking_label": "135",
+    "score": 231.6,
+    "sr_logo": "logo/87170098.png",
+    "logo_file": "shihezi-university.png",
+    "official_url": "http://www.shzu.edu.cn"
+  },
+  {
+    "id": "ningxia-university",
+    "name": "宁夏大学",
+    "full_name": "宁夏大学",
+    "name_en": "Ningxia University",
+    "province": "宁夏",
+    "city": "银川市",
+    "category": "综合",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 137,
+    "ranking_label": "137",
+    "score": 230.9,
+    "sr_logo": "logo/26171919.png",
+    "logo_file": "ningxia-university.png",
+    "official_url": "http://www.nxu.edu.cn"
+  },
+  {
+    "id": "peoples-public-security-university-of-china",
+    "name": "中国人民公安大学",
+    "full_name": "中国人民公安大学",
+    "name_en": "People's Public Security University of China",
+    "province": "北京",
+    "city": "北京市",
+    "category": "政法",
+    "admin_type": "中央部属",
+    "tags": [
+      "双一流"
+    ],
+    "ranking": 1004,
+    "ranking_label": "政4",
+    "score": null,
+    "sr_logo": "logo/10262077.png",
+    "logo_file": "peoples-public-security-university-of-china.png",
+    "official_url": "http://www.cppsu.edu.cn"
+  },
+  {
+    "id": "shanghai-ocean-university",
+    "name": "上海海洋大学",
+    "full_name": "上海海洋大学",
+    "name_en": "Shanghai Ocean University",
+    "province": "上海",
+    "city": "上海市",
+    "category": "农业",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流"
+    ],
+    "ranking": 142,
+    "ranking_label": "142",
+    "score": 222.5,
+    "sr_logo": "logo/47534017.png",
+    "logo_file": "shanghai-ocean-university.png",
+    "official_url": "http://www.shou.edu.cn"
+  },
+  {
+    "id": "yanbian-university",
+    "name": "延边大学",
+    "full_name": "延边大学",
+    "name_en": "Yanbian University",
+    "province": "吉林",
+    "city": "延边朝鲜族自治州",
+    "category": "综合",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 157,
+    "ranking_label": "157",
+    "score": 214.9,
+    "sr_logo": "logo/80498016.png",
+    "logo_file": "yanbian-university.png",
+    "official_url": "http://www.ybu.edu.cn"
+  },
+  {
+    "id": "beijing-sport-university",
+    "name": "北京体育大学",
+    "full_name": "北京体育大学",
+    "name_en": "Beijing Sport University",
+    "province": "北京",
+    "city": "北京市",
+    "category": "体育",
+    "admin_type": "中央部属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 1002,
+    "ranking_label": "体2",
+    "score": null,
+    "sr_logo": "logo/60097173.png",
+    "logo_file": "beijing-sport-university.png",
+    "official_url": "http://www.bsu.edu.cn"
+  },
+  {
+    "id": "tibet-university",
+    "name": "西藏大学",
+    "full_name": "西藏大学",
+    "name_en": "Xizang University",
+    "province": "西藏",
+    "city": "拉萨市",
+    "category": "综合",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 201,
+    "ranking_label": "201",
+    "score": 194.3,
+    "sr_logo": "logo/71112798.png",
+    "logo_file": "tibet-university.png",
+    "official_url": "https://www.xzu.edu.cn"
+  },
+  {
+    "id": "qinghai-university",
+    "name": "青海大学",
+    "full_name": "青海大学",
+    "name_en": "Qinghai University",
+    "province": "青海",
+    "city": "西宁市",
+    "category": "综合",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 203,
+    "ranking_label": "203",
+    "score": 193.6,
+    "sr_logo": "logo/68094541.png",
+    "logo_file": "qinghai-university.png",
+    "official_url": "http://www.qhu.edu.cn"
+  },
+  {
+    "id": "shanghai-conservatory-of-music",
+    "name": "上海音乐学院",
+    "full_name": "上海音乐学院",
+    "name_en": "Shanghai Conservatory of Music",
+    "province": "上海",
+    "city": "上海市",
+    "category": "艺术",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流"
+    ],
+    "ranking": 9999,
+    "ranking_label": "特色高校",
+    "score": null,
+    "sr_logo": "logo/78079857.png",
+    "logo_file": "shanghai-conservatory-of-music.png",
+    "official_url": "http://www.shcmusic.edu.cn"
+  },
+  {
+    "id": "china-academy-of-art",
+    "name": "中国美术学院",
+    "full_name": "中国美术学院",
+    "name_en": "China Academy of Art",
+    "province": "浙江",
+    "city": "杭州市",
+    "category": "艺术",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流"
+    ],
+    "ranking": 9999,
+    "ranking_label": "特色高校",
+    "score": null,
+    "sr_logo": "logo/91426325.png",
+    "logo_file": "china-academy-of-art.png",
+    "official_url": "http://www.caa.edu.cn"
+  },
+  {
+    "id": "china-conservatory-of-music",
+    "name": "中国音乐学院",
+    "full_name": "中国音乐学院",
+    "name_en": "China Conservatory of Music",
+    "province": "北京",
+    "city": "北京市",
+    "category": "艺术",
+    "admin_type": "地方公办",
+    "tags": [
+      "双一流"
+    ],
+    "ranking": 9999,
+    "ranking_label": "特色高校",
+    "score": null,
+    "sr_logo": "logo-jpg/8760511200.jpg",
+    "logo_file": "china-conservatory-of-music.jpg",
+    "official_url": "http://www.ccmusic.edu.cn"
+  },
+  {
+    "id": "central-academy-of-fine-arts",
+    "name": "中央美术学院",
+    "full_name": "中央美术学院",
+    "name_en": "Central Academy of Fine Arts",
+    "province": "北京",
+    "city": "北京市",
+    "category": "艺术",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流"
+    ],
+    "ranking": 9999,
+    "ranking_label": "特色高校",
+    "score": null,
+    "sr_logo": "logo/61088651.png",
+    "logo_file": "central-academy-of-fine-arts.png",
+    "official_url": "http://www.cafa.edu.cn"
+  },
+  {
+    "id": "the-central-academy-of-drama",
+    "name": "中央戏剧学院",
+    "full_name": "中央戏剧学院",
+    "name_en": "The Central Academy of Drama",
+    "province": "北京",
+    "city": "北京市",
+    "category": "艺术",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流"
+    ],
+    "ranking": 9999,
+    "ranking_label": "特色高校",
+    "score": null,
+    "sr_logo": "logo-jpg/2234965500.jpg",
+    "logo_file": "the-central-academy-of-drama.jpg",
+    "official_url": "http://www.chntheatre.edu.cn"
+  },
+  {
+    "id": "central-conservatory-of-music",
+    "name": "中央音乐学院",
+    "full_name": "中央音乐学院",
+    "name_en": "Central Conservatory of Music",
+    "province": "北京",
+    "city": "北京市",
+    "category": "艺术",
+    "admin_type": "教育部直属",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 9999,
+    "ranking_label": "特色高校",
+    "score": null,
+    "sr_logo": "logo/41456419.png",
+    "logo_file": "central-conservatory-of-music.png",
+    "official_url": "http://www.ccom.edu.cn"
+  },
+  {
+    "id": "university-of-chinese-academy-of-sciences",
+    "name": "中国科学院大学",
+    "full_name": "中国科学院大学",
+    "name_en": "University of Chinese Academy of Sciences",
+    "province": "北京",
+    "city": "北京市",
+    "category": "综合",
+    "admin_type": "中央部属",
+    "tags": [
+      "双一流"
+    ],
+    "ranking": 9999,
+    "ranking_label": "特色高校",
+    "score": null,
+    "sr_logo": "logo-jpg/3524710300.jpg",
+    "logo_file": "university-of-chinese-academy-of-sciences.jpg",
+    "official_url": "https://www.ucas.ac.cn"
+  },
+  {
+    "id": "national-university-of-defense-technology",
+    "name": "国防科技大学",
+    "full_name": "中国人民解放军国防科技大学",
+    "name_en": "National University of Defense Technology",
+    "province": "湖南",
+    "city": "长沙市",
+    "category": "军事",
+    "admin_type": "军事院校",
+    "tags": [
+      "双一流",
+      "985",
+      "211"
+    ],
+    "ranking": 9999,
+    "ranking_label": "特色高校",
+    "score": null,
+    "sr_logo": "logo/43010135.png",
+    "logo_file": "national-university-of-defense-technology.png",
+    "official_url": "https://www.nudt.edu.cn"
+  },
+  {
+    "id": "the-second-military-medical-university",
+    "name": "中国人民解放军海军军医大学",
+    "full_name": "中国人民解放军海军军医大学",
+    "name_en": "Naval Medical University",
+    "province": "上海",
+    "city": "上海市",
+    "category": "军事",
+    "admin_type": "军事院校",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 9999,
+    "ranking_label": "特色高校",
+    "score": null,
+    "sr_logo": "logo/52521841.png",
+    "logo_file": "the-second-military-medical-university.png",
+    "official_url": "http://www.smmu.edu.cn"
+  },
+  {
+    "id": "air-force-medical-university",
+    "name": "中国人民解放军空军军医大学",
+    "full_name": "中国人民解放军空军军医大学",
+    "name_en": "Air Force Medical University",
+    "province": "陕西",
+    "city": "西安市",
+    "category": "军事",
+    "admin_type": "军事院校",
+    "tags": [
+      "双一流",
+      "211"
+    ],
+    "ranking": 9999,
+    "ranking_label": "特色高校",
+    "score": null,
+    "sr_logo": "logo/77870364.png",
+    "logo_file": "air-force-medical-university.png",
+    "official_url": "https://www.fmmu.edu.cn"
+  }
+]

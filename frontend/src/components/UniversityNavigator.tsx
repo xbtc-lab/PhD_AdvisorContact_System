@@ -141,7 +141,15 @@ function UniversityCrest({
   );
 }
 
-function RankBadge({ label, rankNum }: { label: string; rankNum: number }) {
+function RankBadge({
+  label,
+  rankNum,
+  compact = false,
+}: {
+  label: string;
+  rankNum: number;
+  compact?: boolean;
+}) {
   const num = Number.isFinite(rankNum) ? rankNum : 999;
   const tone =
     num === 1
@@ -152,14 +160,18 @@ function RankBadge({ label, rankNum }: { label: string; rankNum: number }) {
           ? "bg-[#FFEDD5] text-[#9A3412] ring-1 ring-[#EA580C]/28"
           : "bg-[#F4F5F7] text-[#71717A] ring-1 ring-slate-900/[0.06]";
 
+  const rawText = label || (num < 900 ? String(num) : "—");
+  const display = compact && (rawText === "特色高校" || rawText === "特别高校") ? "专项" : rawText;
+
   return (
     <span
+      title={rawText}
       className={cn(
-        "inline-flex items-center justify-center min-w-[28px] h-6 px-1.5 rounded-[7px] font-mono text-[11.5px] font-semibold tabular-nums shrink-0",
+        "inline-flex items-center justify-center min-w-[30px] h-6 px-1.5 rounded-[7px] font-mono text-[11px] font-semibold tabular-nums shrink-0 whitespace-nowrap",
         tone
       )}
     >
-      {label || (num < 900 ? String(num) : "—")}
+      {display}
     </span>
   );
 }
@@ -436,7 +448,7 @@ export function UniversityNavigator({
             <div className="flex items-center gap-2">
               <span className="w-1 h-4 rounded-full bg-[#E11D48] shrink-0" />
               <h2 className="text-[15.5px] font-bold tracking-[-0.015em] text-[#18181B] m-0">
-                985 高校与院系官网导航
+                双一流 / 985 / 211 高校导航
               </h2>
               <span className="text-[12px] text-[#71717A] tabular-nums">
                 共 {filteredUniversities.length} / {universities.length} 所
@@ -654,7 +666,7 @@ export function UniversityNavigator({
                     {/* Main Row Grid matching ShanghaiRanking */}
                     <div className="relative z-10 grid grid-cols-[44px_1fr_92px_68px] items-center gap-2">
                       <div className="flex justify-center">
-                        <RankBadge label={u.ranking_label} rankNum={u.ranking} />
+                        <RankBadge label={u.ranking_label} rankNum={u.ranking} compact />
                       </div>
 
                       <div className="flex items-center gap-2.5 min-w-0">

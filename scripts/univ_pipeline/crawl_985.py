@@ -50,9 +50,9 @@ BLACKLIST_NAME_PATTERNS = [
     r"继续教育|网络教育|远程教育|开放教育|成人教育|职业技术|独立学院|老年大学",
     r"附属中学|附属小学|附中|附小|幼儿园|附属幼儿园|实验学校|校医院",
     r"信息化|网络中心|网络与信息|计算中心|现代教育技术|测试中心|分析测试|实验中心|工程训练中心",
-    r"院系设置|学院设置|学部学院|学部与院系|教学机构|教学科研机构|教学单位|机构设置|组织机构|学院导航|更多|详情|English|EN$|首页|返回|查看更多|校际关系",
-    r"历史沿革|历任领导|前身|原.*大学|原.*学院|含.*学院|大连工学院|校地合作|孔子学院|继续教育学院|网络教育学院|远程教育学院|老年大学",
-    r"实验室列表|重点实验室|博士后|国际交流|国际合作|港澳台|留学中心|出国",
+    r"院系设置|学院设置|学部学院|学部与院系|教学机构|教学科研机构|教学单位|机构设置|组织机构|学院导航|更多|详情|English|EN$|首页|返回|查看更多|校际关系|学院速览",
+    r"历史沿革|历任领导|前身|原.*大学|原.*学院|含.*学院|大连工学院|华东化工学院|上海化工学院|咸阳师范学院|北洋工学院|麻省理工|以色列理工|校地合作|孔子学院|继续教育学院|网络教育学院|远程教育学院|老年大学",
+    r"实验室列表|重点实验室|博士后|国际交流|国际合作|港澳台|留学中心|出国|招生$",
 ]
 BLACKLIST_RE = re.compile("|".join(BLACKLIST_NAME_PATTERNS), re.I)
 FACULTY_URL_REJECT_RE = re.compile(r"(rczp|zp\.|zhaopin|zpxx|jyjx\.htm|English|/en/)", re.I)
@@ -64,8 +64,8 @@ def fetch_html(url: str, timeout: int = 8) -> tuple[str, str]:
     return final_url, html
 
 
-def fetch_html_with_status(url: str, timeout: int = 8) -> tuple[str, str, int]:
-    """Returns (final_url, html_str, http_status) cleanly handling WAF 412 and legacy TLS."""
+def fetch_html_with_status(url: str, timeout: int = 8, _hops: int = 0) -> tuple[str, str, int]:
+    """Returns (final_url, html_str, http_status) cleanly handling WAF 412, legacy TLS, and light redirects."""
     if not url:
         return "", "", 0
     req_headers = {
@@ -94,13 +94,12 @@ def fetch_html_with_status(url: str, timeout: int = 8) -> tuple[str, str, int]:
             except urllib.error.HTTPError as he:
                 status_code = he.code
                 if he.code in (403, 412):
-                    # WAF protected: real site exists in normal user browsers
                     return url, "", he.code
             except Exception:
                 pass
         if raw:
             break
-        time.sleep(0.4)
+        time.sleep(0.35)
     if not raw:
         return final_url, "", status_code
 
@@ -114,14 +113,20 @@ def fetch_html_with_status(url: str, timeout: int = 8) -> tuple[str, str, int]:
         elif "utf" in cand:
             enc = "utf-8"
     try:
-        return final_url, raw.decode(enc), status_code
+        html = raw.decode(enc)
     except Exception:
-        for alt in ("utf-8", "gb18030"):
-            try:
-                return final_url, raw.decode(alt, errors="replace"), status_code
-            except Exception:
-                pass
-    return final_url, raw.decode("utf-8", errors="ignore"), status_code
+        html = raw.decode("utf-8", errors="replace")
+
+    if _hops < 1 and len(html) < 2800:
+        m_meta = re.search(r'http-equiv=["\']refresh["\'][^>]*content=["\'][^"\']*url=([^"\'>;\s]+)', html, re.I)
+        m_js = re.search(r'(?:window\.)?location(?:\.href)?\s*=\s*["\']([^"\']+)["\']|location\.replace\(\s*["\']([^"\']+)["\']', html, re.I)
+        target = (m_meta.group(1) if m_meta else (m_js.group(1) or m_js.group(2) if m_js else "")).strip()
+        if target and not target.startswith(("javascript:", "#")):
+            next_u = urllib.parse.urljoin(final_url, target)
+            if next_u != final_url:
+                return fetch_html_with_status(next_u, timeout=timeout, _hops=_hops + 1)
+
+    return final_url, html, status_code
 
 
 FACULTY_TIER1 = [
@@ -231,14 +236,39 @@ class StructuredLinkParser(HTMLParser):
 
 
 def parse_links(html: str, base_url: str) -> list[dict]:
+    clean_html = re.sub(r"<(script|style)[^>]*>.*?</\1>", "", html or "", flags=re.S | re.I)
     parser = StructuredLinkParser()
     try:
-        parser.feed(html)
+        parser.feed(clean_html)
     except Exception:
         pass
+
+    raw_items = list(parser.links)
+    # Regex fallbacks for SVG-wrapped <a>, atr-href widgets, table-row name+url, and <h2>+<a> cards
+    for href, inner in re.findall(r'<a\b[^>]*href=["\']([^"\']+)["\'][^>]*>(.*?)</a>', clean_html, re.S | re.I):
+        if href.startswith(("javascript:", "mailto:", "tel:", "#")):
+            continue
+        txt = re.sub(r"<[^>]+>|\s+", " ", inner).strip()
+        if txt:
+            raw_items.append({"href": href, "text": txt, "title": "", "heading": ""})
+
+    for href, inner in re.findall(r'atr-href=["\']([^"\']+)["\'][^>]*>([^<]{2,40})<', clean_html, re.I):
+        raw_items.append({"href": href, "text": inner.strip(), "title": "", "heading": ""})
+
+    for tr_inner in re.findall(r'<tr[^>]*>(.*?)</tr>', clean_html, re.S | re.I):
+        tds = re.findall(r'<td[^>]*>(.*?)</td>', tr_inner, re.S | re.I)
+        if len(tds) >= 2:
+            name_plain = re.sub(r"<[^>]+>|\s+", " ", tds[0]).strip()
+            m_href = re.search(r'href=["\']([^"\']+)["\']', " ".join(tds[1:]), re.I)
+            if name_plain and m_href and 2 <= len(name_plain) <= 32:
+                raw_items.append({"href": m_href.group(1), "text": name_plain, "title": "", "heading": ""})
+
+    for h_txt, href in re.findall(r'<h[234][^>]*>\s*([^<]{2,32})\s*</h[234]>\s*(?:<[^>]+>\s*){0,3}<a\b[^>]*href=["\']([^"\']+)["\']', clean_html, re.S | re.I):
+        raw_items.append({"href": href, "text": h_txt.strip(), "title": "", "heading": ""})
+
     out = []
     seen = set()
-    for item in parser.links:
+    for item in raw_items:
         abs_url = urllib.parse.urljoin(base_url, item["href"]).split("#")[0].strip()
         if not abs_url.startswith(("http://", "https://")):
             continue
@@ -291,9 +321,10 @@ def is_valid_college_name(name: str, heading: str = "") -> bool:
         return False
     if BLACKLIST_RE.search(s):
         return False
-    if any(k in (heading or "") for k in ("党政", "职能部门", "管理服务", "直属", "后勤", "群团", "附中")):
+    if any(k in (heading or "") for k in ("党政", "职能部门", "管理服务", "后勤", "群团", "附中")):
         if not any(k in (heading or "") for k in ("教学", "科研", "院系", "学部")):
-            return False
+            if not re.search(r"(学院|学部)$", s):
+                return False
     # Strong academic naming rules
     if re.search(r"(学院|学部|书院|学堂)$", s):
         return True
@@ -358,13 +389,13 @@ def find_yxsz_candidates(links: list[dict], school_root: str) -> list[str]:
         t = lk["text"].strip()
         u = lk["url"].lower()
         sc = 0
-        if t in ("院系", "院系设置", "学院设置", "学院部门", "教学科研机构", "学部院系", "学部与院系", "院部设置", "学院部所", "教学和科研单位", "院系介绍"):
+        if t in ("院系", "院系设置", "学院设置", "学院部门", "教学科研机构", "学部院系", "学部与院系", "院部设置", "学院部所", "教学和科研单位", "院系介绍", "二级学院", "学院导航", "学部学院", "院所设置", "院系中心", "院系专业", "学院（研究院）"):
             sc = 110
-        elif any(k in t for k in ("教学科研机构", "院系设置", "学部院系", "学部与院系", "学院设置", "教学单位", "院系导航", "教学科研单位", "教学机构", "学院部门", "院部设置", "学院部所")):
+        elif any(k in t for k in ("教学科研机构", "院系设置", "学部院系", "学部与院系", "学院设置", "教学单位", "院系导航", "教学科研单位", "教学机构", "学院部门", "院部设置", "学院部所", "二级学院", "学部学院", "院所设置", "院系部所")):
             sc = 100
         elif any(k in t for k in ("机构设置", "学校机构", "组织机构", "院系部门", "学院介绍")):
             sc = 80
-        elif any(k in u for k in ("yxsz", "xybm", "jxky", "jxjg", "jxdw", "xysz", "jgsz", "listcolleage")):
+        elif any(k in u for k in ("yxsz", "xybm", "jxky", "jxjg", "jxdw", "xysz", "ybsz", "ejxy", "xyxb", "jgsz", "listcolleage")):
             sc = 75
         if sc > 0:
             scored.append((sc, lk["url"]))
@@ -387,7 +418,9 @@ def extract_colleges_from_links(links: list[dict], school_root: str, school_home
             continue
         if u.rstrip("/") == home_norm:
             continue
-        name = re.sub(r"^\d+[\.、\s]+", "", lk["text"]).strip()
+        name = re.sub(r"^[\ue000-\uf8ff◆◇●•·■▶►\s]+", "", lk["text"]).strip()
+        name = re.sub(r"^\d+[\.、\s]+", "", name).strip()
+        name = re.sub(r"\s*/\s*(?=[A-Za-z]).*$", "", name).strip()
         name = re.sub(r"[→>、，,;；]+$", "", name).strip()
         if not is_valid_college_name(name, lk.get("heading", "")):
             continue

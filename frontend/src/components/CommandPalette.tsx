@@ -113,7 +113,7 @@ export function CommandPalette({
                   key: "act-univ",
                   action: "universities" as const,
                   icon: GraduationCap,
-                  label: "浏览 985 高校与院系官网导航",
+                  label: "浏览 985 / 211 / 双一流高校导航",
                 },
                 {
                   key: "act-ai",

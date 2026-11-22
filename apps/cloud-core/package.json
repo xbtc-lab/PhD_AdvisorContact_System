@@ -1,0 +1,29 @@
+{
+  "name": "@app/cloud-core",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx --conditions=development watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@ai-sdk/deepseek": "^3.0.89",
+    "@app/db": "workspace:*",
+    "@app/shared": "workspace:*",
+    "@hono/node-server": "^2.1.11",
+    "ai": "^7.0.179",
+    "cheerio": "^1.2.0",
+    "hono": "^4.13.20",
+    "turndown": "^7.2.5",
+    "zod": "3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^26.0.0",
+    "@types/turndown": "^5.0.6",
+    "tsx": "^4.23.15",
+    "typescript": "^5.8.3"
+  }
+}

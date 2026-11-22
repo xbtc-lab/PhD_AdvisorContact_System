@@ -1,0 +1,29 @@
+{
+  "name": "@app/worker-api",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx --conditions=development watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@app/db": "workspace:*",
+    "@app/shared": "workspace:*",
+    "@hono/node-server": "^2.1.11",
+    "hono": "^4.13.20",
+    "imapflow": "^1.2.0",
+    "nodemailer": "^8.0.2",
+    "papaparse": "^5.7.1",
+    "zod": "3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^26.0.0",
+    "@types/nodemailer": "^8.0.2",
+    "@types/papaparse": "^5.5.2",
+    "tsx": "^4.23.15",
+    "typescript": "^5.8.3"
+  }
+}

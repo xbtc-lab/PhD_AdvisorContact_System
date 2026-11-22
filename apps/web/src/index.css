@@ -1,0 +1,148 @@
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/500.css";
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "PingFang SC", "Microsoft YaHei UI", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+:root {
+  --bg-canvas: #FAFAFC;
+  --surface-card: #FFFFFF;
+  --surface-subtle: #F4F5F8;
+  --surface-glass: rgba(255, 255, 255, 0.80);
+  --surface-glass-strong: rgba(255, 255, 255, 0.90);
+  --border-subtle: rgba(15, 23, 42, 0.08);
+  --border-glow: rgba(37, 99, 235, 0.24);
+  --text-primary: #111827;
+  --text-secondary: #6B7280;
+  --text-muted: #9CA3AF;
+  --accent-primary: #2563EB;
+  --accent-electric: #3695FF;
+  --accent-coral: #FF6B4A;
+  --accent-mint: #10B981;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 轻微冰感玻璃表面与克制电光晕（Cue! x Family 视觉主调） */
+.glass-surface {
+  background: var(--surface-glass);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.85) inset,
+    0 10px 30px -12px rgba(15, 23, 42, 0.08);
+}
+
+.glass-pill {
+  background: rgba(255, 255, 255, 0.76);
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+}
+
+.tactile-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.03),
+    0 6px 20px -10px rgba(15, 23, 42, 0.06);
+}
+
+.glow-electric {
+  box-shadow:
+    0 8px 22px -6px rgba(37, 99, 235, 0.36),
+    0 0 0 1px rgba(54, 149, 255, 0.25);
+}
+
+.glow-electric-soft {
+  box-shadow:
+    0 10px 30px -12px rgba(54, 149, 255, 0.32),
+    0 0 0 1px rgba(37, 99, 235, 0.14);
+}
+
+.glow-coral {
+  box-shadow:
+    0 8px 20px -6px rgba(255, 107, 74, 0.36),
+    0 0 0 1px rgba(255, 107, 74, 0.22);
+}
+
+/* Base UI 原点感知弹性弹层动画（禁止 scale(0) 坍缩） */
+.base-popup-elastic {
+  transform-origin: var(--transform-origin, center top);
+  transition:
+    opacity 190ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 220ms cubic-bezier(0.34, 1.4, 0.64, 1),
+    filter 180ms ease;
+}
+
+.base-popup-elastic[data-starting-style],
+.base-popup-elastic[data-ending-style] {
+  opacity: 0;
+  transform: scale(0.94) translateY(-2px);
+  filter: blur(2px);
+}
+
+.base-dialog-backdrop {
+  transition: opacity 210ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.base-dialog-backdrop[data-starting-style],
+.base-dialog-backdrop[data-ending-style] {
+  opacity: 0;
+}
+
+.base-dialog-popup {
+  transition:
+    opacity 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 240ms cubic-bezier(0.34, 1.32, 0.64, 1);
+}
+
+.base-dialog-popup[data-starting-style],
+.base-dialog-popup[data-ending-style] {
+  opacity: 0;
+  transform: scale(0.95) translateY(8px);
+}
+
+/* 细滚动条 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(100, 116, 139, 0.22);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(37, 99, 235, 0.38);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .base-popup-elastic,
+  .base-dialog-backdrop,
+  .base-dialog-popup {
+    transition: none !important;
+  }
+}

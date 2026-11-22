@@ -150,8 +150,11 @@ flowchart TD
 ### 5.3 核心安全设计
 
 1. **发件箱凭证加密**：用户填写的邮箱授权码或 OAuth2 Refresh Token 仅在服务端使用 `AES-256-GCM`（依赖环境变量 `APP_ENCRYPTION_KEY`）加密落库，任何查询接口只返回脱敏状态（如掩码邮箱与 `hasCredential: true`），绝不下发明文。
-2. **AI Credits 原子防刷**：扣减积分必须基于数据库事务与条件更新（如在单条原子更新中校验 `balance >= estimatedCost` 并同步写入 `credit_ledger` 流水），流式调用结束后再按实际 `usage` 进行精准多退少补，杜绝高并发请求穿刺负余额。
-3. **SSRF 与附件隔离**：网页抓取模块限制仅允许公网 `http/https` 目标并屏蔽内网回环网段；PDF 附件上传严格校验文件头与大小上限，下载预览采用签名/鉴权控制。
+2. **管理员专属 Prompt 模块化管控与防泄漏**：
+   - 将所有系统级提示词（`copilot.system`、`copilot.action.*`、`extractor.system`、`analyzer.system`）从源码抽离为数据库持久化的 `prompt_templates` 与不可变修订历史表 `prompt_revisions`，支持在线调参（`temperature` / `maxOutputTokens`）、占位符渲染、版本历史查看、一键回滚与恢复默认。
+   - **权限隔离与热生效**：管理端接口 `/api/cloud/admin/prompts/*` 统一受 `requireAdmin` 中间件拦截（采用 `SHA-256 + crypto.timingSafeEqual` 比对 `X-Admin-Token` 或 `Authorization: Bearer`，未授权返回 `401/403`）；本地未设置 `ADMIN_API_TOKEN` 时自动生成持久化随机令牌至 `storage/.dev-admin.token`。运行时读走 30 秒内存 TTL 缓存并在管理员修改/回滚后即时失效热生效，普通客户端接口绝不下发底层系统 Prompt 内容。
+3. **AI Credits 原子防刷**：扣减积分必须基于数据库事务与条件更新（如在单条原子更新中校验 `balance >= estimatedCost` 并同步写入 `credit_ledger` 流水），流式调用结束后再按实际 `usage` 进行精准多退少补，杜绝高并发请求穿刺负余额。
+4. **SSRF 与附件隔离**：网页抓取模块限制仅允许公网 `http/https` 目标并屏蔽内网回环网段；PDF 附件上传严格校验文件头与大小上限，下载预览采用签名/鉴权控制。
 
 ---
 
@@ -295,9 +298,9 @@ PhD_AdvisorContact_System/
 
 ---
 
-## 9. 本地开发环境准备清单（适配 `mise` + WSL2 Docker）
+## 9. 本地开发环境与启动清单（适配 `mise` · 零 Docker SQLite 过渡方案）
 
-开始 Phase 1 编码前，本地开发机只需准备以下三项：
+在 WSL2 + Docker Desktop 尚未就绪前，仓库已采用 `@libsql/client` + `drizzle-orm/libsql` 实现**零外部依赖一键启动**，并将 Drizzle 表结构与业务服务接口全部保留，后续待 WSL2/Docker 就绪后即可平滑切换至 PostgreSQL 17 容器：
 
 1. **Node.js & pnpm（通过 `mise` 一键接管）**：
    - 项目根目录已提供 [mise.toml](../mise.toml)（声明 `node = "26"` 与 `pnpm = "10"`）。
@@ -305,13 +308,16 @@ PhD_AdvisorContact_System/
      ```powershell
      mise trust
      mise install
+     mise exec -- pnpm install
      ```
-   - 验证版本：`node -v` 与 `pnpm -v` 均正常输出。
-2. **WSL2 + Docker Desktop**：
-   - 安装并启用 WSL2 与 Docker Desktop 后，在项目根目录复制环境变量并启动本地数据库：
+2. **零 Docker 本地 SQLite 运行（当前默认模式）**：
+   - 无需配置容器即可直接在根目录启动三端联调（`cloud-core :8787`、`worker-api :8788`、`web :5173`）：
      ```powershell
-     Copy-Item .env.example .env
-     pnpm db:up
+     mise exec -- pnpm dev
      ```
-   - Docker 将自动拉取并启动 `pgvector/pgvector:pg17` 容器，监听 `127.0.0.1:5432`。
-3. **可选测试 Key**：如需在 Phase 1 联调 AI 能力，在 `.env` 中填入测试用 `DEEPSEEK_API_KEY` 即可。
+   - 首次启动会自动初始化 `storage/dev.db`（WAL 模式 + 示范高校/导师种子数据）、本地数据加密主密钥 `storage/.dev-master.key` 以及管理员 Prompt 控制台本地开发令牌 `storage/.dev-admin.token`（均已在 `.gitignore` 中忽略）。
+3. **管理员 Prompt 控制台解锁与调优**：
+   - 在前端点击右上角「设置 → 数据与后台 → 管理员 Prompt 调优控制台」，读取并粘贴 `storage/.dev-admin.token` 中的随机令牌即可解锁（生产/云端部署时通过环境变量 `ADMIN_API_TOKEN` 注入）。
+4. **后续切换 WSL2 + Docker PostgreSQL 17**：
+   - 完成 WSL2 与 Docker Desktop 安装后，复制 `.env.example` 为 `.env`，运行 `mise exec -- pnpm db:up` 启动 `pgvector/pgvector:pg17`，再将 `packages/db` 的驱动由 `libsql` 切换为 `postgres-js` 即可。
+5. **可选测试 Key**：如需联调真实大模型能力，可在前端「设置 → AI 与策略」中填入 DeepSeek API Key 测连并加密落盘，或在 `.env` 中配置 `DEEPSEEK_API_KEY`。

@@ -2,12 +2,11 @@ import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import zlib from "node:zlib";
-import { sanitizeFilename } from "@app/shared";
-import { db, eq, getResumesDir, LOCAL_USER_ID, schema } from "@app/db";
+import { sanitizeFilename, type AttachmentCategory } from "@app/shared";
+import { db, eq, firstOrNull, getResumesDir, LOCAL_USER_ID, schema } from "@app/db";
 
 /**
- * Lightweight zero-dependency PDF text heuristic extractor.
- * Extracts plain ASCII/UTF-16 strings inside PDF text streams as a helpful context hint for AI.
+ * 轻量零依赖 PDF 文本启发式提取器：抽取 PDF 文本流中的可读字符以辅助 AI 理解简历要点。
  */
 export function extractBasicPdfText(pdfBytes: Buffer): string {
   try {
@@ -22,7 +21,7 @@ export function extractBasicPdfText(pdfBytes: Buffer): string {
           const buf = zlib.inflateSync(Buffer.from(streamStr, "latin1"));
           streamStr = buf.toString("latin1");
         } catch {
-          // non-flate stream
+          // 非压缩文本流
         }
       }
       const textTokens = streamStr.match(/\(([^()\\]{2,200})\)\s*Tj/g);
@@ -41,18 +40,70 @@ export function extractBasicPdfText(pdfBytes: Buffer): string {
   }
 }
 
+type DetectedFormat = "pdf" | "png" | "jpg" | "webp" | null;
+
+/**
+ * 通过文件头魔数检测上传文件真实格式，防止后缀伪造。
+ */
+function detectFileFormat(bytes: Buffer): DetectedFormat {
+  if (bytes.length >= 4 && bytes.subarray(0, 4).toString("ascii") === "%PDF") {
+    return "pdf";
+  }
+  if (
+    bytes.length >= 8 &&
+    bytes[0] === 0x89 &&
+    bytes[1] === 0x50 &&
+    bytes[2] === 0x4e &&
+    bytes[3] === 0x47
+  ) {
+    return "png";
+  }
+  if (bytes.length >= 3 && bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff) {
+    return "jpg";
+  }
+  if (
+    bytes.length >= 12 &&
+    bytes.subarray(0, 4).toString("ascii") === "RIFF" &&
+    bytes.subarray(8, 12).toString("ascii") === "WEBP"
+  ) {
+    return "webp";
+  }
+  return null;
+}
+
 export async function saveUploadedResume(params: {
   filename: string;
   base64Content: string;
   setAsDefault?: boolean;
+  category?: AttachmentCategory;
+  tagNote?: string;
 }) {
-  let cleanName = sanitizeFilename(params.filename || "resume.pdf");
-  if (!cleanName.toLowerCase().endsWith(".pdf")) {
-    cleanName += ".pdf";
-  }
+  const category: AttachmentCategory = params.category || "resume";
+  const allowImages = category === "wechat_qr" || category === "certificate";
+  const defaultBaseName = category === "wechat_qr" ? "wechat_qr.png" : "resume.pdf";
+  let cleanName = sanitizeFilename(params.filename || defaultBaseName);
+
   const bytes = Buffer.from(params.base64Content, "base64");
-  if (bytes.length < 10 || bytes.subarray(0, 4).toString("ascii") !== "%PDF") {
-    throw new Error("请上传有效的 PDF 格式文件");
+  const fmt = detectFileFormat(bytes);
+
+  if (!fmt) {
+    throw new Error(
+      allowImages
+        ? "请上传有效的 PNG、JPG、WEBP 图片或 PDF 文件"
+        : "请上传有效的 PDF 格式文件"
+    );
+  }
+  if (!allowImages && fmt !== "pdf") {
+    throw new Error("简历与成绩单仅支持标准 PDF 格式文件");
+  }
+  if (category === "wechat_qr" && fmt === "pdf") {
+    throw new Error("微信二维码请上传 PNG、JPG 或 WEBP 图片");
+  }
+
+  const expectedExt = `.${fmt === "jpg" ? "jpg" : fmt}`;
+  if (!cleanName.toLowerCase().endsWith(expectedExt)) {
+    const baseWithoutExt = cleanName.replace(/\.[^.]+$/, "");
+    cleanName = `${baseWithoutExt || "attachment"}${expectedExt}`;
   }
 
   const sha256 = crypto.createHash("sha256").update(bytes).digest("hex");
@@ -64,11 +115,12 @@ export async function saveUploadedResume(params: {
     fs.writeFileSync(targetPath, bytes);
   }
 
-  const parsedText = extractBasicPdfText(bytes);
+  const parsedText = fmt === "pdf" ? extractBasicPdfText(bytes) : "";
   const now = new Date().toISOString();
   const resumeId = crypto.randomUUID();
+  const effectiveDefault = category === "resume" ? Boolean(params.setAsDefault) : false;
 
-  if (params.setAsDefault) {
+  if (effectiveDefault) {
     await db
       .update(schema.resumes)
       .set({ isDefault: false })
@@ -83,16 +135,20 @@ export async function saveUploadedResume(params: {
     sizeBytes: bytes.length,
     sha256,
     parsedText,
-    isDefault: Boolean(params.setAsDefault),
+    isDefault: effectiveDefault,
+    category,
+    tagNote: (params.tagNote || "").trim(),
     createdAt: now,
   });
 
-  if (params.setAsDefault) {
-    const settings = await db
-      .select()
-      .from(schema.appSettings)
-      .where(eq(schema.appSettings.userId, LOCAL_USER_ID))
-      .get();
+  if (effectiveDefault) {
+    const settings = await firstOrNull(
+      db
+        .select()
+        .from(schema.appSettings)
+        .where(eq(schema.appSettings.userId, LOCAL_USER_ID))
+        .limit(1)
+    );
     if (settings) {
       await db
         .update(schema.appSettings)
@@ -111,6 +167,12 @@ export async function saveUploadedResume(params: {
         .set({ cvParsedText: parsedText, updatedAt: now })
         .where(eq(schema.applicantProfiles.userId, LOCAL_USER_ID));
     }
+  } else if (category === "wechat_qr") {
+    // 若上传微信二维码图片，同步记录最新附件查看路径到个人履历
+    await db
+      .update(schema.applicantProfiles)
+      .set({ wechatQrPath: `/api/resumes/${resumeId}/view`, updatedAt: now })
+      .where(eq(schema.applicantProfiles.userId, LOCAL_USER_ID));
   }
 
   return {
@@ -120,7 +182,9 @@ export async function saveUploadedResume(params: {
     sizeMb: Number((bytes.length / (1024 * 1024)).toFixed(2)),
     sha256,
     parsedText,
-    isDefault: Boolean(params.setAsDefault),
+    isDefault: effectiveDefault,
+    category,
+    tagNote: (params.tagNote || "").trim(),
     createdAt: now,
   };
 }

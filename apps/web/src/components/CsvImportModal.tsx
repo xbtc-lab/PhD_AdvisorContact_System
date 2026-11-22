@@ -50,7 +50,7 @@ export function CsvImportModal() {
       onOpenChange={setOpen}
       title={
         <span className="inline-flex items-center gap-2">
-          <FileSpreadsheet className="w-4 h-4 text-[#2563EB]" />
+          <FileSpreadsheet className="w-4 h-4 theme-text" />
           <span>从 CSV 批量导入导师台账</span>
         </span>
       }

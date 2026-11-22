@@ -1,5 +1,5 @@
 import { createDeepSeek } from "@ai-sdk/deepseek";
-import { db, decryptSecret, eq, LOCAL_USER_ID, schema } from "@app/db";
+import { db, decryptSecret, eq, firstOrNull, LOCAL_USER_ID, schema } from "@app/db";
 
 export interface ResolvedAiRuntime {
   provider: string;
@@ -14,11 +14,13 @@ export async function resolveAiRuntime(overrides?: {
   model?: string;
   apiKey?: string;
 }): Promise<ResolvedAiRuntime> {
-  const settings = await db
-    .select()
-    .from(schema.appSettings)
-    .where(eq(schema.appSettings.userId, LOCAL_USER_ID))
-    .get();
+  const settings = await firstOrNull(
+    db
+      .select()
+      .from(schema.appSettings)
+      .where(eq(schema.appSettings.userId, LOCAL_USER_ID))
+      .limit(1)
+  );
 
   const storedKey = settings?.encryptedAiApiKey
     ? decryptSecret(settings.encryptedAiApiKey)

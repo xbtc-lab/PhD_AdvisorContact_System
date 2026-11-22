@@ -13,26 +13,25 @@ export const MATCH_TIER_STYLES: Record<
   perfect: {
     label: "极高匹配 · 首选导师",
     short: "极高匹配",
-    badgeClass:
-      "bg-blue-50/90 text-[#1D4ED8] border-blue-200/80 shadow-[0_0_12px_rgba(54,149,255,0.16)]",
-    dotClass: "bg-[#2563EB]",
+    badgeClass: "theme-soft-pill",
+    dotClass: "theme-dot",
   },
   high: {
     label: "高度匹配 · 重点联系",
     short: "高度匹配",
-    badgeClass: "bg-sky-50 text-sky-700 border-sky-200/80",
-    dotClass: "bg-sky-500",
+    badgeClass: "honor-stone",
+    dotClass: "bg-[#785A28]",
   },
   try: {
     label: "可以尝试 · 拓展备选",
     short: "可以尝试",
-    badgeClass: "bg-slate-100 text-slate-700 border-slate-200",
+    badgeClass: "bg-[#F4F5F7] text-[#3F4756] border-slate-200/80",
     dotClass: "bg-slate-400",
   },
   unknown: {
     label: "待进一步了解",
     short: "待了解",
-    badgeClass: "bg-amber-50 text-amber-700 border-amber-200/80",
+    badgeClass: "bg-amber-50 text-amber-800 border-amber-200/80",
     dotClass: "bg-amber-400",
   },
 };
@@ -43,15 +42,15 @@ export const STAGE_STYLES: Record<
 > = {
   drafting: {
     label: "待撰写",
-    badgeClass: "bg-slate-100/90 text-slate-600 border-slate-200/80",
+    badgeClass: "bg-[#F4F5F7] text-[#475569] border-slate-200/70",
   },
   ready: {
     label: "待发送",
-    badgeClass: "bg-indigo-50 text-indigo-700 border-indigo-200/80",
+    badgeClass: "honor-stone",
   },
   sent: {
     label: "已发送",
-    badgeClass: "bg-blue-50 text-[#2563EB] border-blue-200/80",
+    badgeClass: "theme-soft-pill",
   },
   replied: {
     label: "已回信",
@@ -60,7 +59,7 @@ export const STAGE_STYLES: Record<
   },
   interviewing: {
     label: "面试推进",
-    badgeClass: "bg-orange-50 text-[#EA580C] border-orange-200/80",
+    badgeClass: "bg-[#141417] text-white border-[#141417]",
   },
   paused: {
     label: "暂缓",
@@ -78,11 +77,11 @@ export const REPLY_INTENT_BADGES: Record<
   },
   welcome_apply: {
     label: "欢迎报考",
-    className: "bg-blue-50 text-blue-700 border-blue-200",
+    className: "theme-soft-pill",
   },
   need_materials: {
     label: "需补材料",
-    className: "bg-amber-50 text-amber-700 border-amber-200",
+    className: "honor-stone",
   },
   no_quota: {
     label: "暂无名额",
@@ -90,7 +89,7 @@ export const REPLY_INTENT_BADGES: Record<
   },
   other: {
     label: "常规回复",
-    className: "bg-slate-100 text-slate-600 border-slate-200",
+    className: "bg-[#F4F5F7] text-[#475569] border-slate-200",
   },
 };
 

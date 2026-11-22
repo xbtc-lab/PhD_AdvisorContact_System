@@ -76,7 +76,7 @@ export function QuickComposeModal({ bootstrap }: QuickComposeModalProps) {
       onOpenChange={setOpen}
       title={
         <span className="inline-flex items-center gap-2">
-          <MailPlus className="w-4 h-4 text-[#2563EB]" />
+          <MailPlus className="w-4 h-4 theme-text" />
           <span>写新邮件（快速单发）</span>
         </span>
       }

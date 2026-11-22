@@ -24,6 +24,10 @@ export const PublicationItemSchema = z.object({
   year: z.string().default(""),
   authorOrder: z.string().default(""),
   status: z.string().default("已发表"),
+  // V3.2 扩展：支持标注论文/专利类别、一句话贡献摘要，以及是否重点注入 AI 写信上下文
+  injectToAi: z.boolean().optional(),
+  summary: z.string().optional(),
+  kind: z.enum(["paper", "patent"]).optional(),
 });
 export type PublicationItem = z.infer<typeof PublicationItemSchema>;
 
@@ -35,6 +39,47 @@ export const ProjectItemSchema = z.object({
   summary: z.string().default(""),
 });
 export type ProjectItem = z.infer<typeof ProjectItemSchema>;
+
+// V3.2 新增：教育经历 / 学科竞赛 / 荣誉奖项结构化档案
+export const EducationItemSchema = z.object({
+  id: z.string(),
+  school: z.string().default(""),
+  degree: z.string().default(""),
+  major: z.string().default(""),
+  period: z.string().default(""),
+  gpa: z.string().default(""),
+  rankNote: z.string().default(""),
+  isPrimary: z.boolean().default(false),
+});
+export type EducationItem = z.infer<typeof EducationItemSchema>;
+
+export const CompetitionItemSchema = z.object({
+  id: z.string(),
+  name: z.string().default(""),
+  award: z.string().default(""),
+  year: z.string().default(""),
+  role: z.string().default(""),
+  note: z.string().default(""),
+});
+export type CompetitionItem = z.infer<typeof CompetitionItemSchema>;
+
+export const HonorItemSchema = z.object({
+  id: z.string(),
+  title: z.string().default(""),
+  issuer: z.string().default(""),
+  year: z.string().default(""),
+  level: z.string().default(""),
+});
+export type HonorItem = z.infer<typeof HonorItemSchema>;
+
+export const AttachmentCategorySchema = z.enum([
+  "resume",
+  "transcript_master",
+  "transcript_bachelor",
+  "wechat_qr",
+  "certificate",
+]);
+export type AttachmentCategory = z.infer<typeof AttachmentCategorySchema>;
 
 export const ApplicantProfileSchema = z.object({
   name: z.string().default(""),
@@ -49,6 +94,12 @@ export const ApplicantProfileSchema = z.object({
   methodsSkills: z.array(z.string()).default([]),
   targetDirections: z.array(z.string()).default([]),
   cvParsedText: z.string().default(""),
+  // V3.2 履历扩充字段
+  educationHistory: z.array(EducationItemSchema).default([]),
+  languageScores: z.string().default(""),
+  competitions: z.array(CompetitionItemSchema).default([]),
+  honors: z.array(HonorItemSchema).default([]),
+  wechatQrPath: z.string().default(""),
 });
 export type ApplicantProfile = z.infer<typeof ApplicantProfileSchema>;
 
@@ -123,6 +174,12 @@ export const AdvisorSchema = z.object({
   replyNote: z.string().default(""),
   aiInsights: AiInsightsSchema.nullable().default(null),
   lastSentAt: z.string().nullable().default(null),
+  // V3.2 导师档案扩充字段（关联公共导师库、荣誉帽檐、真实照片缓存、跟进摘要）
+  catalogAdvisorId: z.string().nullable().optional(),
+  honorBadge: z.string().optional(),
+  photoUrl: z.string().optional(),
+  photoSource: z.string().optional(),
+  trackSummary: z.string().optional(),
   createdAt: z.string(),
   updatedAt: z.string(),
 });
@@ -193,6 +250,9 @@ export const ResumeSchema = z.object({
   sha256: z.string(),
   parsedText: z.string().default(""),
   isDefault: z.boolean(),
+  // V3.2 附件分类与备注（区分主简历/成绩单/微信二维码/获奖证明）
+  category: AttachmentCategorySchema.optional(),
+  tagNote: z.string().optional(),
   createdAt: z.string(),
 });
 export type ResumeItem = z.infer<typeof ResumeSchema>;
@@ -205,6 +265,9 @@ export const DraftSchema = z.object({
   selectedHook: z.string().default(""),
   resumeId: z.string().nullable().default(null),
   preferredAccountId: z.string().default("auto"),
+  // V3.2 HTML 学术版式与互动联系卡开关
+  templateStyle: z.enum(["editorial", "classic"]).optional(),
+  embedContactCard: z.boolean().optional(),
   updatedAt: z.string(),
 });
 export type OutreachDraft = z.infer<typeof DraftSchema>;
@@ -226,6 +289,8 @@ export const SaveDraftInputSchema = z.object({
   selectedHook: z.string().optional(),
   resumeId: z.string().nullable().optional(),
   preferredAccountId: z.string().optional(),
+  templateStyle: z.enum(["editorial", "classic"]).optional(),
+  embedContactCard: z.boolean().optional(),
   createRevision: z.boolean().default(false),
   revisionSource: z.enum(["manual", "template", "ai", "restore"]).default("manual"),
   revisionNote: z.string().default(""),
@@ -501,6 +566,7 @@ export type AiActionMode = z.infer<typeof AiActionModeSchema>;
 
 export const AiChatRequestSchema = z.object({
   advisorId: z.string().min(1),
+  sessionId: z.string().optional(),
   actionMode: AiActionModeSchema.default("chat"),
   userMessage: z.string().default(""),
   currentSubject: z.string().default(""),
@@ -512,6 +578,7 @@ export const AiChatRequestSchema = z.object({
 export const AiChatMessageRecordSchema = z.object({
   id: z.string(),
   advisorId: z.string(),
+  sessionId: z.string().nullable().optional(),
   role: z.enum(["user", "assistant"]),
   content: z.string(),
   suggestedSubject: z.string().default(""),
@@ -521,6 +588,16 @@ export const AiChatMessageRecordSchema = z.object({
   createdAt: z.string(),
 });
 export type AiChatMessageRecord = z.infer<typeof AiChatMessageRecordSchema>;
+
+export const AiSessionSchema = z.object({
+  id: z.string(),
+  advisorId: z.string(),
+  title: z.string(),
+  messageCount: z.number().int().default(0),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+});
+export type AiSession = z.infer<typeof AiSessionSchema>;
 
 export const AiExtractRequestSchema = z.object({
   institutionName: z.string().trim().default(""),
@@ -553,6 +630,78 @@ export const UnreadReplyItemSchema = z.object({
 });
 export type UnreadReplyItem = z.infer<typeof UnreadReplyItemSchema>;
 
+// ============================================================
+// V3.2 公共软科导师库与双轨邮件追踪类型
+// ============================================================
+
+export const RankTierSchema = z.enum(["top20", "double", "other"]);
+export type RankTier = z.infer<typeof RankTierSchema>;
+
+export const HonorCategorySchema = z.enum(["national", "provincial", "regular"]);
+export type HonorCategory = z.infer<typeof HonorCategorySchema>;
+
+export const CatalogUniversitySchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  shortName: z.string().default(""),
+  softScienceRank: z.number().int().nullable().default(null),
+  rankTier: RankTierSchema.default("other"),
+  disciplineRankNote: z.string().default(""),
+  facultyPortalUrl: z.string().default(""),
+  admissionUrl: z.string().default(""),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+});
+export type CatalogUniversity = z.infer<typeof CatalogUniversitySchema>;
+
+export const CatalogAdvisorSchema = z.object({
+  id: z.string(),
+  universityId: z.string(),
+  universityName: z.string(),
+  universityShortName: z.string().default(""),
+  softScienceRank: z.number().int().nullable().default(null),
+  rankTier: RankTierSchema.default("other"),
+  disciplineRankNote: z.string().default(""),
+  name: z.string(),
+  dept: z.string().default(""),
+  title: z.string().default(""),
+  honorBadge: z.string().default(""),
+  honorCategory: HonorCategorySchema.default("regular"),
+  bio: z.string().default(""),
+  researchTags: z.array(z.string()).default([]),
+  email: z.string().default(""),
+  homepageUrl: z.string().default(""),
+  photoUrl: z.string().default(""),
+  photoSource: z.string().default(""),
+  kpiOutputsHero: z.string().default(""),
+  kpiOutputsNote: z.string().default(""),
+  kpiGrantsHero: z.string().default(""),
+  kpiGrantsNote: z.string().default(""),
+  kpiQuotaHero: z.string().default(""),
+  kpiQuotaNote: z.string().default(""),
+  recruitOpen: z.boolean().default(false),
+  footerNote: z.string().default(""),
+  defaultFitScore: z.number().int().min(0).max(100).default(80),
+  sourceUpdatedAt: z.string().default(""),
+  crawledAt: z.string(),
+  adoptedAdvisorId: z.string().nullable().default(null),
+});
+export type CatalogAdvisor = z.infer<typeof CatalogAdvisorSchema>;
+
+export const TrackingLinkKindSchema = z.enum(["resume_pdf", "contact_card", "pixel"]);
+export type TrackingLinkKind = z.infer<typeof TrackingLinkKindSchema>;
+
+export const TrackingSummarySchema = z.object({
+  advisorId: z.string(),
+  resumeClicks: z.number().int().default(0),
+  resumeReadSec: z.number().int().default(0),
+  cardClicks: z.number().int().default(0),
+  pixelOpens: z.number().int().default(0),
+  suspectedBotOpens: z.number().int().default(0),
+  lastActivityAt: z.string().nullable().default(null),
+});
+export type TrackingSummary = z.infer<typeof TrackingSummarySchema>;
+
 export interface BootstrapData {
   profile: ApplicantProfile;
   institutions: Institution[];
@@ -567,6 +716,10 @@ export interface BootstrapData {
   replyCounts: Record<string, number>;
   job: DispatchJob | null;
   lastSyncAt: string;
+  // V3.2 增量数据块：公共导师库与邮件点击停留追踪汇总
+  catalogUniversities?: CatalogUniversity[];
+  catalogAdvisors?: CatalogAdvisor[];
+  trackingSummaries?: Record<string, TrackingSummary>;
 }
 
 // ============================================================

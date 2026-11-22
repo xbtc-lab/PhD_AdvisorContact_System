@@ -35,6 +35,8 @@ export function DispatchDrawer({ bootstrap }: DispatchDrawerProps) {
   const queryClient = useQueryClient();
   const open = useAppStore((s) => s.dispatchOpen);
   const setOpen = useAppStore((s) => s.setDispatchOpen);
+  const batchSelectedIds = useAppStore((s) => s.batchSelectedIds);
+  const clearBatchSelected = useAppStore((s) => s.clearBatchSelected);
   const triggerCelebration = useAppStore((s) => s.triggerCelebration);
 
   const [mode, setMode] = useState<"send" | "draft">("send");
@@ -57,10 +59,13 @@ export function DispatchDrawer({ bootstrap }: DispatchDrawerProps) {
   const isJobActive =
     job?.status === "running" || job?.status === "waiting_schedule";
 
+  const scopedAdvisorIds = batchSelectedIds.length > 0 ? batchSelectedIds : undefined;
+
   const planMutation = useMutation({
     mutationFn: () =>
       workerApi.buildDispatchPlan({
         mode,
+        advisorIds: scopedAdvisorIds,
         ignoreQuota,
         scheduledStartAt: scheduledStartAt.trim(),
       }),
@@ -77,6 +82,7 @@ export function DispatchDrawer({ bootstrap }: DispatchDrawerProps) {
     mutationFn: () =>
       workerApi.startDispatch({
         mode,
+        advisorIds: scopedAdvisorIds,
         ignoreQuota,
         scheduledStartAt: scheduledStartAt.trim(),
       }),
@@ -127,14 +133,35 @@ export function DispatchDrawer({ bootstrap }: DispatchDrawerProps) {
       onOpenChange={setOpen}
       title={
         <span className="inline-flex items-center gap-2">
-          <Rocket className="w-4 h-4 text-[#2563EB]" />
+          <Rocket className="w-4 h-4 theme-text" />
           <span>错峰批量调度与定时队列</span>
         </span>
       }
-      description={`自动排期所有处于「待发送」状态的导师（当前 ${readyCount} 位）· 避开连续同校域名，随机间隔 ${bootstrap.policy.minDelaySec}~${bootstrap.policy.maxDelaySec} 秒`}
+      description={
+        batchSelectedIds.length > 0
+          ? `仅针对已勾选的 ${batchSelectedIds.length} 位导师排期 · 避开连续同校域名，随机间隔 ${bootstrap.policy.minDelaySec}~${bootstrap.policy.maxDelaySec} 秒`
+          : `自动排期所有处于「待发送」状态的导师（当前 ${readyCount} 位）· 避开连续同校域名，随机间隔 ${bootstrap.policy.minDelaySec}~${bootstrap.policy.maxDelaySec} 秒`
+      }
       widthClass="w-full max-w-[780px]"
     >
       <div className="space-y-5 text-[12px]">
+        {batchSelectedIds.length > 0 && (
+          <div className="px-4 py-2.5 rounded-[14px] theme-soft-pill flex items-center justify-between gap-3">
+            <span className="font-medium">
+              当前仅针对「我的导师」中已勾选的 {batchSelectedIds.length} 位导师生成发件/草稿计划
+            </span>
+            <button
+              type="button"
+              onClick={() => {
+                clearBatchSelected();
+                setPlan(null);
+              }}
+              className="text-[11.5px] font-semibold underline cursor-pointer bg-transparent border-0"
+            >
+              取消勾选，改为全部待发送导师
+            </button>
+          </div>
+        )}
         {/* 参数控制区 */}
         <section className="tactile-card rounded-2xl p-4 space-y-3.5">
           <div className="flex flex-wrap items-center justify-between gap-3">

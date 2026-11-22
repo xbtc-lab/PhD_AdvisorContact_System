@@ -77,7 +77,7 @@ export function QuickAddModal({ bootstrap }: QuickAddModalProps) {
       onOpenChange={setOpen}
       title={
         <span className="inline-flex items-center gap-2">
-          <UserPlus className="w-4 h-4 text-[#2563EB]" />
+          <UserPlus className="w-4 h-4 theme-text" />
           <span>手动添加导师档案</span>
         </span>
       }
@@ -108,7 +108,7 @@ export function QuickAddModal({ bootstrap }: QuickAddModalProps) {
               value={institutionName}
               onChange={(e) => setInstitutionName(e.target.value)}
               placeholder="例如：厦门大学"
-              className="mt-1 w-full h-8 px-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-[#2563EB]"
+              className="mt-1 w-full h-8 px-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-[var(--accent-border)]"
             />
             <datalist id="inst-suggestions">
               {bootstrap.institutions.map((i) => (
@@ -122,7 +122,7 @@ export function QuickAddModal({ bootstrap }: QuickAddModalProps) {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="例如：李教授"
-              className="mt-1 w-full h-8 px-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-[#2563EB]"
+              className="mt-1 w-full h-8 px-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-[var(--accent-border)]"
             />
           </div>
         </div>

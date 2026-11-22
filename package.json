@@ -14,9 +14,10 @@
     "dev:web": "pnpm --filter @app/web dev",
     "build": "pnpm --filter @app/shared build && pnpm --filter @app/db build && pnpm --filter @app/cloud-core build && pnpm --filter @app/worker-api build && pnpm --filter @app/web build",
     "typecheck": "pnpm -r typecheck",
-    "db:up": "docker compose up -d",
-    "db:down": "docker compose down",
-    "db:logs": "docker compose logs -f postgres"
+    "db:up": "node scripts/docker-compose.mjs up -d",
+    "db:down": "node scripts/docker-compose.mjs down",
+    "db:logs": "node scripts/docker-compose.mjs logs -f postgres",
+    "db:ps": "node scripts/docker-compose.mjs ps"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",

@@ -20,9 +20,7 @@ export function ReplyAlertModal({ bootstrap }: ReplyAlertModalProps) {
   const queryClient = useQueryClient();
   const open = useAppStore((s) => s.replyAlertOpen);
   const setOpen = useAppStore((s) => s.setReplyAlertOpen);
-  const setSelectedAdvisorId = useAppStore((s) => s.setSelectedAdvisorId);
-  const setViewMode = useAppStore((s) => s.setViewMode);
-  const setRightTab = useAppStore((s) => s.setRightTab);
+  const openInboxFor = useAppStore((s) => s.openInboxFor);
 
   const markAllMutation = useMutation({
     mutationFn: () => workerApi.markRepliesRead({ all: true }),
@@ -38,13 +36,11 @@ export function ReplyAlertModal({ bootstrap }: ReplyAlertModalProps) {
     try {
       await workerApi.getMailThread(advisorId, true);
       await queryClient.invalidateQueries({ queryKey: ["bootstrap"] });
-      await queryClient.invalidateQueries({ queryKey: ["thread", advisorId] });
+      await queryClient.invalidateQueries({ queryKey: ["mail-thread", advisorId] });
     } catch {
       // 忽略标已读偶发异常，优先完成跳转
     }
-    setSelectedAdvisorId(advisorId);
-    setViewMode("workspace");
-    setRightTab("thread");
+    openInboxFor(advisorId);
     setOpen(false);
   }
 
@@ -89,24 +85,24 @@ export function ReplyAlertModal({ bootstrap }: ReplyAlertModalProps) {
             <div
               key={item.msgId}
               onClick={() => openAdvisorThread(item.advisorId)}
-              className="p-3.5 rounded-2xl bg-white hover:bg-blue-50/40 border border-slate-200/85 hover:border-[#2563EB]/45 cursor-pointer transition-all space-y-1.5"
+              className="p-3.5 rounded-2xl bg-white hover:bg-[#FAFAFB] hairline theme-hover-border cursor-pointer transition-all space-y-1.5"
             >
               <div className="flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2 min-w-0">
-                  <span className="w-2 h-2 rounded-full bg-[#FF6B4A] shrink-0" />
-                  <span className="text-[13px] font-semibold text-[#111827] truncate">
+                  <span className="w-2 h-2 rounded-full bg-[#FF5C35] shrink-0" />
+                  <span className="text-[13px] font-semibold text-[#0F172A] truncate">
                     {item.advisorName}
                   </span>
                   <span className="text-[11px] text-slate-500 truncate">
                     {item.institutionName}
                   </span>
                 </div>
-                <span className="text-[10.5px] font-mono text-slate-400 shrink-0">
+                <span className="text-[10.5px] cue-mono text-slate-400 shrink-0">
                   {formatShortTime(item.timestamp)}
                 </span>
               </div>
 
-              <div className="text-[12px] font-medium text-[#1D4ED8] truncate">
+              <div className="text-[12px] font-semibold theme-text truncate">
                 {item.subject}
               </div>
 
@@ -115,8 +111,8 @@ export function ReplyAlertModal({ bootstrap }: ReplyAlertModalProps) {
               </p>
 
               <div className="flex items-center justify-between text-[11px] text-slate-400 pt-0.5">
-                <span className="font-mono">{item.fromEmail}</span>
-                <span className="inline-flex items-center gap-1 text-[#2563EB] font-medium">
+                <span className="cue-mono">{item.fromEmail}</span>
+                <span className="inline-flex items-center gap-1 theme-text font-medium">
                   查看来信并标已读
                   <ArrowRight className="w-3 h-3" />
                 </span>

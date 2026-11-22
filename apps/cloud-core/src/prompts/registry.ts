@@ -4,7 +4,7 @@ import type {
   PromptTemplate,
   UpdatePromptInput,
 } from "@app/shared";
-import { db, desc, eq, schema } from "@app/db";
+import { db, desc, eq, firstOrNull, schema } from "@app/db";
 import {
   DEFAULT_PROMPTS,
   findDefaultPromptSeed,
@@ -133,19 +133,23 @@ export async function getActivePrompt(key: string): Promise<PromptTemplate> {
     return cached.prompt;
   }
 
-  let row = await db
-    .select()
-    .from(schema.promptTemplates)
-    .where(eq(schema.promptTemplates.key, key))
-    .get();
-
-  if (!row) {
-    await seedDefaultPrompts();
-    row = await db
+  let row = await firstOrNull(
+    db
       .select()
       .from(schema.promptTemplates)
       .where(eq(schema.promptTemplates.key, key))
-      .get();
+      .limit(1)
+  );
+
+  if (!row) {
+    await seedDefaultPrompts();
+    row = await firstOrNull(
+      db
+        .select()
+        .from(schema.promptTemplates)
+        .where(eq(schema.promptTemplates.key, key))
+        .limit(1)
+    );
   }
 
   if (row && row.isEnabled) {
@@ -200,11 +204,13 @@ export async function getPromptDetail(key: string): Promise<{
   hasDefault: boolean;
 } | null> {
   await seedDefaultPrompts();
-  const row = await db
-    .select()
-    .from(schema.promptTemplates)
-    .where(eq(schema.promptTemplates.key, key))
-    .get();
+  const row = await firstOrNull(
+    db
+      .select()
+      .from(schema.promptTemplates)
+      .where(eq(schema.promptTemplates.key, key))
+      .limit(1)
+  );
   if (!row) return null;
 
   const revisionRows = await db
@@ -229,19 +235,23 @@ export async function updatePrompt(
   actor: string
 ): Promise<{ prompt: PromptTemplate; revisions: PromptRevision[] } | null> {
   await seedDefaultPrompts();
-  const row = await db
-    .select()
-    .from(schema.promptTemplates)
-    .where(eq(schema.promptTemplates.key, key))
-    .get();
+  const row = await firstOrNull(
+    db
+      .select()
+      .from(schema.promptTemplates)
+      .where(eq(schema.promptTemplates.key, key))
+      .limit(1)
+  );
   if (!row) return null;
 
-  const latestRev = await db
-    .select()
-    .from(schema.promptRevisions)
-    .where(eq(schema.promptRevisions.promptId, row.id))
-    .orderBy(desc(schema.promptRevisions.version))
-    .get();
+  const latestRev = await firstOrNull(
+    db
+      .select()
+      .from(schema.promptRevisions)
+      .where(eq(schema.promptRevisions.promptId, row.id))
+      .orderBy(desc(schema.promptRevisions.version))
+      .limit(1)
+  );
 
   const nextVersion = Math.max(row.activeVersion, latestRev?.version || 0) + 1;
   const now = new Date().toISOString();
@@ -296,11 +306,13 @@ export async function rollbackPrompt(
   | { error: "not_found" | "version_not_found" }
 > {
   await seedDefaultPrompts();
-  const row = await db
-    .select()
-    .from(schema.promptTemplates)
-    .where(eq(schema.promptTemplates.key, key))
-    .get();
+  const row = await firstOrNull(
+    db
+      .select()
+      .from(schema.promptTemplates)
+      .where(eq(schema.promptTemplates.key, key))
+      .limit(1)
+  );
   if (!row) return { error: "not_found" };
 
   const revisions = await db

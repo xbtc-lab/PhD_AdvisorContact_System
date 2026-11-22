@@ -5,8 +5,12 @@ import type {
   AiChatMessageRecord,
   AiExtractProfessorItem,
   AiInsights,
+  AiSession,
   ApplicantProfile,
+  AttachmentCategory,
   BootstrapData,
+  CatalogAdvisor,
+  CatalogUniversity,
   DiscoverMailAccountResult,
   DispatchJob,
   DispatchPlan,
@@ -104,13 +108,51 @@ async function adminRequestJson<T>(
 }
 
 /**
- * worker-api（本地 SQLite / SMTP / IMAP / 调度队列）客户端
+ * worker-api（PostgreSQL 17 / SMTP / IMAP / 调度队列 / 公共导师库）客户端
  */
 export const workerApi = {
   bootstrap: async (): Promise<BootstrapData> => {
     const res = await requestJson<{ ok: true; data: BootstrapData }>("/api/bootstrap");
     return res.data;
   },
+
+  getCatalogAdvisors: (params?: {
+    q?: string;
+    rankTier?: string;
+    honorCategory?: string;
+    recruitOnly?: boolean;
+    sort?: string;
+  }) => {
+    const sp = new URLSearchParams();
+    if (params?.q?.trim()) sp.set("q", params.q.trim());
+    if (params?.rankTier && params.rankTier !== "all") sp.set("rankTier", params.rankTier);
+    if (params?.honorCategory && params.honorCategory !== "all") {
+      sp.set("honorCategory", params.honorCategory);
+    }
+    if (params?.recruitOnly) sp.set("recruitOnly", "1");
+    if (params?.sort) sp.set("sort", params.sort);
+    const qs = sp.toString();
+    return requestJson<{
+      ok: true;
+      universities: CatalogUniversity[];
+      advisors: CatalogAdvisor[];
+    }>(`/api/catalog/advisors${qs ? `?${qs}` : ""}`);
+  },
+
+  adoptCatalogAdvisor: (catalogAdvisorId: string) =>
+    requestJson<{
+      ok: true;
+      alreadyAdopted: boolean;
+      advisor: Advisor;
+    }>(`/api/catalog/advisors/${catalogAdvisorId}/adopt`, {
+      method: "POST",
+    }),
+
+  unadoptCatalogAdvisor: (catalogAdvisorId: string) =>
+    requestJson<{ ok: true; removed: boolean }>(
+      `/api/catalog/advisors/${catalogAdvisorId}/adopt`,
+      { method: "DELETE" }
+    ),
 
   updateProfile: (profile: ApplicantProfile) =>
     requestJson<{ ok: true; profile: ApplicantProfile }>("/api/profile", {
@@ -222,6 +264,8 @@ export const workerApi = {
       selectedHook?: string;
       resumeId?: string | null;
       preferredAccountId?: string;
+      templateStyle?: "editorial" | "classic";
+      embedContactCard?: boolean;
       createRevision?: boolean;
       revisionSource?: "manual" | "template" | "ai" | "restore";
       revisionNote?: string;
@@ -257,6 +301,8 @@ export const workerApi = {
     contentBase64: string;
     setAsDefault?: boolean;
     advisorId?: string;
+    category?: AttachmentCategory;
+    tagNote?: string;
   }) =>
     requestJson<{ ok: true; resume: ResumeItem }>("/api/resumes", {
       method: "POST",
@@ -458,7 +504,7 @@ export const workerApi = {
 };
 
 /**
- * cloud-core（AI Copilot、师资提取、匹配分析）客户端
+ * cloud-core（AI 写信多会话 Copilot、师资提取、匹配分析）客户端
  */
 export const cloudApi = {
   testAi: (input: {
@@ -475,18 +521,47 @@ export const cloudApi = {
       }
     ),
 
-  getConversations: (advisorId: string) =>
-    requestJson<{ ok: true; messages: AiChatMessageRecord[] }>(
-      `/api/cloud/ai/conversations/${advisorId}`
+  listSessions: (advisorId: string) =>
+    requestJson<{ ok: true; sessions: AiSession[] }>(
+      `/api/cloud/ai/sessions/${advisorId}`
     ),
 
-  clearConversations: (advisorId: string) =>
-    requestJson<{ ok: true }>(`/api/cloud/ai/conversations/${advisorId}`, {
+  createSession: (advisorId: string, title?: string) =>
+    requestJson<{ ok: true; session: AiSession }>(
+      `/api/cloud/ai/sessions/${advisorId}`,
+      {
+        method: "POST",
+        body: JSON.stringify({ title }),
+      }
+    ),
+
+  deleteSession: (sessionId: string) =>
+    requestJson<{ ok: true }>(`/api/cloud/ai/sessions/${sessionId}`, {
       method: "DELETE",
     }),
 
+  getConversations: (advisorId: string, sessionId?: string) => {
+    const qs = sessionId ? `?sessionId=${encodeURIComponent(sessionId)}` : "";
+    return requestJson<{
+      ok: true;
+      activeSessionId: string | null;
+      messages: AiChatMessageRecord[];
+    }>(`/api/cloud/ai/conversations/${advisorId}${qs}`);
+  },
+
+  clearConversations: (advisorId: string, sessionId?: string) => {
+    const qs = sessionId ? `?sessionId=${encodeURIComponent(sessionId)}` : "";
+    return requestJson<{ ok: true }>(
+      `/api/cloud/ai/conversations/${advisorId}${qs}`,
+      {
+        method: "DELETE",
+      }
+    );
+  },
+
   chat: (input: {
     advisorId: string;
+    sessionId?: string;
     actionMode: AiActionMode;
     userMessage: string;
     currentSubject: string;
@@ -496,6 +571,7 @@ export const cloudApi = {
   }) =>
     requestJson<{
       ok: true;
+      sessionId: string;
       userMessage: AiChatMessageRecord;
       assistantMessage: AiChatMessageRecord;
     }>("/api/cloud/ai/chat", {

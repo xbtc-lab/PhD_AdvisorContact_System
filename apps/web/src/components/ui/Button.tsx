@@ -23,29 +23,27 @@ export interface ButtonProps
 }
 
 const VARIANT_CLASSES: Record<ButtonVariant, string> = {
-  primary:
-    "bg-gradient-to-b from-[#3695FF] to-[#2563EB] text-white border border-[#2563EB]/70 shadow-[0_6px_18px_-5px_rgba(37,99,235,0.45),0_1px_0_rgba(255,255,255,0.32)_inset] hover:brightness-[1.04]",
+  primary: "theme-cta border border-transparent",
   secondary:
-    "bg-white text-[#111827] border border-slate-200/90 shadow-[0_1px_2px_rgba(15,23,42,0.04)] hover:bg-slate-50/90 hover:border-slate-300",
+    "bg-white text-[#0F172A] hairline shadow-[0_1px_2px_rgba(15,23,42,0.03)] hover:bg-[#FAFAFB] theme-hover-border",
   ghost:
-    "bg-transparent text-slate-600 border border-transparent hover:bg-slate-100/80 hover:text-[#111827]",
-  glass:
-    "glass-pill text-[#111827] hover:bg-white/95 hover:border-[#2563EB]/25",
+    "bg-transparent text-[#475569] border border-transparent hover:bg-[#F4F5F7] hover:text-[#0F172A]",
+  glass: "glass-bar text-[#0F172A] theme-hover-border hover:bg-white",
   coral:
-    "bg-gradient-to-b from-[#FF8468] to-[#FF6B4A] text-white border border-[#FF6B4A]/80 shadow-[0_6px_18px_-5px_rgba(255,107,74,0.45),0_1px_0_rgba(255,255,255,0.3)_inset] hover:brightness-[1.04]",
+    "bg-[#FF5C35] text-white border border-[#FF5C35]/80 shadow-[0_8px_18px_-5px_rgba(255,92,53,0.34)] hover:brightness-[1.04]",
   danger:
     "bg-rose-50 text-rose-600 border border-rose-200/80 hover:bg-rose-100/80 hover:border-rose-300",
 };
 
 const SIZE_CLASSES: Record<ButtonSize, string> = {
-  xs: "h-7 px-2.5 text-[11px] rounded-xl gap-1",
-  sm: "h-8 px-3 text-[12px] rounded-xl gap-1.5",
-  md: "h-9 px-4 text-[13px] rounded-2xl gap-2",
-  lg: "h-10 px-5 text-[14px] rounded-2xl gap-2",
+  xs: "h-7 px-2.5 text-[11.5px] rounded-full gap-1",
+  sm: "h-8 px-3.5 text-[12px] rounded-full gap-1.5",
+  md: "h-9 px-4 text-[13px] rounded-full gap-2",
+  lg: "h-10 px-5 text-[14px] rounded-full gap-2",
 };
 
 /**
- * 触感弹簧按钮：遵循 Family/Cue! 风格微缩放反馈与克制电光晕。
+ * 触感弹簧按钮：对齐 V3.2 丝绒墨黑/珊瑚主题、极细发丝描边与柔和微缩放手感。
  */
 export function Button({
   variant = "secondary",
@@ -68,7 +66,7 @@ export function Button({
       whileTap={isDisabled ? undefined : { scale: 0.97 }}
       transition={{ type: "spring", stiffness: 520, damping: 32 }}
       className={cn(
-        "inline-flex items-center justify-center font-medium select-none transition-colors cursor-pointer whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed",
+        "inline-flex items-center justify-center font-medium select-none transition-all cursor-pointer whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed",
         VARIANT_CLASSES[variant],
         SIZE_CLASSES[size],
         className

@@ -40,8 +40,8 @@ export function SelfTestModal({ bootstrap, advisor }: SelfTestModalProps) {
   const testMutation = useMutation({
     mutationFn: async () => {
       if (!accountId) throw new Error("请先在设置中配置至少一个发件箱");
-      let subject = `PhD Studio 发信排版自测 - ${new Date().toLocaleTimeString()}`;
-      let body = "这是一封来自 PhD Studio 的实时排版与附件自测邮件。";
+      let subject = `PhD Cue 发信排版自测 - ${new Date().toLocaleTimeString()}`;
+      let body = "这是一封来自 PhD Cue 的实时排版与附件自测邮件。";
       let resumeId: string | null | undefined = undefined;
 
       if (advisor) {
@@ -83,7 +83,7 @@ export function SelfTestModal({ bootstrap, advisor }: SelfTestModalProps) {
       onOpenChange={setOpen}
       title={
         <span className="inline-flex items-center gap-2">
-          <FlaskConical className="w-4 h-4 text-[#2563EB]" />
+          <FlaskConical className="w-4 h-4 theme-text" />
           <span>发送实景排版测试到个人邮箱</span>
         </span>
       }

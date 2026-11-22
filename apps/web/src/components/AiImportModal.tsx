@@ -80,7 +80,7 @@ export function AiImportModal({ bootstrap }: AiImportModalProps) {
       onOpenChange={setOpen}
       title={
         <span className="inline-flex items-center gap-2">
-          <Sparkles className="w-4 h-4 text-[#2563EB]" />
+          <Sparkles className="w-4 h-4 theme-text" />
           <span>AI 师资网页智能采集与建档</span>
         </span>
       }
@@ -143,13 +143,13 @@ export function AiImportModal({ bootstrap }: AiImportModalProps) {
               value={institutionName}
               onChange={(e) => setInstitutionName(e.target.value)}
               placeholder="例如：浙江大学 / 复旦大学"
-              className="mt-1 w-full h-9 px-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-[#2563EB]"
+              className="mt-1 w-full h-9 px-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-[var(--accent-border)]"
             />
           </div>
 
           <div>
             <label className="text-slate-600 font-medium inline-flex items-center gap-1.5">
-              <Globe className="w-3.5 h-3.5 text-[#2563EB]" />
+              <Globe className="w-3.5 h-3.5 theme-text" />
               <span>院系师资目录网址（可选，将尝试轻量抓取正文）</span>
             </label>
             <input
@@ -157,7 +157,7 @@ export function AiImportModal({ bootstrap }: AiImportModalProps) {
               value={pageUrl}
               onChange={(e) => setPageUrl(e.target.value)}
               placeholder="https://cs.example.edu.cn/szdw/..."
-              className="mt-1 w-full h-9 px-3 rounded-xl border border-slate-200 bg-white font-mono focus:outline-none focus:border-[#2563EB]"
+              className="mt-1 w-full h-9 px-3 rounded-xl border border-slate-200 bg-white font-mono focus:outline-none focus:border-[var(--accent-border)]"
             />
           </div>
 
@@ -170,7 +170,7 @@ export function AiImportModal({ bootstrap }: AiImportModalProps) {
               value={rawText}
               onChange={(e) => setRawText(e.target.value)}
               placeholder="从浏览器 Ctrl+A / Ctrl+C 复制学院师资介绍网页文本粘贴到此处..."
-              className="mt-1 w-full p-3 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:border-[#2563EB]"
+              className="mt-1 w-full p-3 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:border-[var(--accent-border)]"
             />
           </div>
         </div>
@@ -211,14 +211,14 @@ export function AiImportModal({ bootstrap }: AiImportModalProps) {
                   className={cn(
                     "p-3 rounded-2xl border cursor-pointer transition-colors space-y-1",
                     row.selected
-                      ? "bg-white border-[#2563EB]/40 shadow-[0_2px_10px_rgba(37,99,235,0.06)]"
+                      ? "bg-white border-[var(--accent-border)] shadow-[0_2px_10px_-3px_var(--accent-shadow)]"
                       : "bg-slate-50/70 border-slate-200/70 opacity-65"
                   )}
                 >
                   <div className="flex items-center justify-between gap-2">
                     <div className="flex items-center gap-2 min-w-0">
                       {row.selected ? (
-                        <CheckSquare className="w-4 h-4 text-[#2563EB] shrink-0" />
+                        <CheckSquare className="w-4 h-4 theme-text shrink-0" />
                       ) : (
                         <Square className="w-4 h-4 text-slate-400 shrink-0" />
                       )}

@@ -19,6 +19,7 @@ import {
   decryptSecret,
   desc,
   eq,
+  firstOrNull,
   LOCAL_USER_ID,
   schema,
 } from "@app/db";
@@ -61,11 +62,13 @@ function toTransportAccount(
 export async function getQuotaToday(targetDate?: string): Promise<Record<string, number>> {
   const today = localDateStr();
   const day = targetDate || today;
-  const settings = await db
-    .select()
-    .from(schema.appSettings)
-    .where(eq(schema.appSettings.userId, LOCAL_USER_ID))
-    .get();
+  const settings = await firstOrNull(
+    db
+      .select()
+      .from(schema.appSettings)
+      .where(eq(schema.appSettings.userId, LOCAL_USER_ID))
+      .limit(1)
+  );
   const resetAfter = day === today ? settings?.preferences?.quotaResetAfter || "" : "";
 
   const msgs = await db
@@ -123,11 +126,13 @@ export async function buildDispatchPlan(params: {
     db.select().from(schema.outreachDrafts),
     db.select().from(schema.resumes).where(eq(schema.resumes.userId, LOCAL_USER_ID)),
     db.select().from(schema.mailAccounts).where(eq(schema.mailAccounts.userId, LOCAL_USER_ID)),
-    db
-      .select()
-      .from(schema.appSettings)
-      .where(eq(schema.appSettings.userId, LOCAL_USER_ID))
-      .get(),
+    firstOrNull(
+      db
+        .select()
+        .from(schema.appSettings)
+        .where(eq(schema.appSettings.userId, LOCAL_USER_ID))
+        .limit(1)
+    ),
     db
       .select()
       .from(schema.mailMessages)
@@ -357,13 +362,14 @@ export async function requestStopActiveJob(): Promise<boolean> {
 }
 
 export async function getLatestDispatchJob(): Promise<DispatchJob | null> {
-  const job = await db
-    .select()
-    .from(schema.dispatchJobs)
-    .where(eq(schema.dispatchJobs.userId, LOCAL_USER_ID))
-    .orderBy(desc(schema.dispatchJobs.startedAt))
-    .limit(1)
-    .get();
+  const job = await firstOrNull(
+    db
+      .select()
+      .from(schema.dispatchJobs)
+      .where(eq(schema.dispatchJobs.userId, LOCAL_USER_ID))
+      .orderBy(desc(schema.dispatchJobs.startedAt))
+      .limit(1)
+  );
 
   if (!job) return null;
 
@@ -460,11 +466,13 @@ export async function startDispatchJob(params: {
   const [draftRows, resumeRows, settings] = await Promise.all([
     db.select().from(schema.outreachDrafts),
     db.select().from(schema.resumes).where(eq(schema.resumes.userId, LOCAL_USER_ID)),
-    db
-      .select()
-      .from(schema.appSettings)
-      .where(eq(schema.appSettings.userId, LOCAL_USER_ID))
-      .get(),
+    firstOrNull(
+      db
+        .select()
+        .from(schema.appSettings)
+        .where(eq(schema.appSettings.userId, LOCAL_USER_ID))
+        .limit(1)
+    ),
   ]);
   const draftMap = new Map(draftRows.map((d) => [d.advisorId, d]));
   const resumeMap = new Map(resumeRows.map((r) => [r.id, r]));
@@ -532,11 +540,13 @@ export async function startDispatchJob(params: {
 }
 
 async function appendJobLog(jobId: string, text: string) {
-  const row = await db
-    .select({ logs: schema.dispatchJobs.logs })
-    .from(schema.dispatchJobs)
-    .where(eq(schema.dispatchJobs.id, jobId))
-    .get();
+  const row = await firstOrNull(
+    db
+      .select({ logs: schema.dispatchJobs.logs })
+      .from(schema.dispatchJobs)
+      .where(eq(schema.dispatchJobs.id, jobId))
+      .limit(1)
+  );
   const nextLogs = [...(row?.logs || []), `${localTimeLogPrefix()} ${text}`];
   await db
     .update(schema.dispatchJobs)

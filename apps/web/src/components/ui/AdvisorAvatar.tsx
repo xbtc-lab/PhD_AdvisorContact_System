@@ -11,11 +11,11 @@ export interface AdvisorAvatarProps {
 }
 
 const INITIAL_BG_PALETTE = [
-  "from-[#3695FF] to-[#2563EB]",
-  "from-[#60A5FA] to-[#3B82F6]",
-  "from-[#FF8A6B] to-[#FF6B4A]",
-  "from-[#34D399] to-[#059669]",
-  "from-[#818CF8] to-[#4F46E5]",
+  "from-[#FF5C35] to-[#E0431F]",
+  "from-[#1E293B] to-[#0F172A]",
+  "from-[#E07A5F] to-[#C85A3F]",
+  "from-[#0D9488] to-[#0F766E]",
+  "from-[#785A28] to-[#57401A]",
 ];
 
 function hashSeed(str: string): number {
@@ -27,13 +27,13 @@ function hashSeed(str: string): number {
 }
 
 /**
- * 导师唯一拟态几何头像：默认采用 facehash 会眨眼的趣味小伙伴，也可在设置中切换为学术姓名首字徽章。
+ * 导师唯一拟态几何头像：默认使用暖珊瑚与丝绒黑调色的 facehash 会眨眼角色，也支持首字母徽章。
  */
 export function AdvisorAvatar({
   name,
   seed,
   styleMode = "facehash",
-  size = 40,
+  size = 44,
   unread = false,
   className,
 }: AdvisorAvatarProps) {
@@ -45,7 +45,7 @@ export function AdvisorAvatar({
       className={cn("relative shrink-0 select-none", className)}
       style={{ width: size, height: size }}
     >
-      <div className="w-full h-full rounded-[30%] overflow-hidden border border-white/80 shadow-[0_3px_10px_-3px_rgba(37,99,235,0.22)] bg-slate-100">
+      <div className="w-full h-full rounded-[32%] overflow-hidden border border-white/80 shadow-[0_6px_14px_-6px_rgba(15,23,42,0.22)] bg-[#F4F5F7]">
         {styleMode === "facehash" ? (
           <Facehash
             name={safeSeed}
@@ -55,7 +55,7 @@ export function AdvisorAvatar({
             interactive
             showInitial={false}
             enableBlink
-            colors={["#3695FF", "#2563EB", "#4F46E5", "#0EA5E9", "#FF6B4A"]}
+            colors={["#FF5C35", "#141417", "#E07A5F", "#0D9488", "#785A28"]}
           />
         ) : (
           <div
@@ -73,7 +73,7 @@ export function AdvisorAvatar({
       {unread && (
         <span
           aria-label="有未读回信"
-          className="absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full bg-[#FF6B4A] ring-2 ring-white shadow-[0_0_8px_rgba(255,107,74,0.65)] animate-pulse"
+          className="absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full bg-[#10B981] ring-2 ring-white shadow-[0_0_8px_rgba(16,185,129,0.55)]"
         />
       )}
     </div>

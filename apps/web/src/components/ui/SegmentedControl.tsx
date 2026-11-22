@@ -18,7 +18,7 @@ export interface SegmentedControlProps<T extends string> {
 }
 
 /**
- * 基于 Framer Motion layoutId 的共享元素磨砂滑动分段控制器。
+ * 基于 Framer Motion layoutId 的滑动分段控制器。
  */
 export function SegmentedControl<T extends string>({
   options,
@@ -32,7 +32,7 @@ export function SegmentedControl<T extends string>({
   return (
     <div
       className={cn(
-        "inline-flex items-center p-1 rounded-2xl bg-slate-100/85 border border-slate-200/70 backdrop-blur-md",
+        "inline-flex items-center p-1 rounded-full bg-slate-900/[0.05] border border-slate-900/[0.06]",
         className
       )}
       role="tablist"
@@ -47,16 +47,16 @@ export function SegmentedControl<T extends string>({
             aria-selected={active}
             onClick={() => onChange(opt.value)}
             className={cn(
-              "relative flex items-center justify-center gap-1.5 font-medium rounded-xl transition-colors cursor-pointer select-none whitespace-nowrap",
-              size === "sm" ? "px-2.5 py-1 text-[11px]" : "px-3.5 py-1.5 text-[12px]",
-              active ? "text-[#111827]" : "text-slate-500 hover:text-slate-800"
+              "relative flex items-center justify-center gap-1.5 font-medium rounded-full transition-colors cursor-pointer select-none whitespace-nowrap",
+              size === "sm" ? "px-3 py-1 text-[11.5px]" : "px-3.5 py-1.5 text-[12px]",
+              active ? "text-white font-semibold" : "text-[#475569] hover:text-[#0F172A]"
             )}
           >
             {active && (
               <motion.span
                 layoutId={`segment-pill-${layoutGroupId}`}
                 transition={{ type: "spring", stiffness: 480, damping: 34 }}
-                className="absolute inset-0 rounded-xl bg-white shadow-[0_1px_4px_rgba(15,23,42,0.08),0_0_0_1px_rgba(37,99,235,0.08)]"
+                className="absolute inset-0 rounded-full bg-[#141417] shadow-[0_6px_16px_-6px_rgba(20,20,23,0.34)]"
               />
             )}
             <span className="relative z-10 inline-flex items-center gap-1.5">
@@ -66,9 +66,7 @@ export function SegmentedControl<T extends string>({
                 <span
                   className={cn(
                     "px-1.5 py-0.5 rounded-full text-[10px] font-semibold leading-none",
-                    active
-                      ? "bg-[#2563EB]/10 text-[#2563EB]"
-                      : "bg-slate-200/70 text-slate-600"
+                    active ? "bg-white/20 text-white" : "bg-black/[0.06] text-[#475569]"
                   )}
                 >
                   {opt.badge}

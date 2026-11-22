@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: pgvector/pgvector:pg17
+    image: ${POSTGRES_IMAGE:-docker.m.daocloud.io/pgvector/pgvector:pg17}
     container_name: phd_advisor_v2_pg
     restart: unless-stopped
     ports:

@@ -19,11 +19,12 @@
   },
   "dependencies": {
     "@app/shared": "workspace:*",
-    "@libsql/client": "^0.18.0",
-    "drizzle-orm": "^0.45.4"
+    "drizzle-orm": "^0.45.4",
+    "pg": "^8.16.0"
   },
   "devDependencies": {
     "@types/node": "^26.0.0",
+    "@types/pg": "^8.15.5",
     "typescript": "^5.8.3"
   }
 }

@@ -4,7 +4,7 @@ import { createWorkerApp } from "./app.js";
 import { reconcileStaleJobs } from "./services/dispatch-worker.js";
 
 /**
- * worker-api 启动入口：初始化 SQLite 表结构，并将历史异常中断的调度任务标记为已停止。
+ * worker-api 启动入口：初始化 PostgreSQL 17 表结构，并将历史异常中断的调度任务标记为已停止。
  */
 async function main() {
   await ensureSchema();

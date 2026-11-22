@@ -1,40 +1,53 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { AlertTriangle, RefreshCw } from "lucide-react";
 import { workerApi } from "@/lib/api.js";
 import { useAppStore } from "@/store/useAppStore.js";
 import { AdminPromptDrawer } from "./components/AdminPromptDrawer.js";
-import { AdvisorRail } from "./components/AdvisorRail.js";
-import { AdvisorTableView } from "./components/AdvisorTableView.js";
+import { AdvisorPhotoModal } from "./components/AdvisorPhotoModal.js";
 import { AiImportModal } from "./components/AiImportModal.js";
+import { AppHeader, MobileBottomNav } from "./components/AppHeader.js";
 import { CommandPalette } from "./components/CommandPalette.js";
+import { ContactCardModal } from "./components/ContactCardModal.js";
+import { CsvImportModal } from "./components/CsvImportModal.js";
 import { DispatchDrawer } from "./components/DispatchDrawer.js";
-import { MailStudio } from "./components/MailStudio.js";
 import { QuickAddModal } from "./components/QuickAddModal.js";
 import { QuickComposeModal } from "./components/QuickComposeModal.js";
 import { ReplyAlertModal } from "./components/ReplyAlertModal.js";
-import { RightSidePanel } from "./components/RightSidePanel.js";
 import { SelfTestModal } from "./components/SelfTestModal.js";
-import { SettingsDrawer } from "./components/SettingsDrawer.js";
-import { Topbar } from "./components/Topbar.js";
-import { CsvImportModal } from "./components/CsvImportModal.js";
 import {
   CueMascot,
   SendCelebrationOverlay,
 } from "./components/ui/BrandMascot.js";
 import { Button } from "./components/ui/Button.js";
+import { DiscoverView } from "./views/DiscoverView.js";
+import { InboxView } from "./views/InboxView.js";
+import { MyAdvisorsView } from "./views/MyAdvisorsView.js";
+import { ProfileView } from "./views/ProfileView.js";
+import { SettingsView } from "./views/SettingsView.js";
+import { WriteStudioView } from "./views/WriteStudioView.js";
 
 /**
- * PhD Studio V2 主工作台入口：
- * 串联顶部导航、导师分栏工作台、TanStack 虚拟台账以及各模块抽屉与管理员控制台。
+ * PhD Cue V3.2 主工作台入口：
+ * 串联纯净高定光感顶栏、六大桌面端独立主视图，以及全局模态窗与管理员控制台。
  */
 export default function App() {
-  const viewMode = useAppStore((s) => s.viewMode);
+  const activeTab = useAppStore((s) => s.activeTab);
+  const theme = useAppStore((s) => s.theme);
   const selectedAdvisorId = useAppStore((s) => s.selectedAdvisorId);
   const setSelectedAdvisorId = useAppStore((s) => s.setSelectedAdvisorId);
-  const setCommandOpen = useAppStore((s) => s.setCommandOpen);
   const commandOpen = useAppStore((s) => s.commandOpen);
+  const setCommandOpen = useAppStore((s) => s.setCommandOpen);
   const celebratingText = useAppStore((s) => s.celebratingText);
+  const mainRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+  }, [theme]);
+
+  useEffect(() => {
+    mainRef.current?.scrollTo({ top: 0 });
+  }, [activeTab]);
 
   const bootstrapQuery = useQuery({
     queryKey: ["bootstrap"],
@@ -43,7 +56,7 @@ export default function App() {
 
   const bootstrap = bootstrapQuery.data;
 
-  // 若尚未选中导师或原导师已被删除，自动落选列表第一位
+  // 若尚未选中导师或原导师已被删除，自动落选台账第一位
   useEffect(() => {
     if (!bootstrap || bootstrap.advisors.length === 0) return;
     const stillExists = bootstrap.advisors.some(
@@ -54,7 +67,7 @@ export default function App() {
     }
   }, [bootstrap, selectedAdvisorId, setSelectedAdvisorId]);
 
-  // 全局注册 Cmd+K / Ctrl+K 打开快捷命令面板
+  // 全局快捷键 Ctrl/Cmd + K 打开命令搜索板
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
@@ -67,20 +80,20 @@ export default function App() {
   }, [commandOpen, setCommandOpen]);
 
   const activeAdvisor = useMemo(() => {
-    if (!bootstrap || !selectedAdvisorId) return null;
+    if (!bootstrap || bootstrap.advisors.length === 0) return null;
+    if (!selectedAdvisorId) return bootstrap.advisors[0];
     return (
       bootstrap.advisors.find((a) => a.id === selectedAdvisorId) ||
-      bootstrap.advisors[0] ||
-      null
+      bootstrap.advisors[0]
     );
   }, [bootstrap, selectedAdvisorId]);
 
   if (bootstrapQuery.isLoading) {
     return (
-      <div className="h-screen w-screen flex flex-col items-center justify-center gap-4 bg-[#FAFAFC]">
+      <div className="h-screen w-screen flex flex-col items-center justify-center gap-4 luminous-canvas">
         <CueMascot size={56} />
-        <p className="text-[13px] font-medium text-slate-500">
-          正在唤醒 PhD Studio 工作台...
+        <p className="text-[13.5px] font-medium text-[#64748B]">
+          正在唤醒 PhD Cue 科研联络工作台...
         </p>
       </div>
     );
@@ -88,17 +101,16 @@ export default function App() {
 
   if (bootstrapQuery.isError || !bootstrap) {
     return (
-      <div className="h-screen w-screen flex flex-col items-center justify-center gap-4 bg-[#FAFAFC] p-6 text-center">
+      <div className="h-screen w-screen flex flex-col items-center justify-center gap-4 luminous-canvas p-6 text-center">
         <AlertTriangle className="w-10 h-10 text-amber-500" />
-        <div className="space-y-1 max-w-md">
-          <h1 className="text-[16px] font-semibold text-[#111827]">
+        <div className="space-y-1.5 max-w-md">
+          <h1 className="text-[17px] font-bold text-[#0F172A]">
             暂未连接到底层本地服务
           </h1>
-          <p className="text-[12.5px] text-slate-500">
-            请确认根目录已运行 <code className="font-mono">pnpm dev</code>
-            ，确保 cloud-core (8787) 与 worker-api (8788) 正常在线。
+          <p className="text-[12.5px] text-[#64748B]">
+            请确认后端服务已启动，保证 cloud-core (8787) 与 worker-api (8788) 正常在线。
           </p>
-          <p className="text-[11px] font-mono text-rose-500">
+          <p className="text-[11.5px] cue-mono text-rose-600">
             {bootstrapQuery.error instanceof Error
               ? bootstrapQuery.error.message
               : "连接失败"}
@@ -106,7 +118,7 @@ export default function App() {
         </div>
         <Button
           variant="primary"
-          size="sm"
+          size="md"
           icon={<RefreshCw className="w-3.5 h-3.5" />}
           onClick={() => bootstrapQuery.refetch()}
         >
@@ -117,29 +129,28 @@ export default function App() {
   }
 
   return (
-    <div className="h-screen w-screen flex flex-col overflow-hidden bg-[#FAFAFC] relative">
-      {/* 极淡背景氛围电光云 */}
-      <div className="pointer-events-none fixed inset-0 overflow-hidden z-0">
-        <div className="absolute -top-32 left-1/4 w-[520px] h-[280px] rounded-full bg-[#3695FF]/[0.05] blur-[90px]" />
-        <div className="absolute bottom-0 right-1/5 w-[440px] h-[240px] rounded-full bg-[#2563EB]/[0.04] blur-[90px]" />
-      </div>
+    <div
+      data-theme={theme}
+      className="h-screen w-screen flex flex-col overflow-hidden luminous-canvas relative"
+    >
+      <AppHeader bootstrap={bootstrap} />
 
-      <Topbar bootstrap={bootstrap} />
-
-      <div className="flex-1 min-h-0 flex relative z-10 overflow-hidden">
-        {viewMode === "workspace" ? (
-          <>
-            <AdvisorRail bootstrap={bootstrap} />
-            <MailStudio bootstrap={bootstrap} advisor={activeAdvisor} />
-            <RightSidePanel bootstrap={bootstrap} advisor={activeAdvisor} />
-          </>
-        ) : (
-          <AdvisorTableView bootstrap={bootstrap} />
+      <main ref={mainRef} className="flex-1 overflow-y-auto min-h-0 relative z-10">
+        {activeTab === "discover" && <DiscoverView bootstrap={bootstrap} />}
+        {activeTab === "mine" && <MyAdvisorsView bootstrap={bootstrap} />}
+        {activeTab === "write" && (
+          <WriteStudioView bootstrap={bootstrap} advisor={activeAdvisor} />
         )}
-      </div>
+        {activeTab === "inbox" && <InboxView bootstrap={bootstrap} />}
+        {activeTab === "profile" && <ProfileView bootstrap={bootstrap} />}
+        {activeTab === "settings" && <SettingsView bootstrap={bootstrap} />}
+      </main>
 
-      {/* 全局抽屉与模态弹窗 */}
-      <SettingsDrawer bootstrap={bootstrap} />
+      <MobileBottomNav bootstrap={bootstrap} />
+
+      {/* 全局轻量化弹窗与控制面板 */}
+      <ContactCardModal bootstrap={bootstrap} />
+      <AdvisorPhotoModal />
       <DispatchDrawer bootstrap={bootstrap} />
       <AdminPromptDrawer />
       <AiImportModal bootstrap={bootstrap} />

@@ -1,37 +1,31 @@
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-.venv/
-venv/
-env/
+# Node & pnpm
+node_modules/
+.pnpm-store/
+*.tsbuildinfo
 
-# Frontend dependencies & build caches
-frontend/node_modules/
-frontend/.vite/
-frontend/tsconfig.tsbuildinfo
-static/
-*.log
-npm-debug.log*
-
-# Packaging & generated portable artifacts
-_pyinstaller_build/
-build/
+# Build & tool caches
 dist/
-release/
-*.spec
+build/
+.vite/
+.turbo/
+.cache/
 
-# Local user runtime data (never commit personal credentials or sheets)
-config.json
-logs/
-outbox/
-resumes/
-*.xlsx
-!*.example.*
+# Environment variables
 .env
-.env.*
+.env.local
+.env.*.local
+!.env.example
 
-# IDE / OS
+# Local mise override
+mise.local.toml
+
+# Runtime local storage & logs
+storage/
+uploads/
+logs/
+*.log
+
+# IDE & OS
 .vscode/
 .idea/
 .DS_Store

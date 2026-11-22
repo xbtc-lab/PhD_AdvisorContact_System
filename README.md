@@ -1,71 +1,38 @@
-# PhD_AdvisorContact_System
+# PhD_AdvisorContact_System · V2（申博轻邮重构版）
 
-A local-first, privacy-preserving academic email workbench & advisor management suite built for PhD applicants — packaged as a zero-dependency Windows portable app.
-
-## Key Capabilities
-
-- **Local-First & Zero Cloud Exposure**: Binds strictly to `127.0.0.1`; SMTP/IMAP credentials, DeepSeek API keys, CVs, email threads, and Excel sheets never leave your disk.
-- **Editorial Pure-White UI (`frontend/`)**: React 19 + TypeScript + Vite + Tailwind CSS v4 + Radix UI + Motion + Sonner, compiled offline with bundled `@fontsource/inter` and `@fontsource/jetbrains-mono` (zero CDN reliance).
-- **Bidirectional Advisor Mail Engine (`app.py`)**:
-  - **Single-Message & Threaded Replies**: Compose ad-hoc emails (`QuickComposeModal`), send individual outreach letters directly, auto-save drafts, drag-and-drop PDF CVs, and reply in-thread (`In-Reply-To` / `References`).
-  - **Whitelisted IMAP Reply Tracking**: Checks linked mailboxes (`QQ`, `163`, `126`, `.edu`, `Gmail`, custom) exclusively for replies from contacted advisors or matching outreach threads — filtering out spam/ads — with startup and background reply alerts (`ReplyAlertModal`).
-  - **Staggered Batch Queue**: Domain-interleaved, daily-quota-balanced batch sending (`DispatchDrawer`) with optional scheduled start times.
-- **DeepSeek BYOK Integration**: Built-in AI copilot for drafting, polishing, condensing, English academic translation, reply drafting, and webpage text extraction into structured Excel sheets with match-tier assessment (`极高匹配` / `高度匹配` / `可以尝试` / `待进一步了解`).
-- **Live Excel Sync**: Reads and writes multi-sheet `.xlsx` advisor tables cleanly using `openpyxl` with data validation and lock protection.
+> **当前分支说明**：`refactor/v2` 为全新的**全栈 TypeScript 重构分支**，聚焦现代化 Web 体验、物理动效、AI-Native 结构化数据、定时网页监听与云函数控制面架构。
+> 原 V1 Python 便携版代码完整保留在 `main` 分支，未作改动。
 
 ---
 
-## Project Structure
+## 核心规划文档
 
-```text
-PhD_AdvisorContact_System/
-├── app.py                  # Local HTTP server, IMAP/SMTP engine, DeepSeek BYOK, Excel sync, Tkinter tray window
-├── build_portable.py       # One-click frontend build + PyInstaller portable package & smoke tester
-├── requirements.txt        # Python dependencies (openpyxl, pyinstaller)
-├── frontend/               # React + TypeScript + Vite + Tailwind v4 UI source
-│   ├── src/
-│   │   ├── App.tsx
-│   │   ├── lib/api.ts
-│   │   └── components/     # MailStudio, RightSidePanel, ProfessorRail, SettingsDrawer, DispatchDrawer, etc.
-│   └── package.json
-└── static/                 # Generated offline frontend assets (built via frontend npm run build)
-```
+关于 V2 版本的完整需求演进、视觉与动效规范（Family 触感 + 轻磨砂玻璃 & 克制微荧光 + `facehash`）、全栈技术选型（`React 19` + `Base UI` + `Motion` + `Vaul` + `Hono` + `Drizzle` + `PostgreSQL 17 / pg-boss / pgvector` + `Vercel AI SDK` + `Crawlee / Defuddle`）、云函数防逆向架构及分阶段路线图，请先阅读：
+
+- [V2 需求、选型与架构设计总文档](docs/V2_ARCHITECTURE_AND_PRD.md)
 
 ---
 
-## Development Setup (For Collaborators)
+## 当前仓库基础配置
 
-### 1. Backend Setup (Python 3.10+)
+- [mise.toml](mise.toml)：声明托管 `node 26` 与 `pnpm 10`
+- [pnpm-workspace.yaml](pnpm-workspace.yaml)：Monorepo 工作区声明（`apps/*`、`packages/*`）
+- [package.json](package.json)：统一工作区与 Docker 数据库脚本
+- [docker-compose.yml](docker-compose.yml)：本地 PostgreSQL 17 + `pgvector` 单容器配置
+- [.env.example](.env.example)：本地开发环境变量模板
 
-```bash
-python -m venv .venv
-# Windows PowerShell:
-.\.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
+---
 
-# Run backend server directly (serves compiled ./static + API on http://127.0.0.1:8765)
-python app.py
+## 本地开发环境准备（`mise` + WSL2 Docker）
+
+```powershell
+# 1. 信任并由 mise 自动安装 Node 26 与 pnpm 10
+mise trust
+mise install
+
+# 2. 初始化本地环境变量（按需填入 DEEPSEEK_API_KEY）
+Copy-Item .env.example .env
+
+# 3. 待 WSL2 与 Docker Desktop 就绪后，一键启动本地 PostgreSQL 17
+pnpm db:up
 ```
-
-### 2. Frontend Development (Node.js 20+)
-
-```bash
-cd frontend
-npm install
-
-# Live HMR dev server on http://127.0.0.1:5173 (proxies /api -> 127.0.0.1:8765)
-npm run dev
-
-# Compile production assets into ../static/
-npm run build
-```
-
-### 3. Build Standalone Portable Windows Release
-
-From the repository root (with `.venv` activated):
-
-```bash
-python build_portable.py
-```
-
-Outputs a self-contained portable folder and `.zip` under `./release/` (or override target path with `RELEASE_DIR`), automatically running `--smoke-test` against the frozen executable and verifying clean initial config files.

@@ -1,0 +1,22 @@
+{
+  "name": "phd-advisor-contact-v2",
+  "private": true,
+  "version": "2.0.0-alpha.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22.0.0",
+    "pnpm": ">=10.0.0"
+  },
+  "scripts": {
+    "dev": "pnpm -r --parallel dev",
+    "build": "pnpm -r build",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "pnpm -r lint",
+    "db:up": "docker compose up -d",
+    "db:down": "docker compose down",
+    "db:logs": "docker compose logs -f postgres",
+    "db:generate": "pnpm --filter @app/db db:generate",
+    "db:migrate": "pnpm --filter @app/db db:migrate",
+    "db:studio": "pnpm --filter @app/db db:studio"
+  }
+}

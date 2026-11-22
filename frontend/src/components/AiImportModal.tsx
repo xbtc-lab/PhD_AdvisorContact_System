@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Sparkles, Check, Plus } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { Sparkles, Check, Plus, Globe, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { Button, ModalDialog, SelectBox } from "./ui";
 import { apiFetch, cn, MATCH_OPTIONS, normalizeMatchTier } from "../lib/api";
@@ -13,6 +13,8 @@ export function AiImportModal({
   onOpenChange,
   sheets,
   hasAiKey,
+  initialSchool,
+  initialPageUrl,
   onOpenAiSettings,
   onImported,
 }: {
@@ -20,16 +22,49 @@ export function AiImportModal({
   onOpenChange: (v: boolean) => void;
   sheets: string[];
   hasAiKey: boolean;
+  initialSchool?: string;
+  initialPageUrl?: string;
   onOpenAiSettings: () => void;
   onImported: () => Promise<void>;
 }) {
   const [step, setStep] = useState<"input" | "preview">("input");
-  const [school, setSchool] = useState(sheets[0] || "目标高校");
-  const [pageUrl, setPageUrl] = useState("");
+  const [school, setSchool] = useState(initialSchool || sheets[0] || "目标高校");
+  const [pageUrl, setPageUrl] = useState(initialPageUrl || "");
   const [rawText, setRawText] = useState("");
+  const [fetchingPage, setFetchingPage] = useState(false);
   const [extracting, setExtracting] = useState(false);
   const [importing, setImporting] = useState(false);
   const [rows, setRows] = useState<ExtractedProfessor[]>([]);
+
+  useEffect(() => {
+    if (open) {
+      if (initialSchool) setSchool(initialSchool);
+      if (initialPageUrl !== undefined) setPageUrl(initialPageUrl);
+    }
+  }, [open, initialSchool, initialPageUrl]);
+
+  async function handleFetchPagePreview() {
+    if (!pageUrl.trim()) {
+      toast.warning("请先填写学院官网或师资列表网址");
+      return;
+    }
+    setFetchingPage(true);
+    try {
+      const res = await apiFetch<{ text: string; url: string }>("/api/universities/fetch_page_text", "POST", {
+        url: pageUrl.trim(),
+      });
+      if (!res.text?.trim()) {
+        toast.warning("网页正文较少（可能是纯图片或动态加载），建议点击打开网页手动全选复制");
+      } else {
+        setRawText(res.text);
+        toast.success(`已读取网页文字（${res.text.length} 字），可直接点击「开始智能提取」`);
+      }
+    } catch (e: any) {
+      toast.error(e.message);
+    } finally {
+      setFetchingPage(false);
+    }
+  }
 
   async function handleExtract() {
     if (!hasAiKey) {
@@ -153,14 +188,28 @@ export function AiImportModal({
               />
             </div>
             <div>
-              <label className="block text-[11.5px] font-medium text-[#52525B] mb-1">或填写公开师资页网址（可选）</label>
-              <input
-                type="text"
-                value={pageUrl}
-                onChange={(e) => setPageUrl(e.target.value)}
-                placeholder="https://..."
-                className={cn(MODAL_INPUT_CLS, "font-mono text-[12px]")}
-              />
+              <label className="block text-[11.5px] font-medium text-[#52525B] mb-1">或填写公开师资页网址（支持自动读正文）</label>
+              <div className="flex items-center gap-1.5">
+                <input
+                  type="text"
+                  value={pageUrl}
+                  onChange={(e) => setPageUrl(e.target.value)}
+                  placeholder="https://..."
+                  className={cn(MODAL_INPUT_CLS, "font-mono text-[12px] flex-1 min-w-0")}
+                />
+                <Button
+                  type="button"
+                  variant="secondary"
+                  size="sm"
+                  disabled={fetchingPage || !pageUrl.trim()}
+                  onClick={handleFetchPagePreview}
+                  title="自动抓取该页面正文填充到下方预览框"
+                  className="h-8.5 px-2.5 shrink-0"
+                >
+                  {fetchingPage ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Globe className="w-3.5 h-3.5 text-[#2563EB]" />}
+                  <span>读网页</span>
+                </Button>
+              </div>
             </div>
           </div>
 

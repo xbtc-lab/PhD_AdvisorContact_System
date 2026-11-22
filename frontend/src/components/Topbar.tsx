@@ -1,6 +1,7 @@
 import React from "react";
 import {
   Bell,
+  GraduationCap,
   Inbox,
   Layers,
   PenLine,
@@ -29,8 +30,8 @@ export function Topbar({
   onOpenSettings,
   onOpenDispatch,
 }: {
-  viewMode: "workspace" | "sheet";
-  onChangeView: (v: "workspace" | "sheet") => void;
+  viewMode: "workspace" | "sheet" | "universities";
+  onChangeView: (v: "workspace" | "sheet" | "universities") => void;
   professors: Professor[];
   config: WorkbenchConfig | null;
   filters: FilterState;
@@ -84,9 +85,10 @@ export function Topbar({
         <SegmentedControl
           layoutId="topbar-view-tab"
           value={viewMode}
-          onValueChange={(v) => onChangeView(v as "workspace" | "sheet")}
+          onValueChange={(v) => onChangeView(v as "workspace" | "sheet" | "universities")}
           options={[
             { value: "workspace", label: "写信与会话", icon: PenLine },
+            { value: "universities", label: "高校导航", icon: GraduationCap },
             { value: "sheet", label: "进度总表", icon: Table2 },
           ]}
         />

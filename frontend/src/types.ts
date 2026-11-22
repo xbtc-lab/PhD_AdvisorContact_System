@@ -265,3 +265,49 @@ export interface ExtractedProfessor {
   priority: string;
   note: string;
 }
+
+export interface CollegeItem {
+  name: string;
+  college_url: string;
+  faculty_url?: string;
+  discipline_tags?: string[];
+  status?: string;
+}
+
+export interface UniversityItem {
+  id: string;
+  name: string;
+  full_name?: string;
+  name_en: string;
+  province: string;
+  city: string;
+  category: string;
+  admin_type?: string;
+  tags: string[];
+  ranking: number;
+  ranking_label: string;
+  score: number | null;
+  logo_file?: string;
+  official_url: string;
+  grad_url?: string;
+  faculty_portal?: string;
+  entry_url?: string;
+  domains?: string[];
+  colleges: CollegeItem[];
+  stats?: {
+    total_colleges: number;
+    verified_colleges: number;
+    faculty_links: number;
+  };
+}
+
+export interface UniversitiesPayload {
+  ok?: boolean;
+  version: string;
+  tier_scope: string;
+  source: string;
+  updated_at: string;
+  total_universities: number;
+  universities: UniversityItem[];
+  bookmarks: string[];
+}

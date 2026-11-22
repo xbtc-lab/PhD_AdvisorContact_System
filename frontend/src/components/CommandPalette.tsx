@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { ArrowRight, PenSquare, Search, Settings, Sparkles, Table2, User } from "lucide-react";
+import { ArrowRight, GraduationCap, PenSquare, Search, Settings, Sparkles, Table2, User } from "lucide-react";
 import { cn, normalizeStatus, schoolShort, statusDotTone } from "../lib/api";
 import type { Professor } from "../types";
 
@@ -15,7 +15,7 @@ export function CommandPalette({
   onOpenChange: (v: boolean) => void;
   professors: Professor[];
   onSelectProfessor: (pid: string) => void;
-  onRunAction: (action: "ai_import" | "settings" | "sheet" | "quick_compose") => void;
+  onRunAction: (action: "ai_import" | "settings" | "sheet" | "quick_compose" | "universities") => void;
 }) {
   const [query, setQuery] = useState("");
   const [activeIdx, setActiveIdx] = useState(0);
@@ -36,13 +36,14 @@ export function CommandPalette({
     .slice(0, 12);
 
   type PaletteEntry =
-    | { kind: "action"; id: string; action: "ai_import" | "quick_compose" | "sheet" | "settings" }
+    | { kind: "action"; id: string; action: "ai_import" | "quick_compose" | "sheet" | "settings" | "universities" }
     | { kind: "prof"; id: string; prof: Professor };
 
   const flatEntries: PaletteEntry[] = [
     ...(!q
       ? [
           { kind: "action" as const, id: "act-compose", action: "quick_compose" as const },
+          { kind: "action" as const, id: "act-univ", action: "universities" as const },
           { kind: "action" as const, id: "act-ai", action: "ai_import" as const },
           { kind: "action" as const, id: "act-sheet", action: "sheet" as const },
           { kind: "action" as const, id: "act-settings", action: "settings" as const },
@@ -109,6 +110,12 @@ export function CommandPalette({
                   label: "写一封新邮件（自由手写发送）",
                 },
                 {
+                  key: "act-univ",
+                  action: "universities" as const,
+                  icon: GraduationCap,
+                  label: "浏览 985 高校与院系官网导航",
+                },
+                {
                   key: "act-ai",
                   action: "ai_import" as const,
                   icon: Sparkles,
@@ -158,7 +165,7 @@ export function CommandPalette({
               <div className="py-7 text-center text-[12.5px] text-[#9CA3AF]">未找到匹配导师</div>
             ) : (
               matched.map((p, idx) => {
-                const entryIdx = (q ? 0 : 4) + idx;
+                const entryIdx = (q ? 0 : 5) + idx;
                 const active = activeIdx === entryIdx;
                 const st = normalizeStatus(p.status);
                 return (

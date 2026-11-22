@@ -11,6 +11,7 @@ A local-first, privacy-preserving academic email workbench & advisor management 
   - **Whitelisted IMAP Reply Tracking**: Checks linked mailboxes (`QQ`, `163`, `126`, `.edu`, `Gmail`, custom) exclusively for replies from contacted advisors or matching outreach threads — filtering out spam/ads — with startup and background reply alerts (`ReplyAlertModal`).
   - **Staggered Batch Queue**: Domain-interleaved, daily-quota-balanced batch sending (`DispatchDrawer`) with optional scheduled start times.
 - **DeepSeek BYOK Integration**: Built-in AI copilot for drafting, polishing, condensing, English academic translation, reply drafting, and webpage text extraction into structured Excel sheets with match-tier assessment (`极高匹配` / `高度匹配` / `可以尝试` / `待进一步了解`).
+- **985 University & College Navigator (`data/universities.json`)**: ShanghaiRanking-inspired university explorer with verified school crests, rankings/scores, province/category/contact-status filters, hover preview micro-modules, secondary college & faculty directory links, and 1-click AI webpage professor extraction.
 - **Live Excel Sync**: Reads and writes multi-sheet `.xlsx` advisor tables cleanly using `openpyxl` with data validation and lock protection.
 
 ---
@@ -22,11 +23,13 @@ PhD_AdvisorContact_System/
 ├── app.py                  # Local HTTP server, IMAP/SMTP engine, DeepSeek BYOK, Excel sync, Tkinter tray window
 ├── build_portable.py       # One-click frontend build + PyInstaller portable package & smoke tester
 ├── requirements.txt        # Python dependencies (openpyxl, pyinstaller)
+├── data/                   # Built-in verified university/college dataset & offline university crests
+├── scripts/univ_pipeline/  # Offline crawler & verification pipeline for university/college directories
 ├── frontend/               # React + TypeScript + Vite + Tailwind v4 UI source
 │   ├── src/
 │   │   ├── App.tsx
 │   │   ├── lib/api.ts
-│   │   └── components/     # MailStudio, RightSidePanel, ProfessorRail, SettingsDrawer, DispatchDrawer, etc.
+│   │   └── components/     # MailStudio, RightSidePanel, UniversityNavigator, ProfessorRail, etc.
 │   └── package.json
 └── static/                 # Generated offline frontend assets (built via frontend npm run build)
 ```

@@ -12,6 +12,7 @@ import { AiImportModal, QuickAddProfModal } from "./components/AiImportModal";
 import { ReplyAlertModal } from "./components/ReplyAlertModal";
 import { QuickComposeModal } from "./components/QuickComposeModal";
 import { SheetView } from "./components/SheetView";
+import { UniversityNavigator } from "./components/UniversityNavigator";
 import { CommandPalette } from "./components/CommandPalette";
 import { SendCelebrationOverlay } from "./components/Mascot";
 import { Button, ConfirmDialog, ModalDialog, SelectBox } from "./components/ui";
@@ -28,6 +29,8 @@ import type {
   JobState,
   MailThreadMessage,
   Professor,
+  UniversitiesPayload,
+  UniversityItem,
   UnreadReplyItem,
   WorkbenchConfig,
 } from "./types";
@@ -80,7 +83,7 @@ function WorkspaceSkeleton() {
 }
 
 export default function App() {
-  const [viewMode, setViewMode] = useState<"workspace" | "sheet">("workspace");
+  const [viewMode, setViewMode] = useState<"workspace" | "sheet" | "universities">("workspace");
   const [bootstrapped, setBootstrapped] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
@@ -90,6 +93,9 @@ export default function App() {
   const [excelPath, setExcelPath] = useState("");
   const [quotaToday, setQuotaToday] = useState<Record<string, number>>({});
   const [job, setJob] = useState<JobState | null>(null);
+  const [universities, setUniversities] = useState<UniversityItem[]>([]);
+  const [univBookmarks, setUnivBookmarks] = useState<string[]>([]);
+  const [aiImportSeed, setAiImportSeed] = useState<{ school?: string; pageUrl?: string }>({});
 
   const [unreadReplies, setUnreadReplies] = useState<UnreadReplyItem[]>([]);
   const [replyCounts, setReplyCounts] = useState<Record<string, number>>({});
@@ -307,10 +313,49 @@ export default function App() {
     [loadProfessorDetail, reloadBootstrap, selectedId]
   );
 
+  const reloadUniversities = useCallback(async () => {
+    try {
+      const res = await apiFetch<UniversitiesPayload>("/api/universities");
+      setUniversities(res.universities || []);
+      setUnivBookmarks(res.bookmarks || []);
+    } catch {
+      // Optional navigation dataset
+    }
+  }, []);
+
+  async function handleToggleUnivBookmark(uid: string) {
+    try {
+      const res = await apiFetch<{ bookmarks: string[]; bookmarked: boolean }>(
+        "/api/universities/bookmark",
+        "POST",
+        { id: uid }
+      );
+      setUnivBookmarks(res.bookmarks || []);
+      toast.success(res.bookmarked ? "已收藏该高校" : "已取消收藏");
+    } catch (e: any) {
+      toast.error(e.message);
+    }
+  }
+
+  async function handleAddSchoolSheet(schoolName: string) {
+    try {
+      const res = await apiFetch<{ sheet: string; created: boolean }>(
+        "/api/universities/add_sheet",
+        "POST",
+        { school: schoolName }
+      );
+      toast.success(res.created ? `已在 Excel 中新建「${res.sheet}」工作表` : `工作表「${res.sheet}」已存在`);
+      await reloadBootstrap(true, true);
+    } catch (e: any) {
+      toast.error(e.message);
+    }
+  }
+
   // Startup load + automatic reply check & startup popup
   const startupSyncedRef = useRef(false);
   useEffect(() => {
     (async () => {
+      reloadUniversities();
       const bs = await reloadBootstrap(false, false);
       if (!startupSyncedRef.current && bs) {
         startupSyncedRef.current = true;
@@ -811,6 +856,27 @@ export default function App() {
         {/* Main View */}
         {!bootstrapped && refreshing ? (
           <WorkspaceSkeleton />
+        ) : viewMode === "universities" ? (
+          <UniversityNavigator
+            universities={universities}
+            bookmarks={univBookmarks}
+            professors={professors}
+            sheets={sheets}
+            onToggleBookmark={handleToggleUnivBookmark}
+            onAddSchoolSheet={handleAddSchoolSheet}
+            onExtractCollege={(schoolName, pageUrl) => {
+              setAiImportSeed({ school: schoolName, pageUrl });
+              setAiImportOpen(true);
+            }}
+            onJumpToSchoolMail={(sheetName) => {
+              setFilters((prev) => ({ ...prev, school: sheets.includes(sheetName) ? sheetName : "ALL" }));
+              const firstProf = professors.find((p) => p.sheet === sheetName);
+              if (firstProf) {
+                loadProfessorDetail(firstProf.id, false);
+              }
+              setViewMode("workspace");
+            }}
+          />
         ) : viewMode === "sheet" ? (
           <SheetView
             professors={professors}
@@ -957,9 +1023,14 @@ export default function App() {
 
         <AiImportModal
           open={aiImportOpen}
-          onOpenChange={setAiImportOpen}
+          onOpenChange={(v) => {
+            setAiImportOpen(v);
+            if (!v) setAiImportSeed({});
+          }}
           sheets={sheets}
           hasAiKey={hasAiKey}
+          initialSchool={aiImportSeed.school}
+          initialPageUrl={aiImportSeed.pageUrl}
           onOpenAiSettings={() => setSettingsState({ open: true, tab: "ai" })}
           onImported={async () => {
             await reloadBootstrap(true, false);
@@ -981,10 +1052,13 @@ export default function App() {
           professors={professors}
           onSelectProfessor={(pid) => selectProfessor(pid)}
           onRunAction={(act) => {
-            if (act === "ai_import") setAiImportOpen(true);
-            else if (act === "quick_compose") setQuickComposeOpen(true);
+            if (act === "ai_import") {
+              setAiImportSeed({});
+              setAiImportOpen(true);
+            } else if (act === "quick_compose") setQuickComposeOpen(true);
             else if (act === "settings") setSettingsState({ open: true, tab: "profile" });
             else if (act === "sheet") setViewMode("sheet");
+            else if (act === "universities") setViewMode("universities");
           }}
         />
 

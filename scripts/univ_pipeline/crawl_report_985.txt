@@ -1,0 +1,43 @@
+Crawl finished in 115.0s | Universities: 39
+--------------------------------------------------------------------------------------------
+#   1 | 清华大学       | colleges=88 | verified=88 | faculty=62 | grad=True | entry=https://www.tsinghua.edu.cn/yxsz.htm
+#   2 | 北京大学       | colleges=58 | verified=55 | faculty=49 | grad=True | entry=https://www.pku.edu.cn/department.html
+#   3 | 浙江大学       | colleges=46 | verified=46 | faculty=29 | grad=True | entry=https://www.zju.edu.cn/xywxw/list.htm
+#   4 | 上海交通大学     | colleges=59 | verified=57 | faculty=48 | grad=True | entry=https://www.sjtu.edu.cn/resource/assets/js/headersy.js
+#   5 | 复旦大学       | colleges=49 | verified=47 | faculty=42 | grad=True | entry=https://www.fudan.edu.cn/489/list.htm
+#   6 | 南京大学       | colleges=52 | verified=50 | faculty=36 | grad=True | entry=https://www.nju.edu.cn/xybm.htm
+#   7 | 中国科学技术大学   | colleges=54 | verified=54 | faculty=44 | grad=True | entry=https://www.ustc.edu.cn/yxjs.htm
+#   8 | 武汉大学       | colleges=40 | verified=40 | faculty=39 | grad=True | entry=https://www.whu.edu.cn/jgsz/yxsz.htm
+#   9 | 华中科技大学     | colleges=39 | verified=39 | faculty=38 | grad=True | entry=http://www.hust.edu.cn/yxsz.htm
+#  10 | 西安交通大学     | colleges=52 | verified=52 | faculty=51 | grad=True | entry=http://www.xjtu.edu.cn
+#  11 | 北京航空航天大学   | colleges=41 | verified=41 | faculty=40 | grad=True | entry=http://www.buaa.edu.cn/jgsz/jxkyjg02.htm
+#  12 | 哈尔滨工业大学    | colleges=28 | verified=28 | faculty=24 | grad=True | entry=http://www.hit.edu.cn/main.htm
+#  13 | 中山大学       | colleges=63 | verified=63 | faculty=54 | grad=True | entry=https://www.sysu.edu.cn/yxsz.htm
+#  14 | 北京理工大学     | colleges=43 | verified=43 | faculty=38 | grad=True | entry=https://www.bit.edu.cn:443/gbxxgk/gbgljg/index.htm
+#  15 | 东南大学       | colleges=39 | verified=38 | faculty=36 | grad=True | entry=https://www.seu.edu.cn/yxsz/list.htm
+#  16 | 四川大学       | colleges=38 | verified=38 | faculty=27 | grad=True | entry=https://www.scu.edu.cn/zzjg1/yx.htm
+#  17 | 中国人民大学     | colleges=44 | verified=44 | faculty=36 | grad=True | entry=https://www.ruc.edu.cn/zuzhijigou.html
+#  18 | 同济大学       | colleges=40 | verified=40 | faculty=32 | grad=True | entry=https://www.tongji.edu.cn/yxjg111/ybshe_zhi/ybsz_.htm
+#  19 | 北京师范大学     | colleges=40 | verified=40 | faculty=36 | grad=True | entry=https://www.bnu.edu.cn/xbyx/index.htm
+#  20 | 天津大学       | colleges=38 | verified=38 | faculty=37 | grad=True | entry=http://www.tju.edu.cn
+#  21 | 南开大学       | colleges=32 | verified=32 | faculty=30 | grad=True | entry=https://www.nankai.edu.cn/213/list.htm
+#  22 | 山东大学       | colleges=71 | verified=71 | faculty=64 | grad=True | entry=http://www.sdu.edu.cn/zzjg/xysz.htm
+#  23 | 西北工业大学     | colleges=28 | verified=28 | faculty=26 | grad=True | entry=https://www.nwpu.edu.cn/jgsz_cd_/jxkyjg/xy.htm
+#  24 | 中国农业大学     | colleges=28 | verified=27 | faculty= 3 | grad=True | entry=https://www.cau.edu.cn/xybm/index.htm
+#  25 | 厦门大学       | colleges=85 | verified=83 | faculty=74 | grad=True | entry=https://www.xmu.edu.cn/xbyx/rwyysxb.htm
+#  26 | 吉林大学       | colleges=46 | verified=46 | faculty=41 | grad=True | entry=https://www.jlu.edu.cn/jgsz/yxsz.htm
+#  27 | 中南大学       | colleges=39 | verified=39 | faculty=35 | grad=True | entry=https://www.csu.edu.cn/zjzn/jgsz.htm
+#  28 | 大连理工大学     | colleges=43 | verified=43 | faculty=41 | grad=True | entry=https://www.dlut.edu.cn/xbxy/dllszxq.htm
+#  29 | 华东师范大学     | colleges=54 | verified=54 | faculty=43 | grad=True | entry=https://www.ecnu.edu.cn/wzcd/xxgk/yxsz.htm
+#  31 | 湖南大学       | colleges=31 | verified=30 | faculty=28 | grad=True | entry=https://www.hnu.edu.cn/xyxk/xysz.htm
+#  32 | 华南理工大学     | colleges=49 | verified=49 | faculty=28 | grad=True | entry=https://www.scut.edu.cn/new/8996/list.htm
+#  33 | 电子科技大学     | colleges=35 | verified=35 | faculty= 4 | grad=True | entry=https://www.uestc.edu.cn/xybm/jxkydw_yjjg.htm
+#  34 | 重庆大学       | colleges=39 | verified=39 | faculty= 0 | grad=True | entry=https://www.cqu.edu.cn/jgsz/jxkyjg.htm
+#  38 | 东北大学       | colleges=20 | verified=20 | faculty=18 | grad=True | entry=http://www.neu.edu.cn/zzjg.htm
+#  民1 | 中央民族大学     | colleges=28 | verified=24 | faculty=21 | grad=True | entry=https://www.muc.edu.cn/zzjg/jxhkydw1.htm
+#  40 | 兰州大学       | colleges=23 | verified=23 | faculty= 9 | grad=True | entry=https://zsb.lzu.edu.cn/baokaoxinxi/xueyuanjieshao/index.html
+#  51 | 中国海洋大学     | colleges=26 | verified=26 | faculty=26 | grad=True | entry=http://www.ouc.edu.cn/xbyx/list.htm
+#  69 | 西北农林科技大学   | colleges=24 | verified=24 | faculty=23 | grad=True | entry=https://www.nwafu.edu.cn/xxdw/xybs/index.htm
+#特别高校 | 国防科技大学     | colleges=11 | verified=11 | faculty=11 | grad=True | entry=https://www.nudt.edu.cn
+--------------------------------------------------------------------------------------------
+Need inspection (<10 colleges): 0 -> []

@@ -46,6 +46,9 @@ INSTANCE_ID = hashlib.sha256(str(BASE_DIR.resolve()).lower().encode("utf-8")).he
 BUNDLE_DIR = Path(getattr(sys, "_MEIPASS", BASE_DIR))
 WORKSPACE_ROOT = BASE_DIR.parent.resolve()
 STATIC_DIR = (BASE_DIR / "static") if (BASE_DIR / "static").is_dir() else (BUNDLE_DIR / "static")
+DATA_DIR = (BASE_DIR / "data") if (BASE_DIR / "data").is_dir() else (BUNDLE_DIR / "data")
+UNIVERSITIES_PATH = DATA_DIR / "universities.json"
+UNIV_LOGOS_DIR = DATA_DIR / "univ_logos"
 CONFIG_PATH = BASE_DIR / "config.json"
 CONFIG_EXAMPLE_PATH = (
     (BASE_DIR / "config.example.json")
@@ -55,6 +58,7 @@ CONFIG_EXAMPLE_PATH = (
 LOGS_DIR = BASE_DIR / "logs"
 HISTORY_PATH = LOGS_DIR / "send_history.jsonl"
 THREADS_PATH = LOGS_DIR / "mail_threads.json"
+UNIV_BOOKMARKS_PATH = LOGS_DIR / "univ_bookmarks.json"
 
 LOGS_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -62,6 +66,7 @@ EXCEL_LOCK = threading.Lock()
 JOB_LOCK = threading.RLock()
 THREADS_LOCK = threading.RLock()
 IMAP_SYNC_LOCK = threading.Lock()
+UNIV_LOCK = threading.Lock()
 
 # Excel columns (1-based indices matching advisor workbook schema: Header on Row 4, Data from Row 5)
 COL_SEQ = 1
@@ -775,6 +780,29 @@ def append_professors_to_excel(cfg: dict, school: str, items: list) -> dict:
             return {"ok": False, "error": f"写入 Excel 失败：{e}"}
 
 
+def ensure_school_sheet(cfg: dict, school: str) -> dict:
+    """Creates a named school sheet in the Excel workbook if it does not already exist."""
+    excel_path = resolve_app_path(cfg.get("excel_path") or "博导信息与套磁管理表.xlsx")
+    if not excel_path.exists():
+        create_starter_excel(excel_path)
+    school_clean = (school or "").strip() or "新增高校"
+    with EXCEL_LOCK:
+        try:
+            wb = openpyxl.load_workbook(excel_path)
+            created = False
+            if school_clean not in wb.sheetnames:
+                ws = wb.create_sheet(school_clean)
+                _configure_school_sheet(ws, school_clean)
+                wb.save(excel_path)
+                created = True
+            wb.close()
+            return {"ok": True, "sheet": school_clean, "created": created}
+        except PermissionError:
+            return {"ok": False, "error": "Excel 文件正被 WPS / Microsoft Excel 占用，请先关闭后再试。"}
+        except Exception as e:
+            return {"ok": False, "error": f"创建高校工作表失败：{e}"}
+
+
 def delete_professor_from_excel(cfg: dict, sheet: str, row: int) -> tuple:
     excel_path = resolve_app_path(cfg.get("excel_path") or "博导信息与套磁管理表.xlsx")
     if not excel_path.exists():
@@ -827,26 +855,105 @@ class _HtmlTextExtractor(HTMLParser):
 
 
 def fetch_webpage_text(url: str) -> str:
-    req = urllib.request.Request(
-        url,
-        headers={
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/126.0 Safari/537.36"
-        },
+    req_headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/128.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+    }
+    unverified_ctx = ssl._create_unverified_context()
+    is_cn_edu = ".edu.cn" in (url or "").lower()
+    openers = (
+        [
+            urllib.request.build_opener(urllib.request.ProxyHandler({})),
+            urllib.request.build_opener(urllib.request.ProxyHandler({}), urllib.request.HTTPSHandler(context=unverified_ctx)),
+            urllib.request.build_opener(),
+        ]
+        if is_cn_edu
+        else [
+            urllib.request.build_opener(),
+            urllib.request.build_opener(urllib.request.ProxyHandler({})),
+            urllib.request.build_opener(urllib.request.HTTPSHandler(context=unverified_ctx)),
+        ]
     )
-    ctx = ssl.create_default_context()
-    with urllib.request.urlopen(req, timeout=15, context=ctx) as resp:
-        raw = resp.read()
-        charset = resp.headers.get_content_charset() or "utf-8"
+    raw = b""
+    last_err = None
+    charset_hdr = ""
+    for opener in openers:
         try:
-            html_str = raw.decode(charset, errors="replace")
-        except Exception:
-            html_str = raw.decode("utf-8", errors="replace")
+            req = urllib.request.Request(url, headers=req_headers)
+            with opener.open(req, timeout=14) as resp:
+                raw = resp.read(1_500_000)
+                charset_hdr = resp.headers.get_content_charset() or ""
+                last_err = None
+                break
+        except Exception as e:
+            last_err = e
+    if last_err and not raw:
+        raise last_err
+
+    enc = charset_hdr.lower() if charset_hdr else "utf-8"
+    head_ascii = raw[:4096].decode("ascii", errors="ignore")
+    m = re.search(r'charset=["\']?\s*([a-zA-Z0-9_-]+)', head_ascii, re.I)
+    if m:
+        cand = m.group(1).lower()
+        if cand in ("gb2312", "gbk", "gb18030"):
+            enc = "gb18030"
+        elif "utf" in cand:
+            enc = "utf-8"
+    if enc in ("gb2312", "gbk"):
+        enc = "gb18030"
+    try:
+        html_str = raw.decode(enc, errors="replace")
+    except Exception:
+        html_str = raw.decode("utf-8", errors="replace")
+
     parser = _HtmlTextExtractor()
     parser.feed(html_str)
     text = " ".join(parser.chunks)
     text = re.sub(r"[ \t]+", " ", text)
     text = re.sub(r"\n{2,}", "\n", text)
     return text.strip()[:18000]
+
+
+_UNIV_CACHE = {"mtime": -1.0, "data": None}
+
+
+def load_universities_payload() -> dict:
+    with UNIV_LOCK:
+        if not UNIVERSITIES_PATH.is_file():
+            return {"version": "0", "tier_scope": "985", "total_universities": 0, "universities": [], "updated_at": ""}
+        mtime = UNIVERSITIES_PATH.stat().st_mtime
+        if _UNIV_CACHE["data"] is not None and _UNIV_CACHE["mtime"] == mtime:
+            return _UNIV_CACHE["data"]
+        try:
+            data = json.loads(UNIVERSITIES_PATH.read_text(encoding="utf-8"))
+        except Exception:
+            data = {"version": "0", "tier_scope": "985", "total_universities": 0, "universities": [], "updated_at": ""}
+        _UNIV_CACHE["mtime"] = mtime
+        _UNIV_CACHE["data"] = data
+        return data
+
+
+def load_univ_bookmarks() -> list:
+    with UNIV_LOCK:
+        if not UNIV_BOOKMARKS_PATH.is_file():
+            return []
+        try:
+            raw = json.loads(UNIV_BOOKMARKS_PATH.read_text(encoding="utf-8"))
+            return [str(x) for x in raw if x] if isinstance(raw, list) else []
+        except Exception:
+            return []
+
+
+def save_univ_bookmarks(ids: list) -> list:
+    clean = []
+    for x in ids:
+        sx = str(x).strip()
+        if sx and sx not in clean:
+            clean.append(sx)
+    with UNIV_LOCK:
+        UNIV_BOOKMARKS_PATH.write_text(json.dumps(clean, ensure_ascii=False, indent=2), encoding="utf-8")
+    return clean
 
 
 def extract_json_object(raw_text: str) -> dict:
@@ -2288,6 +2395,46 @@ class WorkbenchHandler(BaseHTTPRequestHandler):
                 self.wfile.write(data)
                 return
 
+            if path == "/api/universities":
+                payload = load_universities_payload()
+                bookmarks = load_univ_bookmarks()
+                return self.send_json({
+                    "ok": True,
+                    "version": payload.get("version", "1.0.0"),
+                    "tier_scope": payload.get("tier_scope", "985"),
+                    "source": payload.get("source", ""),
+                    "updated_at": payload.get("updated_at", ""),
+                    "total_universities": payload.get("total_universities", len(payload.get("universities", []))),
+                    "universities": payload.get("universities", []),
+                    "bookmarks": bookmarks,
+                })
+
+            if path.startswith("/api/university_logo/"):
+                fname = Path(urllib.parse.unquote(path[len("/api/university_logo/"):])).name
+                if not fname:
+                    self.send_error(404)
+                    return
+                logo_path = (UNIV_LOGOS_DIR / fname).resolve()
+                if UNIV_LOGOS_DIR.resolve() not in logo_path.parents or not logo_path.is_file():
+                    self.send_error(404)
+                    return
+                suf = logo_path.suffix.lower()
+                ctype = "image/png"
+                if suf in (".jpg", ".jpeg"):
+                    ctype = "image/jpeg"
+                elif suf == ".svg":
+                    ctype = "image/svg+xml"
+                elif suf == ".webp":
+                    ctype = "image/webp"
+                data = logo_path.read_bytes()
+                self.send_response(200)
+                self.send_header("Content-Type", ctype)
+                self.send_header("Content-Length", str(len(data)))
+                self.send_header("Cache-Control", "public, max-age=86400")
+                self.end_headers()
+                self.wfile.write(data)
+                return
+
             if path == "/api/job/status":
                 with JOB_LOCK:
                     snap = json.loads(json.dumps(ACTIVE_JOB))
@@ -2912,6 +3059,42 @@ class WorkbenchHandler(BaseHTTPRequestHandler):
                     "last_sync_at": last_sync_at,
                 })
 
+            if path == "/api/universities/bookmark":
+                uid = (data.get("id") or "").strip()
+                if not uid:
+                    return self.send_json({"ok": False, "error": "缺少高校 ID"}, 400)
+                cur = load_univ_bookmarks()
+                desired = data.get("bookmarked")
+                if desired is None:
+                    if uid in cur:
+                        cur = [x for x in cur if x != uid]
+                    else:
+                        cur.append(uid)
+                elif bool(desired):
+                    if uid not in cur:
+                        cur.append(uid)
+                else:
+                    cur = [x for x in cur if x != uid]
+                saved = save_univ_bookmarks(cur)
+                return self.send_json({"ok": True, "bookmarks": saved, "bookmarked": uid in saved})
+
+            if path == "/api/universities/add_sheet":
+                school_name = (data.get("school") or "").strip()
+                res = ensure_school_sheet(cfg, school_name)
+                if not res.get("ok"):
+                    return self.send_json(res, 500)
+                return self.send_json(res)
+
+            if path == "/api/universities/fetch_page_text":
+                page_url = (data.get("url") or "").strip()
+                if not page_url.startswith(("http://", "https://")):
+                    return self.send_json({"ok": False, "error": "请输入有效的 http/https 网址"}, 400)
+                try:
+                    txt = fetch_webpage_text(page_url)
+                    return self.send_json({"ok": True, "url": page_url, "text": txt})
+                except Exception as e:
+                    return self.send_json({"ok": False, "error": f"抓取页面文字失败（该校官网可能限制直连或需登录，建议点“打开网页”手动复制）：{e}"}, 400)
+
             self.send_error(404)
         except Exception as e:
             self.send_json({"ok": False, "error": str(e)}, 500)
@@ -3120,9 +3303,16 @@ def run_smoke_test(server: LocalWorkbenchServer, url: str) -> None:
             assert payload.get("ok") is True, f"bootstrap failed: {payload}"
             ai_cfg = payload.get("config", {}).get("ai_config", {})
             assert "provider" in ai_cfg, f"missing ai_config in bootstrap: {ai_cfg}"
+        with opener.open(f"{url}/api/universities", timeout=5) as r3:
+            upayload = json.loads(r3.read().decode("utf-8"))
+            assert upayload.get("ok") is True, f"universities endpoint failed: {upayload}"
+            univs = upayload.get("universities", [])
+            if univs and univs[0].get("logo_file"):
+                with opener.open(f"{url}/api/university_logo/{univs[0]['logo_file']}", timeout=3) as rlogo:
+                    assert rlogo.status == 200, f"logo asset returned {rlogo.status}"
             print(
                 f"EXE_SMOKE_TEST_OK professors={len(payload.get('professors', []))} "
-                f"assets={len(assets)} woff2={len(woff2_files)} ai_provider={ai_cfg.get('provider')}"
+                f"assets={len(assets)} woff2={len(woff2_files)} universities={len(univs)} ai_provider={ai_cfg.get('provider')}"
             )
     finally:
         server.shutdown()

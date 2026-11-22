@@ -23,6 +23,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent
 FRONTEND_DIR = BASE_DIR / "frontend"
 STATIC_DIR = BASE_DIR / "static"
+DATA_DIR = BASE_DIR / "data"
 BUILD_TMP = BASE_DIR / "_pyinstaller_build"
 DEFAULT_OUTPUT = BASE_DIR / "release"
 RELEASE_ROOT = Path(os.environ.get("RELEASE_DIR") or DEFAULT_OUTPUT)
@@ -233,6 +234,8 @@ def main():
         str(BUILD_TMP),
         "--add-data",
         f"{STATIC_DIR};static",
+        "--add-data",
+        f"{DATA_DIR};data",
         "--hidden-import",
         "openpyxl",
         "--hidden-import",

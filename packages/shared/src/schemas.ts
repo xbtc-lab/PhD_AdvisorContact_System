@@ -640,6 +640,54 @@ export type RankTier = z.infer<typeof RankTierSchema>;
 export const HonorCategorySchema = z.enum(["national", "provincial", "regular"]);
 export type HonorCategory = z.infer<typeof HonorCategorySchema>;
 
+export const SourceScopeSchema = z.enum(["top100", "custom_manual"]);
+export type SourceScope = z.infer<typeof SourceScopeSchema>;
+
+export const PortalBucketSchema = z.enum([
+  "unified_api",
+  "boda_cms",
+  "chaoxing_cms",
+  "decentralized",
+  "custom",
+]);
+export type PortalBucket = z.infer<typeof PortalBucketSchema>;
+
+export const HealthStatusSchema = z.enum(["unprobed", "healthy", "degraded", "broken"]);
+export type HealthStatus = z.infer<typeof HealthStatusSchema>;
+
+export const CmsFingerprintSchema = z.enum([
+  "boda_vsb",
+  "sudi_webplus",
+  "unified_portal",
+  "custom_static",
+  "ruishu_waf",
+  "unknown",
+]);
+export type CmsFingerprint = z.infer<typeof CmsFingerprintSchema>;
+
+export const FacultyStrategySchema = z.enum(["adapter", "http", "playwright", "paused"]);
+export type FacultyStrategy = z.infer<typeof FacultyStrategySchema>;
+
+export const NoticeStrategySchema = z.enum([
+  "date_anchor",
+  "rss_feed",
+  "css_rule",
+  "playwright",
+  "paused",
+]);
+export type NoticeStrategy = z.infer<typeof NoticeStrategySchema>;
+
+export const RecruitmentStatusSchema = z.enum([
+  "confirmed_open",
+  "phd_default_open",
+  "explicitly_closed",
+  "unknown",
+]);
+export type RecruitmentStatus = z.infer<typeof RecruitmentStatusSchema>;
+
+export const AiExtractModeSchema = z.enum(["rule_only", "manual", "auto_fallback"]);
+export type AiExtractMode = z.infer<typeof AiExtractModeSchema>;
+
 export const CatalogUniversitySchema = z.object({
   id: z.string(),
   name: z.string(),
@@ -649,6 +697,11 @@ export const CatalogUniversitySchema = z.object({
   disciplineRankNote: z.string().default(""),
   facultyPortalUrl: z.string().default(""),
   admissionUrl: z.string().default(""),
+  sourceScope: SourceScopeSchema.optional(),
+  officialDomain: z.string().optional(),
+  portalBucket: PortalBucketSchema.optional(),
+  healthStatus: HealthStatusSchema.optional(),
+  enabled: z.boolean().optional(),
   createdAt: z.string(),
   updatedAt: z.string(),
 });
@@ -680,6 +733,9 @@ export const CatalogAdvisorSchema = z.object({
   kpiQuotaHero: z.string().default(""),
   kpiQuotaNote: z.string().default(""),
   recruitOpen: z.boolean().default(false),
+  isPhdSupervisor: z.boolean().optional(),
+  recruitmentStatus: RecruitmentStatusSchema.optional(),
+  recruitmentSignalNote: z.string().optional(),
   footerNote: z.string().default(""),
   defaultFitScore: z.number().int().min(0).max(100).default(80),
   sourceUpdatedAt: z.string().default(""),
@@ -774,4 +830,195 @@ export const RollbackPromptInputSchema = z.object({
   version: z.number().int().min(1),
 });
 export type RollbackPromptInput = z.infer<typeof RollbackPromptInputSchema>;
+
+// ============================================================
+// 独立运营管理端 & Rule-First 采集引擎契约（apps/ops-api & apps/admin-web）
+// ============================================================
+
+export const OpsRuleConfigSchema = z.object({
+  listItemSelector: z.string().optional(),
+  detailLinkSelector: z.string().optional(),
+  nameSelector: z.string().optional(),
+  emailSelector: z.string().optional(),
+  titleSelector: z.string().optional(),
+  isPhdListContext: z.boolean().optional(),
+  noticeItemSelector: z.string().optional(),
+});
+export type OpsRuleConfig = z.infer<typeof OpsRuleConfigSchema>;
+
+export const ProbeUniversityInputSchema = z.object({
+  universityId: z.string().optional(),
+  name: z.string().trim().min(1, "请填写高校名称"),
+  officialDomain: z.string().trim().default(""),
+  collegeUrl: z.string().trim().default(""),
+  facultyListUrl: z.string().trim().default(""),
+  noticeListUrl: z.string().trim().default(""),
+  skipSubdomainProbe: z.boolean().default(false),
+});
+export type ProbeUniversityInput = z.infer<typeof ProbeUniversityInputSchema>;
+
+export const OnboardCollegeDraftSchema = z.object({
+  name: z.string().trim().min(1, "学院名称不能为空"),
+  disciplineCategory: z.string().trim().default(""),
+  collegeUrl: z.string().trim().default(""),
+  facultyListUrl: z.string().trim().default(""),
+  noticeListUrl: z.string().trim().default(""),
+  phdAdmissionUrl: z.string().trim().default(""),
+  cmsFingerprint: CmsFingerprintSchema.default("unknown"),
+  facultyStrategy: FacultyStrategySchema.default("http"),
+  noticeStrategy: NoticeStrategySchema.default("date_anchor"),
+});
+export type OnboardCollegeDraft = z.infer<typeof OnboardCollegeDraftSchema>;
+
+export const OnboardUniversityInputSchema = z.object({
+  universityId: z.string().optional(),
+  name: z.string().trim().min(1, "请填写高校或科研院所名称"),
+  shortName: z.string().trim().default(""),
+  officialDomain: z.string().trim().default(""),
+  sourceScope: SourceScopeSchema.default("custom_manual"),
+  softScienceRank: z.number().int().positive().nullable().optional(),
+  rankTier: RankTierSchema.default("other"),
+  disciplineRankNote: z.string().trim().default(""),
+  facultyPortalUrl: z.string().trim().default(""),
+  admissionUrl: z.string().trim().default(""),
+  portalBucket: PortalBucketSchema.default("custom"),
+  customTags: z.array(z.string()).default([]),
+  colleges: z.array(OnboardCollegeDraftSchema).default([]),
+});
+export type OnboardUniversityInput = z.infer<typeof OnboardUniversityInputSchema>;
+
+export const UpdateUniversityOpsInputSchema = z.object({
+  shortName: z.string().trim().optional(),
+  officialDomain: z.string().trim().optional(),
+  facultyPortalUrl: z.string().trim().optional(),
+  admissionUrl: z.string().trim().optional(),
+  portalBucket: PortalBucketSchema.optional(),
+  healthStatus: HealthStatusSchema.optional(),
+  enabled: z.boolean().optional(),
+  customTags: z.array(z.string()).optional(),
+  manualLockedFields: z.array(z.string()).optional(),
+});
+export type UpdateUniversityOpsInput = z.infer<typeof UpdateUniversityOpsInputSchema>;
+
+export const CreateCollegeInputSchema = z.object({
+  universityId: z.string().min(1),
+  name: z.string().trim().min(1, "请填写学院名称"),
+  disciplineCategory: z.string().trim().default(""),
+  collegeUrl: z.string().trim().default(""),
+  facultyListUrl: z.string().trim().default(""),
+  noticeListUrl: z.string().trim().default(""),
+  phdAdmissionUrl: z.string().trim().default(""),
+  cmsFingerprint: CmsFingerprintSchema.default("unknown"),
+  facultyStrategy: FacultyStrategySchema.default("http"),
+  noticeStrategy: NoticeStrategySchema.default("date_anchor"),
+});
+export type CreateCollegeInput = z.infer<typeof CreateCollegeInputSchema>;
+
+export const UpdateCollegeInputSchema = z.object({
+  name: z.string().trim().min(1).optional(),
+  disciplineCategory: z.string().trim().optional(),
+  collegeUrl: z.string().trim().optional(),
+  facultyListUrl: z.string().trim().optional(),
+  noticeListUrl: z.string().trim().optional(),
+  phdAdmissionUrl: z.string().trim().optional(),
+  cmsFingerprint: CmsFingerprintSchema.optional(),
+  facultyStrategy: FacultyStrategySchema.optional(),
+  noticeStrategy: NoticeStrategySchema.optional(),
+  facultyRuleJson: OpsRuleConfigSchema.nullable().optional(),
+  noticeRuleJson: OpsRuleConfigSchema.nullable().optional(),
+  healthStatus: HealthStatusSchema.optional(),
+  manualLockedFields: z.array(z.string()).optional(),
+});
+export type UpdateCollegeInput = z.infer<typeof UpdateCollegeInputSchema>;
+
+export const SandboxTestInputSchema = z.object({
+  url: z.string().trim().min(1, "请填写测试网页 URL"),
+  mode: z.enum(["advisor_list", "advisor_detail", "notice_list"]),
+  customSelector: z.string().trim().optional(),
+  isPhdListContext: z.boolean().default(false),
+  collegeId: z.string().optional(),
+  limit: z.number().int().min(1).max(100).default(20),
+});
+export type SandboxTestInput = z.infer<typeof SandboxTestInputSchema>;
+
+export const CrawlCollegeInputSchema = z.object({
+  maxAdvisors: z.number().int().min(1).max(200).default(25),
+  crawlNotices: z.boolean().default(true),
+  validatePhotos: z.boolean().default(true),
+});
+export type CrawlCollegeInput = z.infer<typeof CrawlCollegeInputSchema>;
+
+export const UpdateCatalogAdvisorOpsInputSchema = z.object({
+  name: z.string().trim().min(1).optional(),
+  dept: z.string().trim().optional(),
+  title: z.string().trim().optional(),
+  honorBadge: z.string().trim().optional(),
+  honorCategory: HonorCategorySchema.optional(),
+  email: z.string().trim().optional(),
+  homepageUrl: z.string().trim().optional(),
+  photoUrl: z.string().trim().optional(),
+  bio: z.string().optional(),
+  researchTags: z.array(z.string()).optional(),
+  isPhdSupervisor: z.boolean().optional(),
+  recruitmentStatus: RecruitmentStatusSchema.optional(),
+  recruitmentSignalNote: z.string().trim().optional(),
+  recruitOpen: z.boolean().optional(),
+  kpiQuotaHero: z.string().trim().optional(),
+  footerNote: z.string().trim().optional(),
+  reviewStatus: z.enum(["auto_published", "needs_review", "verified", "hidden"]).optional(),
+  manualLockedFields: z.array(z.string()).optional(),
+});
+export type UpdateCatalogAdvisorOpsInput = z.infer<typeof UpdateCatalogAdvisorOpsInputSchema>;
+
+export const ReviewNoticeInputSchema = z.object({
+  action: z.enum(["approve", "false_positive"]),
+  note: z.string().trim().optional(),
+});
+export type ReviewNoticeInput = z.infer<typeof ReviewNoticeInputSchema>;
+
+export const UpdateScheduleInputSchema = z.object({
+  cronExpr: z.string().trim().min(1).optional(),
+  seasonMode: z.enum(["peak", "off_peak"]).optional(),
+  offPeakLlmOnly: z.boolean().optional(),
+  aiMode: AiExtractModeSchema.optional(),
+  enabled: z.boolean().optional(),
+});
+export type UpdateScheduleInput = z.infer<typeof UpdateScheduleInputSchema>;
+
+export const UpdateGuardrailsInputSchema = z.object({
+  defaultAiMode: AiExtractModeSchema.optional(),
+  monthlyBudgetCny: z.number().min(0).max(100000).optional(),
+  domainConcurrency: z.number().int().min(1).max(5).optional(),
+  domainRps: z.number().min(0.2).max(5).optional(),
+  circuitBreakerThreshold: z.number().int().min(1).max(50).optional(),
+  circuitCooldownMin: z.number().int().min(1).max(240).optional(),
+  avatarStorageMode: z.enum(["official_url", "s3_mirror"]).optional(),
+});
+export type UpdateGuardrailsInput = z.infer<typeof UpdateGuardrailsInputSchema>;
+
+export const CreateLlmKeyInputSchema = z.object({
+  label: z.string().trim().min(1, "请填写名称"),
+  provider: z.string().trim().default("deepseek"),
+  baseUrl: z.string().trim().default("https://api.deepseek.com"),
+  model: z.string().trim().default("deepseek-chat"),
+  apiKey: z.string().trim().min(6, "API Key 过短"),
+  dailyBudgetCny: z.number().min(0).max(10000).default(5),
+  monthlyBudgetCny: z.number().min(0).max(50000).default(100),
+  rpmLimit: z.number().int().min(1).max(1000).default(30),
+  offPeakOnly: z.boolean().default(false),
+  priority: z.number().int().min(1).max(99).default(1),
+});
+export type CreateLlmKeyInput = z.infer<typeof CreateLlmKeyInputSchema>;
+
+export const UpdateLlmKeyInputSchema = z.object({
+  label: z.string().trim().min(1).optional(),
+  dailyBudgetCny: z.number().min(0).max(10000).optional(),
+  monthlyBudgetCny: z.number().min(0).max(50000).optional(),
+  rpmLimit: z.number().int().min(1).max(1000).optional(),
+  offPeakOnly: z.boolean().optional(),
+  priority: z.number().int().min(1).max(99).optional(),
+  enabled: z.boolean().optional(),
+});
+export type UpdateLlmKeyInput = z.infer<typeof UpdateLlmKeyInputSchema>;
+
 

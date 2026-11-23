@@ -8,17 +8,26 @@ import {
   text,
 } from "drizzle-orm/pg-core";
 import type {
+  AiExtractMode,
   AiInsights,
   AttachmentCategory,
+  CmsFingerprint,
   CompetitionItem,
   EducationItem,
+  FacultyStrategy,
+  HealthStatus,
   HonorCategory,
   HonorItem,
   MailAccountTestResult,
+  NoticeStrategy,
+  OpsRuleConfig,
+  PortalBucket,
   ProjectItem,
   PromptCategory,
   PublicationItem,
   RankTier,
+  RecruitmentStatus,
+  SourceScope,
   TrackingLinkKind,
 } from "@app/shared";
 
@@ -74,9 +83,48 @@ export const catalogUniversities = pgTable("catalog_universities", {
   disciplineRankNote: text("discipline_rank_note").notNull().default(""),
   facultyPortalUrl: text("faculty_portal_url").notNull().default(""),
   admissionUrl: text("admission_url").notNull().default(""),
+  sourceScope: text("source_scope").$type<SourceScope>().notNull().default("top100"),
+  officialDomain: text("official_domain").notNull().default(""),
+  portalBucket: text("portal_bucket").$type<PortalBucket>().notNull().default("decentralized"),
+  adapterKey: text("adapter_key").notNull().default(""),
+  healthStatus: text("health_status").$type<HealthStatus>().notNull().default("unprobed"),
+  enabled: boolean("enabled").notNull().default(true),
+  customTags: jsonb("custom_tags").$type<string[]>().notNull().default([]),
+  manualLockedFields: jsonb("manual_locked_fields").$type<string[]>().notNull().default([]),
+  lastProbedAt: text("last_probed_at"),
   createdAt: text("created_at").notNull(),
   updatedAt: text("updated_at").notNull(),
 });
+
+export const catalogColleges = pgTable(
+  "catalog_colleges",
+  {
+    id: text("id").primaryKey(),
+    universityId: text("university_id")
+      .notNull()
+      .references(() => catalogUniversities.id, { onDelete: "cascade" }),
+    name: text("name").notNull(),
+    disciplineCategory: text("discipline_category").notNull().default(""),
+    collegeUrl: text("college_url").notNull().default(""),
+    facultyListUrl: text("faculty_list_url").notNull().default(""),
+    noticeListUrl: text("notice_list_url").notNull().default(""),
+    phdAdmissionUrl: text("phd_admission_url").notNull().default(""),
+    cmsFingerprint: text("cms_fingerprint").$type<CmsFingerprint>().notNull().default("unknown"),
+    facultyStrategy: text("faculty_strategy").$type<FacultyStrategy>().notNull().default("http"),
+    noticeStrategy: text("notice_strategy").$type<NoticeStrategy>().notNull().default("date_anchor"),
+    facultyRuleJson: jsonb("faculty_rule_json").$type<OpsRuleConfig | null>(),
+    noticeRuleJson: jsonb("notice_rule_json").$type<OpsRuleConfig | null>(),
+    charsetHint: text("charset_hint").notNull().default(""),
+    consecutiveEmptyRuns: integer("consecutive_empty_runs").notNull().default(0),
+    healthStatus: text("health_status").$type<HealthStatus>().notNull().default("unprobed"),
+    lastFacultyCrawlAt: text("last_faculty_crawl_at"),
+    lastNoticeCrawlAt: text("last_notice_crawl_at"),
+    manualLockedFields: jsonb("manual_locked_fields").$type<string[]>().notNull().default([]),
+    createdAt: text("created_at").notNull(),
+    updatedAt: text("updated_at").notNull(),
+  },
+  (table) => [index("idx_catalog_colleges_uni").on(table.universityId)]
+);
 
 export const catalogAdvisors = pgTable(
   "catalog_advisors",
@@ -85,6 +133,8 @@ export const catalogAdvisors = pgTable(
     universityId: text("university_id")
       .notNull()
       .references(() => catalogUniversities.id, { onDelete: "cascade" }),
+    collegeId: text("college_id").references(() => catalogColleges.id, { onDelete: "set null" }),
+    sourceKey: text("source_key"),
     name: text("name").notNull(),
     dept: text("dept").notNull().default(""),
     title: text("title").notNull().default(""),
@@ -103,6 +153,21 @@ export const catalogAdvisors = pgTable(
     kpiQuotaHero: text("kpi_quota_hero").notNull().default(""),
     kpiQuotaNote: text("kpi_quota_note").notNull().default(""),
     recruitOpen: boolean("recruit_open").notNull().default(false),
+    isPhdSupervisor: boolean("is_phd_supervisor").notNull().default(true),
+    recruitmentStatus: text("recruitment_status")
+      .$type<RecruitmentStatus>()
+      .notNull()
+      .default("phd_default_open"),
+    recruitmentSignalNote: text("recruitment_signal_note").notNull().default(""),
+    isActive: boolean("is_active").notNull().default(true),
+    contentHash: text("content_hash").notNull().default(""),
+    extractModeUsed: text("extract_mode_used").notNull().default("rule"),
+    needsAi: boolean("needs_ai").notNull().default(false),
+    qualityScore: integer("quality_score").notNull().default(80),
+    reviewStatus: text("review_status").notNull().default("auto_published"),
+    reviewReasons: jsonb("review_reasons").$type<string[]>().notNull().default([]),
+    photoStorageKey: text("photo_storage_key").notNull().default(""),
+    manualLockedFields: jsonb("manual_locked_fields").$type<string[]>().notNull().default([]),
     footerNote: text("footer_note").notNull().default(""),
     defaultFitScore: integer("default_fit_score").notNull().default(80),
     sourceUpdatedAt: text("source_updated_at").notNull().default(""),
@@ -110,7 +175,11 @@ export const catalogAdvisors = pgTable(
     createdAt: text("created_at").notNull(),
     updatedAt: text("updated_at").notNull(),
   },
-  (table) => [index("idx_catalog_advisors_uni").on(table.universityId)]
+  (table) => [
+    index("idx_catalog_advisors_uni").on(table.universityId),
+    index("idx_catalog_advisors_college").on(table.collegeId),
+    index("idx_catalog_advisors_review").on(table.reviewStatus),
+  ]
 );
 
 // ============================================================
@@ -562,3 +631,190 @@ export const promptRevisions = pgTable(
   },
   (table) => [index("idx_prompt_revisions_prompt").on(table.promptId)]
 );
+
+// ============================================================
+// 独立管理端与采集内核表（0002_ops_crawler.sql）
+// ============================================================
+
+export const catalogNotices = pgTable(
+  "catalog_notices",
+  {
+    id: text("id").primaryKey(),
+    universityId: text("university_id")
+      .notNull()
+      .references(() => catalogUniversities.id, { onDelete: "cascade" }),
+    collegeId: text("college_id").references(() => catalogColleges.id, { onDelete: "set null" }),
+    sourceUrl: text("source_url").notNull().unique(),
+    title: text("title").notNull(),
+    publishedAt: text("published_at").notNull().default(""),
+    matchedKeywords: jsonb("matched_keywords").$type<string[]>().notNull().default([]),
+    rawMarkdown: text("raw_markdown").notNull().default(""),
+    summary: text("summary").notNull().default(""),
+    deadlineAt: text("deadline_at").notNull().default(""),
+    admissionType: text("admission_type").notNull().default(""),
+    englishReq: text("english_req").notNull().default(""),
+    extractedAdvisorNames: jsonb("extracted_advisor_names").$type<string[]>().notNull().default([]),
+    attachmentUrls: jsonb("attachment_urls").$type<string[]>().notNull().default([]),
+    attachmentStorageKeys: jsonb("attachment_storage_keys").$type<string[]>().notNull().default([]),
+    reviewStatus: text("review_status").notNull().default("pending"),
+    linkedAdvisorCount: integer("linked_advisor_count").notNull().default(0),
+    crawledAt: text("crawled_at").notNull(),
+    createdAt: text("created_at").notNull(),
+    updatedAt: text("updated_at").notNull(),
+  },
+  (table) => [
+    index("idx_catalog_notices_uni").on(table.universityId),
+    index("idx_catalog_notices_college").on(table.collegeId),
+    index("idx_catalog_notices_review").on(table.reviewStatus),
+  ]
+);
+
+export const crawlSnapshots = pgTable(
+  "crawl_snapshots",
+  {
+    id: text("id").primaryKey(),
+    url: text("url").notNull().unique(),
+    entityType: text("entity_type").notNull(),
+    universityId: text("university_id").references(() => catalogUniversities.id, {
+      onDelete: "cascade",
+    }),
+    collegeId: text("college_id").references(() => catalogColleges.id, { onDelete: "set null" }),
+    httpStatus: integer("http_status").notNull().default(0),
+    etag: text("etag").notNull().default(""),
+    lastModified: text("last_modified").notNull().default(""),
+    contentHash: text("content_hash").notNull().default(""),
+    cleanedMarkdown: text("cleaned_markdown").notNull().default(""),
+    prunedMarkdown: text("pruned_markdown").notNull().default(""),
+    extractedJson: jsonb("extracted_json").$type<Record<string, unknown> | null>(),
+    status: text("status").notNull().default("pending"),
+    errorCategory: text("error_category").notNull().default(""),
+    errorMessage: text("error_message").notNull().default(""),
+    retryCount: integer("retry_count").notNull().default(0),
+    fetchedAt: text("fetched_at"),
+    parsedAt: text("parsed_at"),
+  },
+  (table) => [
+    index("idx_crawl_snapshots_uni").on(table.universityId),
+    index("idx_crawl_snapshots_status").on(table.status),
+  ]
+);
+
+export const crawlSchedules = pgTable("crawl_schedules", {
+  id: text("id").primaryKey(),
+  pipelineKey: text("pipeline_key").notNull().unique(),
+  name: text("name").notNull(),
+  description: text("description").notNull().default(""),
+  cronExpr: text("cron_expr").notNull(),
+  seasonMode: text("season_mode").notNull().default("off_peak"),
+  offPeakLlmOnly: boolean("off_peak_llm_only").notNull().default(true),
+  aiMode: text("ai_mode").$type<AiExtractMode>().notNull().default("rule_only"),
+  enabled: boolean("enabled").notNull().default(false),
+  nextRunAt: text("next_run_at"),
+  lastRunAt: text("last_run_at"),
+  updatedAt: text("updated_at").notNull(),
+});
+
+export const crawlRuns = pgTable("crawl_runs", {
+  id: text("id").primaryKey(),
+  scheduleId: text("schedule_id").references(() => crawlSchedules.id, { onDelete: "set null" }),
+  runKind: text("run_kind").notNull().default("college_crawl"),
+  scope: text("scope").notNull().default("selected_entities"),
+  aiMode: text("ai_mode").$type<AiExtractMode>().notNull().default("rule_only"),
+  replaySnapshotsOnly: boolean("replay_snapshots_only").notNull().default(false),
+  status: text("status").notNull().default("running"),
+  totalPages: integer("total_pages").notNull().default(0),
+  hashSkipped: integer("hash_skipped").notNull().default(0),
+  ruleParsed: integer("rule_parsed").notNull().default(0),
+  aiCalls: integer("ai_calls").notNull().default(0),
+  noticesFound: integer("notices_found").notNull().default(0),
+  errorCount: integer("error_count").notNull().default(0),
+  estimatedCostCny: doublePrecision("estimated_cost_cny").notNull().default(0),
+  actualCostCny: doublePrecision("actual_cost_cny").notNull().default(0),
+  summary: text("summary").notNull().default(""),
+  startedAt: text("started_at").notNull(),
+  finishedAt: text("finished_at"),
+});
+
+export const crawlRunLogs = pgTable(
+  "crawl_run_logs",
+  {
+    id: text("id").primaryKey(),
+    runId: text("run_id")
+      .notNull()
+      .references(() => crawlRuns.id, { onDelete: "cascade" }),
+    level: text("level").notNull().default("info"),
+    errorCategory: text("error_category").notNull().default(""),
+    universityId: text("university_id"),
+    collegeId: text("college_id"),
+    url: text("url").notNull().default(""),
+    message: text("message").notNull(),
+    createdAt: text("created_at").notNull(),
+  },
+  (table) => [
+    index("idx_crawl_run_logs_run").on(table.runId),
+    index("idx_crawl_run_logs_cat").on(table.errorCategory),
+  ]
+);
+
+export const opsLlmKeys = pgTable("ops_llm_keys", {
+  id: text("id").primaryKey(),
+  label: text("label").notNull(),
+  provider: text("provider").notNull().default("deepseek"),
+  baseUrl: text("base_url").notNull().default("https://api.deepseek.com"),
+  model: text("model").notNull().default("deepseek-chat"),
+  encryptedApiKey: text("encrypted_api_key").notNull(),
+  maskedKey: text("masked_key").notNull().default(""),
+  dailyBudgetCny: doublePrecision("daily_budget_cny").notNull().default(5.0),
+  monthlyBudgetCny: doublePrecision("monthly_budget_cny").notNull().default(100.0),
+  usedTodayCny: doublePrecision("used_today_cny").notNull().default(0),
+  usedMonthCny: doublePrecision("used_month_cny").notNull().default(0),
+  rpmLimit: integer("rpm_limit").notNull().default(30),
+  offPeakOnly: boolean("off_peak_only").notNull().default(false),
+  priority: integer("priority").notNull().default(1),
+  enabled: boolean("enabled").notNull().default(true),
+  exhaustedUntil: text("exhausted_until"),
+  createdAt: text("created_at").notNull(),
+  updatedAt: text("updated_at").notNull(),
+});
+
+export const llmUsageLedger = pgTable("llm_usage_ledger", {
+  id: text("id").primaryKey(),
+  keyId: text("key_id").references(() => opsLlmKeys.id, { onDelete: "set null" }),
+  runId: text("run_id").references(() => crawlRuns.id, { onDelete: "set null" }),
+  purpose: text("purpose").notNull(),
+  inputTokens: integer("input_tokens").notNull().default(0),
+  outputTokens: integer("output_tokens").notNull().default(0),
+  cachedTokens: integer("cached_tokens").notNull().default(0),
+  costCny: doublePrecision("cost_cny").notNull().default(0),
+  createdAt: text("created_at").notNull(),
+});
+
+export const opsRuleDictionaries = pgTable("ops_rule_dictionaries", {
+  id: text("id").primaryKey(),
+  kind: text("kind").notNull().unique(),
+  name: text("name").notNull(),
+  entries: jsonb("entries").$type<string[]>().notNull().default([]),
+  updatedAt: text("updated_at").notNull(),
+});
+
+export const opsGuardrailsConfig = pgTable("ops_guardrails_config", {
+  id: text("id").primaryKey(),
+  defaultAiMode: text("default_ai_mode").$type<AiExtractMode>().notNull().default("rule_only"),
+  monthlyBudgetCny: doublePrecision("monthly_budget_cny").notNull().default(200.0),
+  domainConcurrency: integer("domain_concurrency").notNull().default(1),
+  domainRps: doublePrecision("domain_rps").notNull().default(1.0),
+  circuitBreakerThreshold: integer("circuit_breaker_threshold").notNull().default(5),
+  circuitCooldownMin: integer("circuit_cooldown_min").notNull().default(30),
+  avatarStorageMode: text("avatar_storage_mode").notNull().default("official_url"),
+  updatedAt: text("updated_at").notNull(),
+});
+
+export const opsAuditLogs = pgTable("ops_audit_logs", {
+  id: text("id").primaryKey(),
+  actor: text("actor").notNull().default("admin"),
+  action: text("action").notNull(),
+  entityType: text("entity_type").notNull().default(""),
+  entityId: text("entity_id").notNull().default(""),
+  detailJson: jsonb("detail_json").$type<Record<string, unknown> | null>(),
+  createdAt: text("created_at").notNull(),
+});

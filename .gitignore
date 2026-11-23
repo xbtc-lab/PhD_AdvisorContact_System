@@ -20,9 +20,9 @@ build/
 mise.local.toml
 
 # Runtime local storage & logs
-storage/
-uploads/
-logs/
+/storage/
+/uploads/
+/logs/
 *.log
 
 # IDE & OS

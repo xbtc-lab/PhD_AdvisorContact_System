@@ -1,0 +1,25 @@
+{
+  "name": "@app/ops-api",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch --conditions=development src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@app/crawler": "workspace:*",
+    "@app/db": "workspace:*",
+    "@app/shared": "workspace:*",
+    "@hono/node-server": "^2.1.11",
+    "hono": "^4.13.20",
+    "zod": "3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^26.0.0",
+    "tsx": "^4.23.15",
+    "typescript": "^5.8.3"
+  }
+}

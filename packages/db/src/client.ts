@@ -81,25 +81,30 @@ export async function firstOrNull<T>(query: Promise<T[]>): Promise<T | undefined
   return rows[0];
 }
 
-const INIT_SQL_PATH = path.resolve(
-  path.dirname(fileURLToPath(import.meta.url)),
-  "../sql/0001_init.sql"
-);
+const SQL_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../sql");
 
 let initPromise: Promise<void> | null = null;
 
 /**
- * 初始化 PostgreSQL 17 扩展、全量表结构与初始演示数据（幂等可重入）。
+ * 初始化 PostgreSQL 17 扩展、全量迁移 SQL 脚本（按文件名顺序）与初始演示数据（幂等可重入）。
  */
 export async function ensureSchema(): Promise<void> {
   if (!initPromise) {
     initPromise = (async () => {
       const client = await pool.connect();
-      // 跨进程咨询锁：防止 worker-api 与 cloud-core 并发启动时同时执行 DDL/初始化引发死锁
+      // 跨进程咨询锁：防止 worker-api / cloud-core / ops-api 并发启动时同时执行 DDL/初始化引发死锁
       await client.query("SELECT pg_advisory_lock(98245101)");
       try {
-        const initSql = fs.readFileSync(INIT_SQL_PATH, "utf8");
-        await client.query(initSql);
+        const sqlFiles = fs
+          .readdirSync(SQL_DIR)
+          .filter((name) => name.endsWith(".sql"))
+          .sort();
+        for (const file of sqlFiles) {
+          const ddl = fs.readFileSync(path.join(SQL_DIR, file), "utf8");
+          if (ddl.trim()) {
+            await client.query(ddl);
+          }
+        }
         await seedCatalogIfEmpty();
         await seedIfEmpty();
       } finally {
@@ -157,6 +162,8 @@ export async function seedCatalogIfEmpty(): Promise<{
         shortName: "西南石大",
         softScienceRank: 148,
         rankTier: "double",
+        sourceScope: "custom_manual",
+        officialDomain: "swpu.edu.cn",
         disciplineRankNote: "行业特色重点 · 省工程中心",
         facultyPortalUrl: "https://www.swpu.edu.cn/scs/",
         admissionUrl: "https://www.swpu.edu.cn/gs/",
@@ -199,12 +206,15 @@ export async function seedCatalogIfEmpty(): Promise<{
         photoUrl: "",
         photoSource: "",
         kpiOutputsHero: "论文 100+ 篇 (SCI/EI 60+)",
-        kpiOutputsNote: "科研产出（公开主页 / OpenAlex）",
+        kpiOutputsNote: "科研产出（官网公开主页）",
         kpiGrantsHero: "国自然 4 项 · 专利 40+ · 省部二等奖",
         kpiGrantsNote: "课题专利与重要荣誉",
         kpiQuotaHero: "博士 1-2 人 / 年",
         kpiQuotaNote: "博士招生名额",
         recruitOpen: true,
+        isPhdSupervisor: true,
+        recruitmentStatus: "confirmed_open",
+        recruitmentSignalNote: "明确招博 · 主页注明每年招收博士 1-2 人",
         footerNote: "明确招博 · 助研津贴近期涨薪 · 欢迎仪器 / 电子 / 自动化 / 物理交叉",
         defaultFitScore: 95,
         sourceUpdatedAt: "2026-05",
@@ -227,13 +237,16 @@ export async function seedCatalogIfEmpty(): Promise<{
         photoUrl: "",
         photoSource: "",
         kpiOutputsHero: "论文 50+ 篇 · 专著教材 4 部",
-        kpiOutputsNote: "科研产出（公开主页 / OpenAlex）",
+        kpiOutputsNote: "科研产出（官网公开主页）",
         kpiGrantsHero: "专利 28 项 · 国家教学一等奖 ×2",
         kpiGrantsNote: "课题专利与重要荣誉",
-        kpiQuotaHero: "常规招博（主页未注人数）",
+        kpiQuotaHero: "常规招博（博导默认在招）",
         kpiQuotaNote: "博士招生名额",
-        recruitOpen: false,
-        footerNote: "常规在招 · 建议发信附带研究设想核实明年博士指标",
+        recruitOpen: true,
+        isPhdSupervisor: true,
+        recruitmentStatus: "phd_default_open",
+        recruitmentSignalNote: "博导默认在招 · 主页未单列当年指标数",
+        footerNote: "博导默认在招 · 建议发信附带研究设想核实明年博士指标",
         defaultFitScore: 88,
         sourceUpdatedAt: "2026-05",
         crawledAt: now,
@@ -255,12 +268,15 @@ export async function seedCatalogIfEmpty(): Promise<{
         photoUrl: "",
         photoSource: "",
         kpiOutputsHero: "顶会 28 篇 (CHI / NeurIPS / UIST)",
-        kpiOutputsNote: "科研产出（公开主页 / OpenAlex）",
+        kpiOutputsNote: "科研产出（官网公开主页）",
         kpiGrantsHero: "国自然优青 1 项 · 重点研发子课题",
         kpiGrantsNote: "课题专利与重要荣誉",
         kpiQuotaHero: "2027 秋 拟招 2 名博士",
         kpiQuotaNote: "博士招生名额",
         recruitOpen: true,
+        isPhdSupervisor: true,
+        recruitmentStatus: "confirmed_open",
+        recruitmentSignalNote: "明确招博 · 注明 2027 秋拟招 2 名博士",
         footerNote: "明确招博 · 偏重多模态传感器与人机系统交叉背景（预置演示）",
         defaultFitScore: 84,
         sourceUpdatedAt: "2026-06",
